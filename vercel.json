@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/sitemap.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.svg",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.ico",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/**/*.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/uploads/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "api/sitemap.js"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/js/(.*)",
+      "destination": "/public/js/$1"
+    },
+    {
+      "source": "/css/(.*)",
+      "destination": "/public/css/$1"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/public/admin/$1"
+    },
+    {
+      "source": "/uploads/(.*)",
+      "destination": "/public/uploads/$1"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/public/robots.txt"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/$1"
+    }
+  ]
+}

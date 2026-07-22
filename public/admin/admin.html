@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloTruyen - Bảng Điều Khiển Tổng Quan</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0c29;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius:10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.5); }
+
+        /* ===== SIDEBAR ===== */
+        #sidebar {
+            width: 250px;
+            background: #1a1635;
+            border-right: 1px solid #1f2937;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-logo {
+            padding: 22px 20px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .sidebar-logo h1 {
+            font-size: 20px; font-weight: 800;
+            color: #a78bfa;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sidebar-logo h1 i { font-size: 18px; color: #c084fc; }
+        .sidebar-logo p { font-size: 10px; color: #6b7280; margin-top: 2px; letter-spacing: 0.5px; padding-left: 30px; }
+        .sidebar-menu { flex:1; overflow-y:auto; padding: 12px 10px; }
+        .sidebar-menu .menu-label {
+            font-size: 9px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #6b7280;
+            padding: 16px 12px 6px;
+        }
+        .sidebar-menu a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: 8px;
+            font-size: 13px; font-weight: 500;
+            color: #9ca3af; text-decoration: none;
+            transition: all 0.15s ease; cursor: pointer;
+            margin-bottom: 2px;
+        }
+        .sidebar-menu a i { width: 18px; text-align: center; font-size: 14px; color: #6b7280; }
+        .sidebar-menu a:hover { background: #374151; color: #f1f5f9; }
+        .sidebar-menu a:hover i { color: #a78bfa; }
+        .sidebar-menu a.active { background: #7c3aed; color: white; }
+        .sidebar-menu a.active i { color: white; }
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 10px; color: #6b7280; text-align: center;
+        }
+
+        /* ===== MAIN ===== */
+        #main-wrapper { margin-left: 250px; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* ===== TOPBAR ===== */
+        #topbar {
+            height: 64px;
+            background: #1a1635;
+            border-bottom: 1px solid #1f2937;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky; top: 0; z-index: 50;
+        }
+        #topbar .search-box input {
+            background: #0f0c29;
+            border: 1px solid #374151;
+            border-radius: 999px;
+            padding: 8px 18px;
+            width: 300px;
+            color: white;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        #topbar .search-box input:focus { border-color: #7c3aed; }
+        #topbar .search-box input::placeholder { color: #6b7280; font-size: 12px; }
+        #topbar .topbar-right { display: flex; align-items: center; gap: 20px; }
+        #topbar .notif-btn {
+            position: relative;
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid #374151;
+            display: flex; align-items: center; justify-content: center;
+            color: #9ca3af; cursor: pointer;
+            transition: all 0.15s;
+        }
+        #topbar .notif-btn:hover { background: #374151; color: #e2e8f0; }
+        #topbar .notif-btn .badge {
+            position: absolute; top: -3px; right: -3px;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #ef4444; font-size: 7px; font-weight: 700;
+            color: white; display: flex; align-items: center; justify-content: center;
+        }
+        #topbar .admin-profile {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; padding: 4px 8px; border-radius: 8px;
+            transition: background 0.15s;
+        }
+        #topbar .admin-profile:hover { background: rgba(255,255,255,0.04); }
+        #topbar .admin-profile .avatar {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 12px;
+        }
+        #topbar .admin-profile .name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+
+        /* ===== CONTENT ===== */
+        #content { padding: 28px; max-width: 1440px; }
+        .page-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 24px; }
+
+        /* ===== STAT CARDS ===== */
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px; }
+        .stat-card {
+            background: #1a1635;
+            padding: 20px 24px;
+            border-radius: 12px;
+            border: 1px solid #374151;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .stat-card .stat-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+        .stat-card .stat-icon { font-size: 24px; }
+        .stat-card .stat-value { font-size: 28px; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 4px; }
+        .stat-card .stat-label { font-size: 12px; color: #9ca3af; font-weight: 500; }
+
+        /* ===== PANELS ===== */
+        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        .panel {
+            background: #1a1635;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+        .panel-title {
+            font-size: 15px; font-weight: 700; color: #e2e8f0;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+        }
+
+        /* ===== TABLE ===== */
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table thead th {
+            text-align: left; padding: 10px 12px;
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #9ca3af;
+            border-bottom: 1px solid #374151;
+        }
+        .admin-table tbody td {
+            padding: 12px 12px; font-size: 13px;
+            color: #d1d5db; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .admin-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .admin-table .book-title { font-weight: 600; color: #f1f5f9; }
+        .admin-table .book-author { font-size: 11px; color: #6b7280; margin-top: 2px; }
+        .admin-table .badge-pending {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 6px;
+            font-size: 10px; font-weight: 600;
+            background: rgba(245,158,11,0.12); color: #fbbf24;
+            border: 1px solid rgba(245,158,11,0.2);
+        }
+        .admin-table .badge-approved {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 6px;
+            font-size: 10px; font-weight: 600;
+            background: rgba(16,185,129,0.12); color: #34d399;
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+        .admin-table .action-btn {
+            padding: 5px 12px; border-radius: 6px;
+            font-size: 11px; font-weight: 600; border: none;
+            cursor: pointer; transition: all 0.15s;
+        }
+        .admin-table .action-btn.approve {
+            background: rgba(16,185,129,0.15); color: #34d399;
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+        .admin-table .action-btn.approve:hover { background: rgba(16,185,129,0.25); }
+        .admin-table .action-btn.reject {
+            background: rgba(239,68,68,0.15); color: #f87171;
+            border: 1px solid rgba(239,68,68,0.2); margin-left: 4px;
+        }
+        .admin-table .action-btn.reject:hover { background: rgba(239,68,68,0.25); }
+
+        /* ===== ACTIVITY LIST ===== */
+        .activity-list { display: flex; flex-direction: column; gap: 8px; }
+        .activity-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-item .act-icon { font-size: 14px; width: 24px; text-align: center; color: #6b7280; }
+        .activity-item .act-content { flex: 1; min-width: 0; }
+        .activity-item .act-content .main { font-size: 12px; color: #d1d5db; line-height: 1.4; }
+        .activity-item .act-content .main .user-name { color: #a78bfa; font-weight: 600; }
+        .activity-item .act-content .time { font-size: 10px; color: #6b7280; margin-top: 2px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            #sidebar { transform: translateX(-100%); }
+            #sidebar.open { transform: translateX(0); }
+            #main-wrapper { margin-left: 0; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .content-grid { grid-template-columns: 1fr; }
+            #topbar { padding: 0 16px; }
+            #topbar .search-box input { width: 180px; }
+            #content { padding: 16px; }
+        }
+        @media (max-width: 640px) {
+            .stat-grid { grid-template-columns: 1fr; }
+            .admin-table thead { display: none; }
+            .admin-table tbody td {
+                display: block; padding: 6px 10px; border: none;
+            }
+            .admin-table tbody tr {
+                display: block; padding: 12px;
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 8px; margin-bottom: 8px;
+            }
+            .admin-table tbody td:before {
+                content: attr(data-label);
+                font-size: 10px; color: #6b7280; font-weight: 600;
+                display: block; margin-bottom: 2px;
+                text-transform: uppercase; letter-spacing: 0.5px;
+            }
+        }
+
+        /* Mobile toggle */
+        #mobile-toggle {
+            display: none;
+            width: 36px; height: 36px; border-radius: 8px;
+            background: rgba(0,0,0,0.2); border: 1px solid #374151;
+            color: #9ca3af; cursor: pointer;
+            align-items: center; justify-content: center;
+        }
+        #mobile-toggle:hover { background: #374151; color: #e2e8f0; }
+        @media (max-width: 1024px) { #mobile-toggle { display: flex; } }
+        #sidebar-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.4); z-index: 99;
+        }
+        @media (max-width: 1024px) { #sidebar-overlay.show { display: block; } }
+
+        /* Toast */
+        #admin-toast-container {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 99999; display: flex; flex-direction: column;
+            gap: 8px; pointer-events: none;
+        }
+        .admin-toast {
+            pointer-events: auto;
+            padding: 12px 18px; border-radius: 10px;
+            border: 1px solid; font-size: 13px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            transform: translateX(100%); opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .admin-toast.show { transform: translateX(0); opacity: 1; }
+        .admin-toast.success { background: #0a1f14; border-color: rgba(16,185,129,0.4); color: #34d399; }
+        .admin-toast.error { background: #1f0f0f; border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+        .skeleton-load {
+            background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+        }
+        @keyframes shimmer { 0% { background-position: -200px 0; } 100% { background-position: 200px 0; } }
+
+        /* ===== DETAILED STATS STYLES ===== */
+        .mini-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .stat-mini-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .stat-mini-card .stat-mini-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+        .stat-mini-card .stat-mini-label {
+            font-size: 10px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+        .stat-mini-card.revenue-card { border-color: rgba(251,191,36,0.15); }
+        .stat-mini-card.vip-card { border-color: rgba(168,85,247,0.15); }
+
+        /* Revenue bar */
+        .revenue-bar-track {
+            margin-top: 8px;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .revenue-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        /* VIP bar */
+        .vip-bar-track {
+            margin-top: 8px;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .vip-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        /* Category bars */
+        .category-bar-row {
+            margin-bottom: 14px;
+        }
+        .category-bar-row:last-child { margin-bottom: 0; }
+        .category-bar-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-bottom: 6px;
+        }
+        .category-bar-label span:first-child { font-weight: 600; color: #f1f5f9; }
+        .category-bar-stats { font-size: 10px; color: #6b7280; }
+        .category-bar-track {
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .category-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 6px;
+            transition: width 0.8s ease;
+        }
+
+        /* Realm rows */
+        .realm-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .realm-row:last-child { border-bottom: none; }
+        .realm-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #e2e8f0;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .realm-bar-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .realm-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #c084fc);
+            border-radius: 6px;
+            transition: width 0.8s ease;
+        }
+        .realm-count {
+            font-size: 13px;
+            font-weight: 700;
+            color: #a78bfa;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
+            .mini-stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .realm-name { min-width: 100px; font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar">
+        <div class="sidebar-logo">
+            <h1><i class="fa-solid fa-shield-halved"></i> AloTruyen</h1>
+            <p>BẢNG ĐIỀU KHIỂN TỔNG QUAN</p>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-label">Chung</div>
+            <a href="admin.html" class="active"><i class="fa-solid fa-chart-pie"></i> Tổng Quan</a>
+
+            <div class="menu-label">Quản Lý</div>
+            <a href="admin-books.html"><i class="fa-solid fa-book"></i> Quản Lý Truyện</a>
+            <a href="admin-crawler.html"><i class="fa-solid fa-robot"></i> Cào Truyện Tự Động</a>
+            <a href="admin-videos.html"><i class="fa-solid fa-video"></i> Quản Lý Video</a>
+            <a href="admin-chapters.html"><i class="fa-solid fa-align-left"></i> Quản Lý Chương</a>
+            <a href="admin-users.html"><i class="fa-solid fa-users"></i> Quản Lý Đạo Hữu</a>
+            <a href="admin-billing.html"><i class="fa-solid fa-gem"></i> Giao Dịch & Gói Nạp</a>
+            <a href="admin-rpg.html"><i class="fa-solid fa-mountain"></i> Cấu Hình RPG</a>
+
+            <div class="menu-label">Hệ Thống</div>
+            <a href="admin-notifications.html"><i class="fa-solid fa-bell"></i> Thông Báo</a>
+        </nav>
+        <div class="sidebar-footer">AloTruyen v2.0 · Hệ Thống Tu Tiên</div>
+    </aside>
+
+    <!-- ===== MAIN WRAPPER ===== -->
+    <div id="main-wrapper">
+
+        <!-- TOPBAR -->
+        <header id="topbar">
+            <div class="flex items-center gap-3">
+                <button id="mobile-toggle" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="search-box">
+                    <input type="text" id="global-search" placeholder="🔍 Tìm truyện, user..." />
+                </div>
+            </div>
+            <div class="topbar-right">
+                <button class="notif-btn" title="Thông báo">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="admin-profile">
+                    <div class="avatar">TV</div>
+                    <span class="name">Tiên Đế Hứa Vy</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main id="content">
+
+            <!-- Page Title -->
+            <h1 class="page-title">📊 Bảng Điều Khiển Tổng Quan</h1>
+
+            <!-- ===== ROW 1: STAT CARDS ===== -->
+            <div class="stat-grid">
+                <!-- Card 1: Tổng Đạo Hữu -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-blue-500"><i class="fa-solid fa-users"></i></span>
+                    </div>
+                    <div class="stat-value"><span id="stat-total-users" class="skeleton-load" style="display:inline-block;width:80px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Tổng Đạo Hữu</div>
+                </div>
+
+                <!-- Card 2: Lượt Tụ Khí -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-emerald-500"><i class="fa-solid fa-book-open"></i></span>
+                    </div>
+                    <div class="stat-value"><span id="stat-total-views" class="skeleton-load" style="display:inline-block;width:80px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Lượt Tụ Khí (Đọc)</div>
+                </div>
+
+                <!-- Card 3: Tổng Linh Thạch -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-cyan-400"><i class="fa-solid fa-coins"></i></span>
+                    </div>
+                    <div class="stat-value text-cyan-400"><span id="stat-total-linh-thach" class="skeleton-load" style="display:inline-block;width:80px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Tổng Linh Thạch Lưu Thông</div>
+                </div>
+
+                <!-- Card 4: Doanh Thu Kim Cương -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-yellow-400"><i class="fa-regular fa-gem"></i></span>
+                    </div>
+                    <div class="stat-value text-yellow-400"><span id="stat-total-revenue" class="skeleton-load" style="display:inline-block;width:80px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Doanh Thu Kim Cương</div>
+                </div>
+            </div>
+
+            <!-- ===== ROW 2: BỔ SUNG STAT CARDS ===== -->
+            <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <!-- Card: Tổng Bí Tịch -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-indigo-500"><i class="fa-solid fa-book"></i></span>
+                    </div>
+                    <div class="stat-value"><span id="stat-total-books" class="skeleton-load" style="display:inline-block;width:60px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Tổng Bí Tịch (Sách)</div>
+                </div>
+
+                <!-- Card: Tổng Chương -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-orange-500"><i class="fa-solid fa-scroll"></i></span>
+                    </div>
+                    <div class="stat-value"><span id="stat-total-chapters" class="skeleton-load" style="display:inline-block;width:60px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Tổng Chương Tu Luyện</div>
+                </div>
+
+                <!-- Card: Tổng VIP -->
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="text-3xl text-purple-500"><i class="fa-solid fa-crown"></i></span>
+                    </div>
+                    <div class="stat-value"><span id="stat-total-vips" class="skeleton-load" style="display:inline-block;width:60px;height:32px;">&nbsp;</span></div>
+                    <div class="stat-label">Tổng Đạo Hữu VIP</div>
+                </div>
+            </div>
+
+            <!-- ===== ROW 3: CONTENT GRID (Pending + Activities) ===== -->
+            <div class="content-grid">
+                <!-- LEFT: Bảng truyện chờ duyệt -->
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-hourglass-half text-yellow-400"></i>
+                        Truyện Mới Chờ Duyệt
+                        <span class="text-[11px] font-normal text-gray-500 ml-auto" id="pending-count">(Đang tải...)</span>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Truyện</th>
+                                    <th>Tác Giả</th>
+                                    <th>Thời Gian</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-pending-books">
+                                <tr><td colspan="5" class="text-center text-gray-500 py-8">Đang tải dữ liệu...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Hoạt Động Tu Tiên -->
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        Hoạt Động Tu Tiên Mới Nhất
+                    </div>
+                    <ul class="activity-list" id="list-recent-activities">
+                        <li class="text-gray-500 text-sm py-4 text-center">Đang tải dữ liệu...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ===== ROW 4: THỐNG KÊ CHI TIẾT ===== -->
+            <div style="margin-top: 28px;">
+                <h2 class="page-title" style="font-size: 18px; margin-bottom: 16px;">
+                    <i class="fa-solid fa-chart-line text-purple-400"></i> 
+                    Thống Kê Chi Tiết Theo Thời Gian
+                </h2>
+            </div>
+
+            <!-- Lượt đọc theo thời gian -->
+            <div class="content-grid" style="margin-bottom: 24px;">
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-eye text-emerald-400"></i>
+                        Lượt Tụ Khí (Đọc) Theo Thời Gian
+                    </div>
+                    <div class="mini-stat-grid" id="detailed-views-time">
+                        <div class="stat-mini-card skeleton-load" style="height:80px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:80px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:80px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:80px;">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-chart-bar text-blue-400"></i>
+                        Lượt Xem Theo Danh Mục
+                    </div>
+                    <div id="detailed-category-views">
+                        <div class="text-gray-500 text-sm text-center py-4">Đang tải...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doanh thu + VIP mới -->
+            <div class="content-grid" style="margin-bottom: 24px;">
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-regular fa-gem text-yellow-400"></i>
+                        Doanh Thu Kim Cương Theo Thời Gian
+                    </div>
+                    <div class="mini-stat-grid" id="detailed-revenue-time">
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-crown text-purple-400"></i>
+                        VIP Mới Theo Thời Gian
+                    </div>
+                    <div class="mini-stat-grid" id="detailed-vips-time">
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                        <div class="stat-mini-card skeleton-load" style="height:100px;">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIP theo cảnh giới -->
+            <div class="content-grid">
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-mountain text-purple-400"></i>
+                        Phân Bổ VIP Theo Cảnh Giới
+                    </div>
+                    <div id="detailed-vips-realm">
+                        <div class="text-gray-500 text-sm text-center py-4">Đang tải...</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fa-solid fa-info-circle text-gray-400"></i>
+                        Tổng Quan Hệ Thống
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(255,255,255,0.03);">
+                            <span class="text-sm text-gray-400"><i class="fa-solid fa-book text-indigo-400 mr-2"></i> Tổng Bí Tịch</span>
+                            <span class="text-sm font-bold text-white" id="stat-total-books-side">Đang tải...</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(255,255,255,0.03);">
+                            <span class="text-sm text-gray-400"><i class="fa-solid fa-scroll text-orange-400 mr-2"></i> Tổng Chương</span>
+                            <span class="text-sm font-bold text-white" id="stat-total-chapters-side">Đang tải...</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(255,255,255,0.03);">
+                            <span class="text-sm text-gray-400"><i class="fa-solid fa-users text-blue-400 mr-2"></i> Tổng Đạo Hữu</span>
+                            <span class="text-sm font-bold text-white" id="stat-total-users-side">Đang tải...</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(255,255,255,0.03);">
+                            <span class="text-sm text-gray-400"><i class="fa-solid fa-crown text-purple-400 mr-2"></i> Tổng VIP</span>
+                            <span class="text-sm font-bold text-white" id="stat-total-vips-side">Đang tải...</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(255,255,255,0.03);">
+                            <span class="text-sm text-gray-400"><i class="fa-regular fa-gem text-yellow-400 mr-2"></i> Doanh Thu (30 ngày)</span>
+                            <span class="text-sm font-bold text-yellow-400" id="stat-revenue-month-side">Đang tải...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Toast container -->
+    <div id="admin-toast-container"></div>
+
+    <!-- ===== SCRIPT ===== -->
+    <script src="/js/admin.js"></script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>
+

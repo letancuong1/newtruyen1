@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Truyện - Đọc Truyện Online | AloTruyen</title>
+    <meta name="description" content="Đọc truyện online tại AloTruyen. Xem chi tiết truyện: tác giả, thể loại, số chương, đánh giá và bình luận từ độc giả.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://alotruyen.pro/chi-tiet-truyen.html">
+    
+    <!-- Favicon - Google Search Required Sizes -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon">
+    <link rel="icon" href="/icon-48x48.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="/icon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="/icon-144x144.png" sizes="144x144" type="image/png">
+    <link rel="icon" href="/icon-192x192.png" sizes="192x192" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alotruyen.pro/chi-tiet-truyen.html">
+    <meta property="og:title" content="Chi Tiết Truyện - Đọc Truyện Online | AloTruyen">
+    <meta property="og:description" content="Đọc truyện online tại AloTruyen. Xem chi tiết truyện: tác giả, thể loại, số chương, đánh giá và bình luận.">
+    <meta property="og:image" content="https://alotruyen.pro/icon-192x192.png">
+    <meta property="og:image:width" content="192">
+    <meta property="og:image:height" content="192">
+    <meta property="og:site_name" content="AloTruyen">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chi Tiết Truyện - Đọc Truyện Online | AloTruyen">
+    <meta name="twitter:description" content="Xem chi tiết truyện và đọc chương mới nhất tại AloTruyen.">
+    <meta name="twitter:image" content="https://alotruyen.pro/icon-192x192.png">
+    
+    <!-- JSON-LD BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Trang Chủ", "item": "https://alotruyen.pro/" },
+            { "@type": "ListItem", "position": 2, "name": "Chi Tiết Truyện", "item": "https://alotruyen.pro/chi-tiet-truyen.html" }
+        ]
+    }
+    </script>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brandCyan: '#00d2ff',
+                        brandPurple: '#8a2be2',
+                        brandPink: '#ff3366',
+                        brandOrange: '#ff7e5f'
+                    },
+                    boxShadow: {
+                        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        glassHover: '0 12px 40px 0 rgba(31, 38, 135, 0.12)',
+                        neonCyan: '0 0 15px rgba(0, 210, 255, 0.4)',
+                        neonPurple: '0 0 15px rgba(138, 43, 226, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-glass: rgba(255,255,255,0.65);
+            --border-glass: rgba(255,255,255,0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --bg-gradient-1: radial-gradient(at 0% 0%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --bg-gradient-2: radial-gradient(at 100% 0%, rgba(138,43,226,0.12) 0px, transparent 50%);
+            --bg-gradient-3: radial-gradient(at 100% 100%, rgba(255,126,95,0.12) 0px, transparent 50%);
+            --bg-gradient-4: radial-gradient(at 0% 100%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --accent-cyan: #00d2ff;
+            --accent-purple: #8a2be2;
+            --accent-orange: #ff7e5f;
+            --accent-pink: #ff3366;
+        }
+        body {
+            background-color: var(--bg-primary);
+            background-image: var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s, color 0.5s;
+            overflow-x: hidden;
+        }
+        .glass-card { background: var(--bg-glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-glass); box-shadow: var(--card-shadow); transition: background 0.5s, border-color 0.5s, box-shadow 0.5s; }
+        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 210, 255, 0.5); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(138, 43, 226, 0.6); }
+        button:active, a:active, .nav-btn:active, .cursor-pointer:active {
+            transform: scale(0.96) !important;
+            transition: transform 0.04s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chapter-item:hover {
+            background: rgba(0, 210, 255, 0.08);
+            border-left-color: #00d2ff;
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+    <div class="max-w-[1200px] mx-auto p-4 md:p-6 relative z-10">
+        <!-- HEADER TỰ ĐỘNG NẠP TỪ SERVER -->
+        <div id="app-header"></div>
+
+        <main class="space-y-6">
+            <div class="glass-card px-4 py-2 rounded-xl inline-flex items-center gap-2 text-xs text-slate-600">
+                <a href="index.html" class="hover:text-brandCyan transition-colors font-medium"><i class="fa-solid fa-house"></i></a>
+                <span class="text-slate-300">/</span>
+                <span id="bc-category" class="font-medium text-slate-700">Thể Loại</span>
+                <span class="text-slate-300">/</span>
+                <span class="font-bold text-slate-800" id="bc-title">Đang tải tên truyện...</span>
+            </div>
+
+            <section class="glass-card p-5 md:p-6 rounded-2xl relative overflow-hidden shadow-glass flex flex-col md:flex-row gap-6 items-center md:items-start">
+                <div id="detail-bg-blur" class="absolute inset-0 opacity-[0.10] blur-[40px] z-0 bg-cover bg-center"></div>
+
+                <div class="relative w-40 md:w-52 flex-shrink-0 z-10 group">
+                    <div class="w-full aspect-[2/3] rounded-xl overflow-hidden border border-gray-200 shadow-md bg-white">
+                        <img id="detail-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div id="detail-vip-badge" class="absolute -top-3 -right-3 hidden">
+                        <span class="bg-red-500 text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-md">VIP</span>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex flex-col z-10 w-full">
+                    <h1 id="detail-title" class="text-xl md:text-3xl font-black text-slate-800 mb-2 text-center md:text-left">
+                        Đang tải dữ liệu...
+                    </h1>
+                    
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4 text-xs">
+                    <span class="text-slate-700 flex items-center gap-1.5 bg-white/80 px-2.5 py-1 rounded-full border border-gray-200 shadow-sm"><i class="fa-solid fa-pen-nib text-brandPurple"></i> <strong id="detail-author">Khuyết Danh</strong></span>
+                    <span class="text-slate-700 flex items-center gap-1.5 bg-white/80 px-2.5 py-1 rounded-full border border-gray-200 shadow-sm"><i class="fa-solid fa-signal text-emerald-500"></i> <strong id="detail-status" class="text-emerald-600">Đang ra</strong></span>
+                    <span class="text-slate-700 flex items-center gap-1.5 bg-white/80 px-2.5 py-1 rounded-full border border-gray-200 shadow-sm"><i class="fa-regular fa-clock text-brandCyan"></i> <strong id="detail-date">--/--/----</strong></span>
+                </div>
+                <!-- ===== ĐÁNH GIÁ SAO RIÊNG (MỖI USER 1 LẦN) ===== -->
+                <div id="rating-section" class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-4 p-2.5 bg-white/70 rounded-xl border border-amber-200 shadow-sm">
+                    <span class="text-[11px] font-bold text-amber-600"><i class="fa-solid fa-star mr-1"></i> ĐÁNH GIÁ:</span>
+                    <div id="star-rating-display" class="flex gap-1 text-lg cursor-pointer">
+                        <i class="fa-regular fa-star rate-star" data-index="1" style="color:#f59e0b;"></i>
+                        <i class="fa-regular fa-star rate-star" data-index="2" style="color:#f59e0b;"></i>
+                        <i class="fa-regular fa-star rate-star" data-index="3" style="color:#f59e0b;"></i>
+                        <i class="fa-regular fa-star rate-star" data-index="4" style="color:#f59e0b;"></i>
+                        <i class="fa-regular fa-star rate-star" data-index="5" style="color:#f59e0b;"></i>
+                    </div>
+                    <span id="rating-status" class="text-[10px] text-slate-500 italic ml-1">Chưa đánh giá</span>
+                    <button id="btn-rate-submit" onclick="submitRating()" class="hidden px-3 py-1 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] font-bold hover:shadow-md transition-all">Gửi</button>
+                </div>
+
+                    <div id="detail-categories" class="flex flex-wrap justify-center md:justify-start gap-1.5 mb-5"></div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5 bg-white/60 p-3 rounded-xl border border-gray-200 shadow-inner">
+                        <div class="text-center border-r border-gray-200 last:border-0">
+                            <div class="text-lg md:text-xl font-black text-slate-800 font-mono" id="stat-chapters">0</div>
+                            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mt-0.5">Chương</div>
+                        </div>
+                        <div class="text-center border-r border-gray-200 last:border-0">
+                            <div class="text-lg md:text-xl font-black text-slate-800 font-mono" id="stat-views">0</div>
+                            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mt-0.5">Lượt Đọc</div>
+                        </div>
+                        <div class="text-center border-r border-gray-200 last:border-0">
+                            <div class="text-lg md:text-xl font-black text-amber-500 font-mono flex items-center justify-center gap-1"><i class="fa-solid fa-star text-xs"></i> <span id="stat-rating">0.0</span></div>
+                            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mt-0.5">Đánh Giá</div>
+                            <div class="text-[9px] text-slate-400 font-medium" id="stat-rating-count">(0 lượt)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg md:text-xl font-black text-brandPink font-mono" id="stat-nominations">0</div>
+                            <div class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mt-0.5">Đề Cử</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center md:justify-start gap-3 mt-auto">
+                        <button id="btn-read-first" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-brandCyan to-brandPurple text-white shadow-md hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> ĐỌC TỪ ĐẦU
+                        </button>
+                        <button class="px-5 py-2.5 rounded-xl font-bold text-xs bg-white border border-gray-200 text-slate-600 hover:border-brandCyan transition-all flex items-center gap-2 shadow-sm">
+                            <i class="fa-regular fa-bookmark"></i> ĐÁNH DẤU
+                        </button>
+                        <button class="px-5 py-2.5 rounded-xl font-bold text-xs bg-white border border-gray-200 text-brandPink hover:border-brandPink transition-all flex items-center gap-2 shadow-sm">
+                            <i class="fa-regular fa-gem"></i> ĐỀ CỬ
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card rounded-2xl overflow-hidden shadow-glass">
+                <div class="flex border-b border-gray-200 bg-white/60 sticky top-0 z-20">
+                    <button onclick="switchTab('about')" id="tab-btn-about" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-2 border-brandCyan text-brandCyan transition-all hover:bg-cyan-50"><i class="fa-solid fa-circle-info mr-1"></i> GIỚI THIỆU</button>
+                    <button onclick="switchTab('chapters')" id="tab-btn-chapters" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-800 transition-all hover:bg-gray-50"><i class="fa-solid fa-list-ul mr-1"></i> DANH SÁCH CHƯƠNG</button>
+                    <button onclick="switchTab('comments')" id="tab-btn-comments" class="tab-btn flex-1 py-3 text-xs md:text-sm font-bold border-b-2 border-transparent text-slate-600 hover:text-slate-800 transition-all hover:bg-gray-50"><i class="fa-solid fa-comments mr-1"></i> BÌNH LUẬN <span id="tab-comment-count" class="bg-gray-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded-full ml-1">0</span></button>
+                </div>
+                
+                <div class="p-5 md:p-6 min-h-[300px] bg-white/30">
+                    <div id="tab-about" class="tab-content text-sm text-slate-700 leading-relaxed">
+                        Đang triệu hồi tóm tắt...
+                    </div>
+
+                    <div id="tab-chapters" class="tab-content hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-brandCyan text-base">MỤC LỤC</h3>
+                            <button id="btn-reverse-order" onclick="reverseChapters()" class="text-xs bg-white border border-gray-200 px-3 py-1.5 rounded-lg hover:border-brandCyan text-slate-600 hover:text-brandCyan transition-all shadow-sm"><i class="fa-solid fa-arrow-down-a-z"></i> Đảo Ngược</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5" id="chapter-list-container"></div>
+                    </div>
+
+                    <div id="tab-comments" class="tab-content hidden">
+                        <div class="bg-white/80 p-4 rounded-xl border border-gray-200 mb-6 flex gap-3 shadow-sm">
+                            <div class="w-9 h-9 rounded-full overflow-hidden flex-shrink-0 border border-cyan-300 bg-gray-100">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=guest" id="comment-avatar" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <textarea id="input-comment-text" class="w-full bg-white border border-gray-200 rounded-lg p-2.5 text-sm text-slate-700 focus:border-brandCyan focus:outline-none transition-colors resize-none h-20" placeholder="Đạo hữu nghĩ sao về tuyệt tác này... (bình luận không bao gồm đánh giá sao)"></textarea>
+                                <div class="flex justify-between items-center mt-2">
+                                    <div class="flex text-[10px] text-slate-500 italic">
+                                        <i class="fa-regular fa-message mr-1"></i> Bình luận text thuần (đánh giá sao ở phần trên)
+                                    </div>
+                                    <button onclick="submitUserComment()" class="bg-gradient-to-r from-brandCyan to-brandPurple text-white px-5 py-1.5 rounded-lg text-xs font-bold transition-all hover:shadow-md">Đăng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="comments-list-container" class="space-y-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== RECOMMENDATIONS ===== -->
+            <!-- SECTION 1: Related Text Stories -->
+            <div class="glass-card p-5 md:p-6 rounded-2xl space-y-4">
+                <div class="flex items-center gap-3 border-b border-gray-200/60 pb-2">
+                    <div class="w-2.5 h-6 bg-brandPurple rounded-full shadow-[0_0_8px_#8a2be2]"></div>
+                    <h3 class="text-sm font-black uppercase text-brandPurple">Truyện Chữ Cùng Thể Loại</h3>
+                    <i class="fa-solid fa-book text-brandPurple/60"></i>
+                </div>
+                <div id="related-text-stories" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <!-- SECTION 2: Related Videos -->
+            <div class="glass-card p-5 md:p-6 rounded-2xl space-y-4">
+                <div class="flex items-center gap-3 border-b border-gray-200/60 pb-2">
+                    <div class="w-2.5 h-6 bg-amber-500 rounded-full shadow-[0_0_8px_#f59e0b]"></div>
+                    <h3 class="text-sm font-black uppercase text-amber-600">Video Review Liên Quan 🔥</h3>
+                    <i class="fa-solid fa-fire text-amber-500/60"></i>
+                </div>
+                <div id="related-videos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </main>
+
+        <footer class="mt-10 border-t border-gray-200/60 pt-5 pb-3 text-center space-y-1 text-xs text-slate-500">
+            <p class="font-bold text-slate-700">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p>
+            <p class="text-[10px] text-slate-400">Cổng thông tin được thiết kế với giao diện Glassmorphism độc quyền.</p>
+        </footer>
+    </div>
+
+    <div id="system-notif-container" class="fixed bottom-5 left-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+    // Apply saved theme on load (runs before DOMContentLoaded)
+    (function(){try{var t=localStorage.getItem('tdt_theme');if(t&&t!=='default')document.body.classList.add('theme-'+t);}catch(e){}})();
+
+    // ===== MOBILE MENU (inline) =====
+    (function(){var _tm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;var x=!o.classList.contains('hidden');if(x){p.style.transform='translateX(100%)';b.style.opacity='0';if(n)n.style.pointerEvents='none';setTimeout(function(){o.classList.add('hidden');if(n){n.style.pointerEvents='';n.style.opacity=''}},400)}else{o.classList.remove('hidden');void p.offsetWidth;p.style.transform='translateX(0)';b.style.opacity='1';if(n)n.style.opacity='0.6'}};var _cm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;p.style.transform='translateX(100%)';b.style.opacity='0';if(n){n.style.pointerEvents='none';n.style.opacity=''}setTimeout(function(){o.classList.add('hidden');if(n)n.style.pointerEvents=''},400)};window.toggleMobileMenu=_tm;window.closeMobileMenu=_cm;document.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-header-action]'):null;if(t){var a=t.getAttribute('data-header-action');if(a==='toggle-menu')_tm();else if(a==='close-menu')_cm()}else{var ov=document.getElementById('mobile-menu-overlay');if(ov&&!ov.classList.contains('hidden')){var pn=document.getElementById('mobile-menu-panel');if(pn&&!pn.contains(e.target)&&!e.target.closest('#mobile-menu-btn'))_cm()}}})})();
+
+    // ===== TỰ ĐỘNG NẠP HEADER DÙNG CHUNG =====
+    document.addEventListener("header-loaded", function() {
+        if (typeof initLocalAuth === 'function') initLocalAuth();
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('/header.html')
+            .then(function(res) { if (!res.ok) throw new Error('Lỗi tải header'); return res.text(); })
+            .then(function(html) { 
+                document.getElementById('app-header').innerHTML = html;
+                var script = document.createElement('script');
+                script.src = '/js/header-init.js';
+                document.body.appendChild(script);
+            })
+            .catch(function(err) { console.error("Header error:", err); });
+    });
+
+    // ==========================================
+    // CẤU HÌNH API NODE.JS (Thay cho Supabase)
+    // ==========================================
+    const API_BASE = '/api';
+
+    let currentBookId = null;
+    let chaptersArray = [];
+    let isDescending = false;
+    let selectedRatingStars = 5;
+    let chapterPage = 1;
+    const CHAPTERS_PER_PAGE = 30;
+    let fxEnabled = localStorage.getItem('tdt_fx_enabled') !== 'false';
+    const levelThresholds = [0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500, 5500];
+    const levelNames = ["Phàm Nhân", "Luyện Khí", "Trúc Cơ", "Kết Đan", "Nguyên Anh", "Hóa Thần", "Luyện Hư", "Hợp Thể", "Đại Thừa", "Độ Kiếp", "Chân Tiên"];
+    
+    const safe = {
+        text: (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; },
+        html: (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; },
+        src: (id, val) => { const el = document.getElementById(id); if (el) el.src = val; },
+        styleBg: (id, val) => { const el = document.getElementById(id); if (el) el.style.backgroundImage = val; },
+        show: (id) => { const el = document.getElementById(id); if (el) el.classList.remove('hidden'); },
+        hide: (id) => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); }
+    };
+
+    function cleanTrashChars(str) {
+        if (!str) return "";
+        // Chỉ làm sạch ký tự rác ở đầu/cuối, không xóa dấu ngoặc trong nội dung
+        return String(str).replace(/^[\{\}\[\]"'\s]+|[\{\}\[\]"'\s]+$/g, '').trim();
+    }
+
+    // Tắt tạm FX Audio để gọn gàng code (Bạn có thể thêm lại sau nếu thích)
+    function playWindHover() {}
+    function playJadeClick() {}
+
+    function showSystemNotif(msg) {
+        const container = document.getElementById('system-notif-container');
+        if (!container) return;
+        const n = document.createElement('div');
+        n.className = "bg-slate-950/95 text-white border border-neonCyan/40 p-2.5 rounded-xl shadow-lg text-xs font-mono backdrop-blur-sm pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0 min-w-[200px]";
+        n.innerHTML = `<i class="fa-solid fa-bell text-neonCyan mr-2"></i> ${msg}`;
+        container.appendChild(n);
+        setTimeout(() => { n.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+        setTimeout(() => {
+            n.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => n.remove(), 300);
+        }, 3500);
+    }
+
+    function calculateLevelData(totalExp) {
+        let currentLevel = 0;
+        for (let i = 0; i < levelThresholds.length; i++) {
+            if (totalExp >= levelThresholds[i]) currentLevel = i; else break;
+        }
+        const currentLevelName = levelNames[currentLevel] || "Chân Tiên";
+        const baseExp = levelThresholds[currentLevel];
+        const nextThreshold = levelThresholds[currentLevel + 1] || (baseExp + 99999);
+        const expToNextLevel = nextThreshold - baseExp;
+        const expInLevel = totalExp - baseExp;
+        const progressPercent = Math.min((expInLevel / expToNextLevel) * 100, 100);
+        return { level: currentLevel + 1, name: currentLevelName, expInLevel, expToNextLevel, progressPercent };
+    }
+
+    function initLocalAuth() {
+        const guestUI = document.getElementById('guest-ui');
+        const userUI = document.getElementById('user-ui');
+        const localUserStr = localStorage.getItem('user_data');
+        
+        if (!guestUI || !userUI) return;
+        if (localUserStr) {
+            let dbProfile = {};
+            try { dbProfile = JSON.parse(localUserStr); } catch (e) { dbProfile = {}; }
+            
+            guestUI.classList.replace('flex', 'hidden');
+            userUI.classList.replace('hidden', 'flex');
+            
+            const levelData = calculateLevelData(parseInt(dbProfile.exp) || 0);
+            
+            const elName = document.getElementById('user-display-name');
+            const elLevel = document.getElementById('user-level');
+            const elExpBar = document.getElementById('user-exp-bar');
+            const avatarImg = document.getElementById('header-avatar');
+            const commentAvatar = document.getElementById('comment-avatar');
+            
+            if (elName) elName.textContent = `${cleanTrashChars(dbProfile.display_name || dbProfile.dao_hieu || 'Đạo Hữu')} (${levelData.name})`;
+            if (elLevel) elLevel.textContent = `Lv.${levelData.level}`;
+            if (elExpBar) elExpBar.style.width = `${levelData.progressPercent}%`;
+            
+            const finalAvatar = dbProfile.avatar_url || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(dbProfile.display_name || 'Guest')}&backgroundColor=140d2e`;
+            if (avatarImg) avatarImg.src = finalAvatar;
+            if (commentAvatar) commentAvatar.src = finalAvatar;
+        } else {
+            guestUI.classList.replace('hidden', 'flex');
+            userUI.classList.replace('flex', 'hidden');
+        }
+    }
+
+    // ========================================================
+    // TẢI CHI TIẾT TRUYỆN TỪ SERVER NODE.JS (THAY SUPABASE)
+    // ========================================================
+    // Render book data to DOM (dùng chung cho preload và API)
+    function renderBookData(bookData) {
+        currentBookId = bookData.id;
+        
+        const cleanTitle = cleanTrashChars(bookData.ten_truyen || bookData.title);
+        document.title = `${cleanTitle} - Thiên Đạo Truyện`;
+        safe.text('bc-title', cleanTitle);
+        safe.text('detail-title', cleanTitle);
+        
+        let categories = ["Khác"];
+        if (bookData.the_loai) {
+            if (typeof bookData.the_loai === 'string') {
+                categories = bookData.the_loai.split(',').map(s => s.trim());
+            } else if (Array.isArray(bookData.the_loai)) {
+                categories = bookData.the_loai;
+            }
+        }
+
+        safe.text('bc-category', cleanTrashChars(categories[0]));
+        const cover = bookData.anh_bia || bookData.cover_url || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop";
+        safe.src('detail-cover', cover);
+        safe.styleBg('detail-bg-blur', `url('${cover}')`);
+        
+        if(bookData.is_vip) safe.show('detail-vip-badge'); else safe.hide('detail-vip-badge');
+        
+        safe.text('detail-author', cleanTrashChars(bookData.tac_gia || bookData.author) || "Khuyết Danh");
+        safe.text('detail-status', cleanTrashChars(bookData.trang_thai) || "Đang ra");
+        
+        const dateObj = new Date(bookData.created_at || Date.now());
+        safe.text('detail-date', `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`);
+        
+        const catHtml = categories.map(c => `<span class="bg-purple-100 text-purple-700 border border-purple-300 px-2 py-0.5 rounded text-[10px] font-bold">${cleanTrashChars(c)}</span>`).join('');
+        safe.html('detail-categories', catHtml);
+        
+        safe.text('stat-chapters', (bookData.so_chuong || 0).toLocaleString('vi-VN'));
+        let views = bookData.luot_xem || 0;
+        safe.text('stat-views', views >= 1000000 ? (views / 1000000).toFixed(1) + 'M' : views.toLocaleString('vi-VN'));
+        safe.text('stat-rating', Number(bookData.rating_avg || 0).toFixed(1));
+        safe.text('stat-rating-count', `(${bookData.rating_count || 0} lượt)`);
+        
+        const desc = bookData.gioi_thieu || bookData.description || "Cổ tịch này chưa có dòng mô tả nào.";
+        safe.html('tab-about', cleanTrashChars(desc));
+        
+        const btnRead = document.getElementById('btn-read-first');
+        if(btnRead) {
+            btnRead.onclick = () => window.location.href = `doc-truyen.html?book_id=${bookData.id}&chapter_number=1`;
+        }
+    }
+
+    async function fetchBookDetail() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let targetId = urlParams.get('id') || urlParams.get('book') || urlParams.get('slug');
+
+        try {
+            if (!targetId) {
+                const randomResp = await fetch(`${API_BASE}/get_books?type=random&limit=1`);
+                const randomData = await randomResp.json();
+                if (randomData.books && randomData.books.length > 0) {
+                    targetId = randomData.books[0].id;
+                } else {
+                    throw new Error("Không có truyện nào trong thư viện!");
+                }
+            }
+
+            // Bước 1: Render ngay từ preload nếu có
+            let preloadedBook = null;
+            try {
+                const pre = sessionStorage.getItem('preload_book');
+                if (pre) {
+                    const parsed = JSON.parse(pre);
+                    if (parsed && String(parsed.id) === String(targetId)) {
+                        preloadedBook = parsed;
+                        sessionStorage.removeItem('preload_book');
+                        renderBookData(preloadedBook);
+                        console.log('[chi-tiet] Rendered from preload instantly');
+                        // Load chapters, comments, rating lazily ngay lập tức
+                        requestAnimationFrame(() => {
+                            setTimeout(() => { fetchChapters(currentBookId); }, 120);
+                            setTimeout(() => { fetchComments(currentBookId); }, 300);
+                            setTimeout(() => { loadUserRating(); }, 500);
+                        });
+                    }
+                }
+            } catch (e) {}
+
+            // Bước 2: Fetch từ server để cập nhật data + recommendations
+            const response = await fetch(`${API_BASE}/get_book_detail?id=${encodeURIComponent(targetId)}`);
+            if (!response.ok) throw new Error("Không thể kết nối API máy chủ!");
+            const data = await response.json();
+            if (!data.success || !data.book) throw new Error(data.error || "Lỗi tải dữ liệu truyện.");
+            
+            const bookData = data.book;
+            
+            // Nếu chưa có preload thì render từ API
+            if (!preloadedBook) {
+                renderBookData(bookData);
+            }
+            
+            // Render recommendations
+            renderRelatedTextStories(data.relatedTextStories);
+            renderRelatedVideos(data.relatedVideos);
+            
+            // Cập nhật chapters, comments, rating từ API (nếu đã render từ preload thì vẫn update)
+            if (preloadedBook) {
+                if (data.book.so_chuong !== preloadedBook.so_chuong) safe.text('stat-chapters', (data.book.so_chuong || 0).toLocaleString('vi-VN'));
+                const v = data.book.luot_xem || 0; safe.text('stat-views', v >= 1000000 ? (v / 1000000).toFixed(1) + 'M' : v.toLocaleString('vi-VN'));
+                safe.text('stat-rating', Number(data.book.rating_avg || 0).toFixed(1));
+                safe.text('stat-rating-count', `(${data.book.rating_count || 0} lượt)`);
+            }
+            
+            if (!preloadedBook) {
+                // Load chapters, comments, rating
+                requestAnimationFrame(() => {
+                    setTimeout(() => { fetchChapters(currentBookId); }, 120);
+                    setTimeout(() => { fetchComments(currentBookId); }, 300);
+                    setTimeout(() => { loadUserRating(); }, 500);
+                });
+            }
+            
+        } catch (err) {
+            console.error("Lỗi:", err);
+            safe.text('detail-title', "LỖI TRUY XUẤT!");
+            safe.html('tab-about', `<span class="text-red-400">Trận pháp báo lỗi: ${err.message}</span>`);
+        }
+    }
+
+    // TẢI CHƯƠNG TRUYỆN TỪ SERVER
+    async function fetchChapters(bookId) {
+        try {
+            const response = await fetch(`${API_BASE}/get_chapters?book_id=${bookId}`);
+            const data = await response.json();
+            if (data.success) {
+                chaptersArray = data.chapters || [];
+                renderChaptersGrid();
+            } else {
+                throw new Error(data.error);
+            }
+        } catch (err) {
+            safe.html('chapter-list-container', `<div class="col-span-full text-center text-red-500 italic py-5">Lỗi: ${err.message}</div>`);
+        }
+    }
+
+    function renderChaptersGrid() {
+        const container = document.getElementById('chapter-list-container');
+        if (!container) return;
+        
+        if (chaptersArray.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center text-gray-500 italic py-5">Chưa có chương nào...</div>';
+            return;
+        }
+
+        let orderList = [...chaptersArray];
+        if (isDescending) orderList.reverse();
+        
+        // Phân trang
+        const totalPages = Math.ceil(orderList.length / CHAPTERS_PER_PAGE);
+        if (chapterPage > totalPages) chapterPage = totalPages;
+        if (chapterPage < 1) chapterPage = 1;
+        const startIdx = (chapterPage - 1) * CHAPTERS_PER_PAGE;
+        const pageItems = orderList.slice(startIdx, startIdx + CHAPTERS_PER_PAGE);
+        
+        // Thông tin
+        let html = `<div class="col-span-full flex justify-between items-center text-[11px] text-gray-400 font-mono mb-2">
+            <span>Chương ${startIdx + 1}-${Math.min(startIdx + CHAPTERS_PER_PAGE, orderList.length)} / ${orderList.length}</span>
+        </div>`;
+        
+        // Danh sách chương
+        html += pageItems.map(chap => `
+            <a href="doc-truyen.html?book_id=${currentBookId}&chapter_number=${chap.chapter_number}" class="chapter-item block p-2.5 bg-white/80 border border-gray-200 border-l-2 border-l-transparent rounded-lg text-xs text-slate-700 transition-all truncate hover:border-brandCyan hover:text-brandCyan shadow-sm">
+                <span class="text-slate-400 font-mono text-[11px] mr-1">[${chap.chapter_number}]</span> ${cleanTrashChars(chap.title) || `Chương ${chap.chapter_number}`}
+            </a>
+        `).join('');
+        
+        // Phân trang
+        if (totalPages > 1) {
+            html += `<div class="col-span-full flex justify-center items-center gap-2 mt-4 flex-wrap">`;
+            if (chapterPage > 1) {
+                html += `<button onclick="goToChapterPage(${chapterPage - 1})" class="px-3 py-1.5 rounded bg-white border border-gray-200 text-[10px] font-bold text-brandCyan hover:border-brandCyan hover:bg-cyan-50 transition-all shadow-sm"><i class="fa-solid fa-chevron-left"></i></button>`;
+            }
+            for (let p = 1; p <= totalPages; p++) {
+                if (p === 1 || p === totalPages || Math.abs(p - chapterPage) <= 1) {
+                    html += `<button onclick="goToChapterPage(${p})" class="w-8 h-8 rounded text-[10px] font-bold transition-all ${p === chapterPage ? 'bg-brandCyan text-white shadow-md' : 'bg-white text-slate-600 hover:text-brandCyan border border-gray-200 hover:border-brandCyan shadow-sm'}">${p}</button>`;
+                } else if (Math.abs(p - chapterPage) === 2) {
+                    html += `<span class="text-gray-600 text-[10px]">...</span>`;
+                }
+            }
+            if (chapterPage < totalPages) {
+                html += `<button onclick="goToChapterPage(${chapterPage + 1})" class="px-3 py-1.5 rounded bg-white border border-gray-200 text-[10px] font-bold text-brandCyan hover:border-brandCyan hover:bg-cyan-50 transition-all shadow-sm"><i class="fa-solid fa-chevron-right"></i></button>`;
+            }
+            html += `</div>`;
+        }
+        
+        container.innerHTML = html;
+    }
+
+    function goToChapterPage(page) {
+        chapterPage = page;
+        renderChaptersGrid();
+    }
+
+    function reverseChapters() {
+        isDescending = !isDescending;
+        chapterPage = 1;
+        const btn = document.getElementById('btn-reverse-order');
+        if(btn) {
+            btn.innerHTML = isDescending ? `<i class="fa-solid fa-arrow-up-z-a"></i> Thuận Chiều` : `<i class="fa-solid fa-arrow-down-a-z"></i> Đảo Ngược`;
+        }
+        renderChaptersGrid();
+    }
+
+    // ===== ĐÁNH GIÁ SAO (TÁCH RIÊNG, MỖI USER CHỈ 1 LẦN) =====
+    let userRatingSelected = 0;
+    let userRatedStars = 0; // rating đã gửi lên server
+
+    async function loadUserRating() {
+        const localUserStr = localStorage.getItem('user_data');
+        if (!localUserStr || !currentBookId) return;
+        let userId = null;
+        try { userId = JSON.parse(localUserStr).id; } catch(e) {}
+        if (!userId) return;
+
+        try {
+            const resp = await fetch(`${API_BASE}/get_user_rating?book_id=${currentBookId}&user_id=${userId}`);
+            const data = await resp.json();
+            if (data.success && data.rating) {
+                userRatedStars = parseInt(data.rating.rating_stars) || 0;
+                userRatingSelected = userRatedStars;
+                updateRatingDisplay(userRatedStars);
+                document.getElementById('rating-status').textContent = `Bạn đã đánh giá ${userRatedStars} ★`;
+                document.getElementById('btn-rate-submit').classList.add('hidden');
+            } else {
+                // Chưa đánh giá, cho phép chọn
+                userRatedStars = 0;
+                userRatingSelected = 0;
+                updateRatingDisplay(0);
+                document.getElementById('rating-status').textContent = 'Chưa đánh giá (click sao để chọn)';
+            }
+        } catch(e) {
+            console.error('Lỗi load rating:', e);
+        }
+    }
+
+    function updateRatingDisplay(stars) {
+        document.querySelectorAll('.rate-star').forEach(el => {
+            const idx = parseInt(el.dataset.index);
+            if (stars >= idx) {
+                el.className = 'fa-solid fa-star rate-star';
+            } else {
+                el.className = 'fa-regular fa-star rate-star';
+            }
+        });
+    }
+
+    function initRatingStars() {
+        const stars = document.querySelectorAll('.rate-star');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const localUserStr = localStorage.getItem('user_data');
+                if (!localUserStr) {
+                    showSystemNotif('Vui lòng đăng nhập để đánh giá!');
+                    return;
+                }
+                // Nếu đã đánh giá rồi thì không cho đánh giá lại
+                if (userRatedStars > 0) {
+                    showSystemNotif('Bạn đã đánh giá truyện này rồi!');
+                    return;
+                }
+                const val = parseInt(this.dataset.index);
+                userRatingSelected = val;
+                updateRatingDisplay(val);
+                document.getElementById('rating-status').textContent = `Bạn chọn ${val} ★`;
+                document.getElementById('btn-rate-submit').classList.remove('hidden');
+            });
+            star.addEventListener('mouseenter', function() {
+                if (userRatedStars > 0) return; // đã đánh giá rồi thì không preview
+                const val = parseInt(this.dataset.index);
+                updateRatingDisplay(val);
+            });
+            star.addEventListener('mouseleave', function() {
+                if (userRatedStars > 0) return;
+                // Về lại trạng thái đã chọn hoặc 0
+                if (userRatingSelected > 0) {
+                    updateRatingDisplay(userRatingSelected);
+                } else {
+                    updateRatingDisplay(0);
+                }
+            });
+        });
+    }
+
+    async function submitRating() {
+        const localUserStr = localStorage.getItem('user_data');
+        if (!localUserStr) {
+            showSystemNotif('Vui lòng đăng nhập!');
+            return;
+        }
+        let userId = null;
+        try { userId = JSON.parse(localUserStr).id; } catch(e) {}
+        if (!userId) {
+            showSystemNotif('Không tìm thấy thông tin user!');
+            return;
+        }
+        if (userRatingSelected < 1) {
+            showSystemNotif('Vui lòng chọn số sao!');
+            return;
+        }
+
+        try {
+            const resp = await fetch(`${API_BASE}/rate_book`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    book_id: currentBookId,
+                    user_id: userId,
+                    rating_stars: userRatingSelected
+                })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                userRatedStars = userRatingSelected;
+                document.getElementById('rating-status').textContent = `✓ Đã đánh giá ${userRatedStars} ★`;
+                document.getElementById('btn-rate-submit').classList.add('hidden');
+                showSystemNotif(`Đánh giá ${userRatedStars} ★ thành công!`);
+            } else {
+                showSystemNotif('Lỗi: ' + (data.error || 'Không thể gửi đánh giá'));
+            }
+        } catch(e) {
+            showSystemNotif('Lỗi mạng!');
+        }
+    }
+
+    // TẢI & GỬI BÌNH LUẬN TỚI SERVER (TEXT THUẦN)
+    async function fetchComments(bookId) {
+        try {
+            const response = await fetch(`${API_BASE}/get_comments?book_id=${encodeURIComponent(bookId)}`);
+            const data = await response.json();
+            const comments = data.comments || [];
+            
+            safe.text('tab-comment-count', comments ? comments.length : "0");
+            const container = document.getElementById('comments-list-container');
+            if (!container) return;
+            
+            if (comments.length > 0) {
+                container.innerHTML = comments.map(c => {
+                    const userName = cleanTrashChars(c.display_name || c.dao_hieu || 'Vô Danh');
+                    const avatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${c.user_id || c.id}&backgroundColor=140d2e`;
+                    
+                    return `
+                    <div class="bg-white/90 p-3 rounded-xl border border-gray-200 flex gap-3 shadow-sm">
+                        <div class="w-8 h-8 rounded-full border border-cyan-300 overflow-hidden flex-shrink-0 bg-gray-100">
+                            <img src="${avatar}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-xs text-brandCyan">${userName}</span>
+                                <span class="text-[9px] text-slate-400"><i class="fa-regular fa-comment"></i> Bình luận</span>
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">${cleanTrashChars(c.content)}</p>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                container.innerHTML = '<div class="text-center text-gray-500 italic py-5 text-xs">Chưa có bình luận.</div>';
+            }
+        } catch (err) {
+            safe.html('comments-list-container', '<div class="text-center text-red-500 italic py-5 text-xs">Lỗi kết nối...</div>');
+        }
+    }
+
+    async function submitUserComment() {
+        const txtArea = document.getElementById('input-comment-text');
+        if (!txtArea || !txtArea.value.trim()) return showSystemNotif("Vui lòng gõ bình luận!");
+
+        const localUserStr = localStorage.getItem('user_data');
+        let loggedUserId = null;
+        if (localUserStr) {
+            try { 
+                const parsedUser = JSON.parse(localUserStr);
+                loggedUserId = parsedUser.id;
+            } catch(e) {}
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/add_comment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    book_id: currentBookId,
+                    user_id: loggedUserId,
+                    content: txtArea.value.trim()
+                })
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                txtArea.value = "";
+                showSystemNotif("Đăng bình luận thành công!");
+                fetchComments(currentBookId);
+                if (typeof handleRpgResponse === 'function') handleRpgResponse(data);
+            } else {
+                showSystemNotif("Lỗi: " + (data.error || "Không thể đăng"));
+            }
+        } catch (err) {
+            showSystemNotif("Lỗi mạng!");
+        }
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('border-brandCyan', 'text-brandCyan');
+            btn.classList.add('border-transparent', 'text-slate-600');
+        });
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+        if(activeBtn) activeBtn.classList.remove('border-transparent', 'text-slate-600');
+        if(activeBtn) activeBtn.classList.add('border-brandCyan', 'text-brandCyan');
+        const activeContent = document.getElementById(`tab-${tabId}`);
+        if(activeContent) activeContent.classList.remove('hidden');
+    }
+
+    // ===== RENDER RECOMMENDATIONS =====
+    function renderRelatedTextStories(stories) {
+        var container = document.getElementById('related-text-stories');
+        if (!container) return;
+        console.log('[chi-tiet] renderRelatedTextStories:', stories ? stories.length : 0, 'items');
+        if (!stories || stories.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center text-gray-400 italic py-5 text-xs">Chưa có truyện tương tự...</div>';
+            return;
+        }
+        container.innerHTML = stories.map(function(b) {
+            var cover = b.anh_bia || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop';
+            var title = cleanTrashChars(b.ten_truyen || 'Không rõ');
+            var author = cleanTrashChars(b.tac_gia || 'Khuyết Danh');
+            var chapters = b.so_chuong || 0;
+            var views = parseInt(b.luot_xem || 0);
+            var intro = cleanTrashChars(b.gioi_thieu || '').substring(0, 120);
+            var detailPage = 'chi-tiet-truyen.html?id=' + encodeURIComponent(b.id) + (b.slug ? '&slug=' + encodeURIComponent(b.slug) : '');
+            var genres = '';
+            if (b.the_loai && Array.isArray(b.the_loai)) {
+                genres = b.the_loai.slice(0, 2).map(function(g) {
+                    return '<span class="px-1.5 py-0.5 rounded bg-purple-50 text-purple-600 text-[9px] font-medium border border-purple-200">' + g + '</span>';
+                }).join('');
+            }
+            return '<div class="bg-white/70 backdrop-blur-sm border border-gray-200 hover:border-brandPurple/50 p-3 rounded-xl flex gap-3 transition-all hover:-translate-y-1 hover:shadow-md group cursor-pointer" onclick="window.location.href=\'' + detailPage + '\'">' +
+                '<div class="w-16 h-20 sm:w-20 sm:h-28 rounded-lg overflow-hidden flex-shrink-0 shadow-sm border border-white/80 bg-gray-100">' +
+                    '<img src="' + cover + '" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=\\\'flex items-center justify-center h-full text-gray-300\\\'><i class=\\\'fa-solid fa-book text-lg\\\'></i></div>\'">' +
+                '</div>' +
+                '<div class="flex-1 min-w-0 flex flex-col justify-between">' +
+                    '<div>' +
+                        '<h5 class="text-sm font-bold text-slate-700 line-clamp-2 group-hover:text-brandPurple leading-tight">' + title + '</h5>' +
+                        '<p class="text-[10px] text-slate-500 truncate mt-0.5"><i class="fa-solid fa-pen-nib mr-1 text-brandCyan"></i>' + author + '</p>' +
+                        (genres ? '<div class="flex flex-wrap gap-1 mt-1">' + genres + '</div>' : '') +
+                        (intro ? '<p class="text-[10px] text-slate-500 line-clamp-2 italic mt-1 leading-relaxed">' + intro + '</p>' : '') +
+                    '</div>' +
+                    '<div class="flex items-center justify-between gap-2 text-[10px] pt-1.5 border-t border-gray-100 mt-1.5">' +
+                        '<span class="text-brandPurple bg-purple-50 border border-purple-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-scroll"></i>' + chapters.toLocaleString('vi-VN') + 'C</span>' +
+                        '<span class="text-brandCyan bg-cyan-50 border border-cyan-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-eye"></i>' + views.toLocaleString('vi-VN') + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    function renderRelatedVideos(videos) {
+        var container = document.getElementById('related-videos');
+        if (!container) return;
+        if (!videos || videos.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center text-gray-400 italic py-5 text-xs">Chưa có video liên quan...</div>';
+            return;
+        }
+        container.innerHTML = videos.map(function(v) {
+            var thumbUrl = v.anh_thumbnail || '';
+            var storyName = v.ten_truyen_sach || 'Không rõ';
+            var views = parseInt(v.luot_xem || 0);
+            return '<div class="rounded-xl overflow-hidden bg-white/70 border border-gray-200 hover:border-amber-400/50 transition-all cursor-pointer group shadow-sm" onclick="window.location.href=\'xem-review.html?id=' + encodeURIComponent(v.id_video) + '\'">' +
+                '<div class="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden">' +
+                    (thumbUrl 
+                        ? '<img src="' + thumbUrl + '" alt="' + storyName + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=\\\'flex items-center justify-center h-full text-gray-300\\\'><i class=\\\'fa-solid fa-video text-2xl\\\'></i></div>\'">'
+                        : '<div class="flex items-center justify-center h-full text-gray-300"><i class="fa-solid fa-video text-2xl"></i></div>'
+                    ) +
+                '</div>' +
+                '<div class="p-3 space-y-2">' +
+                    '<h4 class="text-xs md:text-sm font-bold text-slate-700 leading-tight line-clamp-2 group-hover:text-amber-500 transition-colors" title="' + storyName + '">' + storyName + '</h4>' +
+                    '<div class="flex items-center justify-between">' +
+                        '<span class="text-[10px] text-slate-500"><i class="fa-regular fa-eye mr-1 text-brandCyan"></i>' + views.toLocaleString('vi-VN') + '</span>' +
+                    '</div>' +
+                    '<button onclick="event.stopPropagation();window.location.href=\'xem-review.html?id=' + encodeURIComponent(v.id_video) + '\'" class="w-full py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[10px] font-bold hover:shadow-lg transition-all flex items-center justify-center gap-1.5">' +
+                        '<i class="fa-solid fa-play"></i> Xem Ngay' +
+                    '</button>' +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+
+    // KHỞI CHẠY LẬP TỨC
+    document.addEventListener('DOMContentLoaded', () => {
+        initLocalAuth();
+        fetchBookDetail();
+
+        const btnLogout = document.getElementById('btn-logout-local');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.removeItem('user_data');
+                window.location.reload();
+            });
+        }
+
+        // Khởi tạo đánh giá sao (mỗi user 1 lần)
+        initRatingStars();
+
+        // HIỆU ỨNG CHUỘT (ĐÃ VÁ LỖI MEMORY LEAK)
+        document.addEventListener('click', (e) => {
+            if (!fxEnabled) return;
+            for (let i = 0; i < 5; i++) { // Giảm số lượng hạt để nhẹ máy
+                const p = document.createElement('div');
+                p.style.position = 'fixed';
+                p.style.left = e.clientX + 'px';
+                p.style.top = e.clientY + 'px';
+                const size = Math.random() * 4 + 2;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.borderRadius = '50%';
+                
+                const neonColors = ['var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)'];
+                const randomColor = neonColors[Math.floor(Math.random() * neonColors.length)];
+                p.style.background = randomColor;
+                p.style.boxShadow = `0 0 6px ${randomColor}`;
+                p.style.pointerEvents = 'none';
+                p.style.zIndex = '99999';
+                p.style.transition = 'all 0.4s cubic-bezier(0.1, 0.8, 0.25, 1)';
+                
+                document.body.appendChild(p);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 30 + 10;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                setTimeout(() => {
+                    p.style.transform = `translate(${tx}px, ${ty}px) scale(0)`;
+                    p.style.opacity = '0';
+                }, 10);
+                
+                // QUAN TRỌNG: Xóa thẻ div sau 0.4s để tránh lag giật
+                setTimeout(() => { p.remove(); }, 400); 
+            }
+        });
+    });
+    </script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>
+

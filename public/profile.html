@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloTruyen - Hồ Sơ Tu Tiên</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { brandCyan: '#00d2ff', brandPurple: '#8a2be2', brandPink: '#ff3366', brandOrange: '#ff7e5f', brandGold: '#f59e0b' },
+                    boxShadow: { glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)', glassHover: '0 12px 40px 0 rgba(31, 38, 135, 0.12)', neonCyan: '0 0 15px rgba(0, 210, 255, 0.4)', neonPurple: '0 0 15px rgba(138, 43, 226, 0.4)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-glass: rgba(255,255,255,0.65);
+            --border-glass: rgba(255,255,255,0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --bg-gradient-1: radial-gradient(at 0% 0%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --bg-gradient-2: radial-gradient(at 100% 0%, rgba(138,43,226,0.12) 0px, transparent 50%);
+            --bg-gradient-3: radial-gradient(at 100% 100%, rgba(255,126,95,0.12) 0px, transparent 50%);
+            --bg-gradient-4: radial-gradient(at 0% 100%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --accent-cyan: #00d2ff;
+            --accent-purple: #8a2be2;
+            --accent-orange: #ff7e5f;
+            --accent-pink: #ff3366;
+        }
+        /* ============================================= */
+        /* THEME 1: THIÊN CƠ (theme1.html - Luyện Khí)  */
+        /* ============================================= */
+        body.theme-thien-co {
+            --bg-primary: #020212 !important;
+            --bg-glass: rgba(10,14,45,0.7) !important;
+            --border-glass: rgba(245,158,11,0.25) !important;
+            --text-primary: #e2d5f5 !important;
+            --text-secondary: #94a3b8 !important;
+            --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.5) !important;
+            --accent-cyan: #00d2ff !important;
+            --accent-purple: #8a2be2 !important;
+            --accent-orange: #ff7e5f !important;
+            --accent-pink: #ff3366 !important;
+            --accent-gold: #f59e0b !important;
+            background-color: #020212 !important;
+            background-image: radial-gradient(at 10% 10%, rgba(138,43,226,0.15) 0px, transparent 40%), radial-gradient(at 90% 10%, rgba(0,210,255,0.15) 0px, transparent 40%), radial-gradient(at 50% 80%, rgba(245,158,11,0.08) 0px, transparent 50%) !important;
+            background-attachment: fixed !important;
+            color: var(--text-primary) !important;
+            font-family: 'Inter', 'sans-serif' !important;
+        }
+        body.theme-thien-co .glass-card {
+            background: var(--bg-glass) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid var(--border-glass) !important;
+            border-radius: 12px !important;
+            box-shadow: var(--card-shadow), inset 0 0 15px rgba(0,210,255,0.05) !important;
+            position: relative !important;
+            overflow: visible !important;
+        }
+        body.theme-thien-co .glass-card::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            border: 1px solid rgba(255,255,255,0.03) !important;
+            pointer-events: none !important;
+            border-radius: 10px !important;
+        }
+        body.theme-thien-co header { background: rgba(3,4,18,0.85) !important; backdrop-filter: blur(12px) !important; border-color: rgba(245,158,11,0.2) !important; }
+        body.theme-thien-co footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
+        /* Override màu chữ Tailwind cố định */
+        body.theme-thien-co .text-slate-700,
+        body.theme-thien-co .text-slate-800 { color: var(--text-primary) !important; }
+        body.theme-thien-co .text-slate-400,
+        body.theme-thien-co .text-slate-500,
+        body.theme-thien-co .text-slate-600 { color: var(--text-secondary) !important; }
+        body.theme-thien-co .text-brandCyan { color: var(--accent-cyan) !important; }
+        body.theme-thien-co .text-brandPurple { color: var(--accent-purple) !important; }
+        body.theme-thien-co .text-brandOrange { color: var(--accent-orange) !important; }
+        body.theme-thien-co .text-brandPink { color: var(--accent-pink) !important; }
+        body.theme-thien-co .text-emerald-600 { color: #22c55e !important; }
+        body.theme-thien-co .bg-gray-200 { background: rgba(255,255,255,0.08) !important; }
+        body.theme-thien-co .bg-amber-50 { background: rgba(245,158,11,0.12) !important; }
+        body.theme-thien-co .bg-cyan-50 { background: rgba(0,210,255,0.12) !important; }
+        body.theme-thien-co .bg-white\/50,
+        body.theme-thien-co .bg-white\/60,
+        body.theme-thien-co .bg-white\/90 { background: rgba(10,14,45,0.5) !important; }
+        body.theme-thien-co .border-gray-100,
+        body.theme-thien-co .border-gray-200,
+        body.theme-thien-co .border-gray-300 { border-color: rgba(245,158,11,0.15) !important; }
+        body.theme-thien-co .bg-gradient-to-r.from-cyan-50,
+        body.theme-thien-co .bg-gradient-to-r.from-purple-50 { background: rgba(10,14,45,0.4) !important; }
+
+        /* ============================================== */
+        /* THEME 2: TIÊN LINH (theme2.html - Trúc Cơ)    */
+        /* ============================================== */
+        body.theme-tien-linh {
+            --bg-primary: #01140f !important;
+            --bg-glass: rgba(1,26,20,0.75) !important;
+            --border-glass: rgba(0,255,204,0.25) !important;
+            --text-primary: #e6fff7 !important;
+            --text-secondary: #00ffcc !important;
+            --card-shadow: 0 10px 45px 0 rgba(0,0,0,0.7) !important;
+            --accent-cyan: #00ffcc !important;
+            --accent-purple: #10b981 !important;
+            --accent-orange: #f59e0b !important;
+            --accent-pink: #059669 !important;
+            --accent-gold: #ffd700 !important;
+            background-color: #01140f !important;
+            background-image: radial-gradient(at 10% 10%, rgba(0,255,204,0.18) 0px, transparent 40%), radial-gradient(at 90% 10%, rgba(16,185,129,0.2) 0px, transparent 40%), radial-gradient(at 50% 80%, rgba(255,215,0,0.1) 0px, transparent 50%) !important;
+            background-attachment: fixed !important;
+            color: var(--text-primary) !important;
+        }
+        body.theme-tien-linh .glass-card {
+            background: var(--bg-glass) !important;
+            backdrop-filter: blur(25px) !important;
+            -webkit-backdrop-filter: blur(25px) !important;
+            border: 1px solid var(--border-glass) !important;
+            border-radius: 18px !important;
+            box-shadow: var(--card-shadow), inset 0 0 25px rgba(0,255,204,0.08) !important;
+        }
+        body.theme-tien-linh header { background: rgba(1,22,17,0.9) !important; backdrop-filter: blur(15px) !important; border-color: rgba(16,185,129,0.4) !important; }
+        body.theme-tien-linh footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
+        body.theme-tien-linh .text-slate-700,
+        body.theme-tien-linh .text-slate-800 { color: var(--text-primary) !important; }
+        body.theme-tien-linh .text-slate-400,
+        body.theme-tien-linh .text-slate-500,
+        body.theme-tien-linh .text-slate-600 { color: var(--text-secondary) !important; }
+        body.theme-tien-linh .bg-white\/50,
+        body.theme-tien-linh .bg-white\/60,
+        body.theme-tien-linh .bg-white\/90 { background: rgba(1,26,20,0.5) !important; }
+        body.theme-tien-linh .border-gray-100,
+        body.theme-tien-linh .border-gray-200 { border-color: rgba(0,255,204,0.15) !important; }
+
+        /* ===== TIÊN LINH SHOP MODAL FIX ===== */
+        body.theme-tien-linh #shop-modal > div,
+        body.theme-tien-linh #topup-modal > div {
+            background: rgba(1,26,20,0.96) !important;
+            border-color: rgba(0,255,204,0.3) !important;
+        }
+        body.theme-tien-linh #shop-modal .sticky {
+            background: rgba(1,26,20,0.98) !important;
+            border-color: rgba(0,255,204,0.2) !important;
+        }
+        body.theme-tien-linh #shop-modal .sticky h3,
+        body.theme-tien-linh #topup-modal h3 {
+            color: #e6fff7 !important;
+        }
+        body.theme-tien-linh #shop-items-list > div {
+            background: rgba(1,26,20,0.7) !important;
+            border-color: rgba(0,255,204,0.2) !important;
+        }
+        body.theme-tien-linh #shop-items-list > div .text-slate-700,
+        body.theme-tien-linh #shop-items-list > div .font-bold.text-xs {
+            color: #e6fff7 !important;
+        }
+        body.theme-tien-linh #shop-items-list > div .text-slate-500,
+        body.theme-tien-linh #shop-items-list > div .text-slate-400 {
+            color: #00ffcc !important;
+        }
+        body.theme-tien-linh #topup-modal p.text-xs {
+            color: #00ffcc !important;
+        }
+        body.theme-tien-linh #topup-modal button:not([onclick*="closeModal"]) {
+            background: rgba(0,255,204,0.15) !important;
+            border-color: rgba(0,255,204,0.3) !important;
+            color: #e6fff7 !important;
+        }
+        body.theme-tien-linh #topup-modal button:not([onclick*="closeModal"]):hover {
+            background: rgba(0,255,204,0.25) !important;
+        }
+        body.theme-tien-linh #topup-modal button:last-child {
+            background: transparent !important;
+            border-color: rgba(0,255,204,0.3) !important;
+            color: #e6fff7 !important;
+        }
+
+        /* ========== TIÊN LINH EFFECTS ========== */
+        /* 1. Breathing Orb - lơ lửng & nhịp thở */
+        @keyframes tien-linh-breath {
+            0%, 100% { transform: translateY(0px) scale(1); box-shadow: inset 0 -4px 15px rgba(0,0,0,0.05), inset 0 4px 15px rgba(255,255,255,0.5), 0 0 20px rgba(0,255,204,0.3), 0 0 40px rgba(16,185,129,0.15); }
+            50% { transform: translateY(-8px) scale(1.03); box-shadow: inset 0 -4px 20px rgba(0,0,0,0.08), inset 0 4px 25px rgba(255,255,255,0.7), 0 0 35px rgba(0,255,204,0.5), 0 0 70px rgba(16,185,129,0.3); }
+        }
+        body.theme-tien-linh .furnace-core {
+            animation: tien-linh-breath 3s ease-in-out infinite !important;
+        }
+        body.theme-tien-linh .furnace-core .furnace-emoji {
+            animation: furnace-emoji-bounce 3s ease-in-out infinite !important;
+            filter: drop-shadow(0 0 12px rgba(0,255,204,0.4)) drop-shadow(0 0 25px rgba(16,185,129,0.2)) !important;
+        }
+
+        /* 2. Magic Array - Vòng trận pháp xoay phía sau quả cầu */
+        body.theme-tien-linh .furnace-outer-ring::after {
+            content: '✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦';
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            letter-spacing: 18px;
+            color: rgba(0,255,204,0.15);
+            animation: tien-linh-magic-array 15s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body.theme-tien-linh .furnace-outer-ring:hover::after {
+            color: rgba(0,255,204,0.35);
+            animation-duration: 8s;
+        }
+        @keyframes tien-linh-magic-array {
+            0% { transform: rotate(0deg) scale(1.02); }
+            100% { transform: rotate(360deg) scale(1.02); }
+        }
+        /* Divination lines inside outer ring */
+        body.theme-tien-linh .furnace-outer-ring {
+            background: conic-gradient(from 0deg, rgba(0,255,204,0.08), rgba(16,185,129,0.08), rgba(255,215,0,0.05), rgba(0,255,204,0.08)) !important;
+        }
+        body.theme-tien-linh .furnace-rotating-ring {
+            border-color: rgba(0,255,204,0.3) !important;
+        }
+        body.theme-tien-linh .furnace-rotating-ring-2 {
+            border-color: rgba(16,185,129,0.25) !important;
+        }
+
+        /* 3. 3D Tilt - các thẻ chỉ số + túi đồ (vanilla-tilt via data-attributes) */
+        body.theme-tien-linh .stat-item,
+        body.theme-tien-linh #profile-inventory > div {
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+
+        /* 4. Glowing Border Trace - viền hào quang chạy cho thẻ túi đồ & stat */
+        body.theme-tien-linh .stat-item,
+        body.theme-tien-linh #profile-inventory > div {
+            position: relative;
+            overflow: hidden;
+        }
+        body.theme-tien-linh .stat-item::before,
+        body.theme-tien-linh #profile-inventory > div::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: inherit;
+            background: conic-gradient(from 0deg, transparent, rgba(0,255,204,0.6), transparent, rgba(16,185,129,0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            animation: tien-linh-border-spin 2s linear infinite;
+        }
+        body.theme-tien-linh .stat-item:hover::before,
+        body.theme-tien-linh #profile-inventory > div:hover::before {
+            opacity: 1;
+        }
+        @keyframes tien-linh-border-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Ensure content stays above the border glow */
+        body.theme-tien-linh .stat-item > *,
+        body.theme-tien-linh #profile-inventory > div > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 5. Button Glow & Sword Slash - nút Độ Kiếp */
+        body.theme-tien-linh #btn-breakthrough {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        body.theme-tien-linh #btn-breakthrough:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(0,255,204,0.5), 0 0 50px rgba(16,185,129,0.3), 0 0 80px rgba(0,255,204,0.15);
+        }
+        body.theme-tien-linh #btn-breakthrough::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+        body.theme-tien-linh #btn-breakthrough:hover::after {
+            left: 125%;
+        }
+        /* Small buttons like "Mua 100 LT" */
+        body.theme-tien-linh button:not(.theme-btn):not(.tooltip-container *):hover {
+            box-shadow: 0 0 15px rgba(0,255,204,0.3);
+        }
+
+        /* 6. Text Shine - dòng chữ cảnh giới */
+        @keyframes tien-linh-text-shine {
+            0% { background-position: -200% center; }
+            20% { background-position: 200% center; }
+            100% { background-position: 200% center; }
+        }
+        body.theme-tien-linh #current-level-name,
+        body.theme-tien-linh #user-tier-display {
+            background: linear-gradient(90deg, var(--accent-cyan), #fff, var(--accent-gold), var(--accent-cyan));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: tien-linh-text-shine 4s ease-in-out infinite;
+        }
+        body.theme-tien-linh .furnace-label-text {
+            background: linear-gradient(90deg, var(--accent-cyan), #fff, var(--accent-gold), var(--accent-cyan)) !important;
+            background-size: 200% auto !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            animation: tien-linh-text-shine 4s ease-in-out infinite !important;
+        }
+
+        /* ===== CURSOR CANVAS ===== */
+        #cursor-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.theme-than-thoai #cursor-canvas {
+            opacity: 1;
+        }
+
+        /* ===== FAIRY DUST CANVAS ===== */
+        #fairy-dust-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99998;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        body.theme-tien-linh #fairy-dust-canvas {
+            opacity: 1;
+        }
+
+        /* ===== SHOP MODAL ENTRANCE ===== */
+        #shop-modal, #topup-modal {
+            animation: modal-fade-in 0.25s ease-out;
+        }
+        @keyframes modal-fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        #shop-modal > div, #topup-modal > div {
+            animation: modal-scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes modal-scale-in {
+            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* ===== SHOP ITEM GLOW (TIÊN LINH) ===== */
+        body.theme-tien-linh #shop-items-list > div {
+            transition: all 0.3s ease;
+        }
+        body.theme-tien-linh #shop-items-list > div:hover {
+            border-color: rgba(0,255,204,0.5) !important;
+            box-shadow: 0 0 20px rgba(0,255,204,0.2), inset 0 0 15px rgba(0,255,204,0.05);
+            transform: translateY(-2px);
+        }
+        body.theme-tien-linh #shop-items-list > div button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        body.theme-tien-linh #shop-items-list > div button:hover {
+            box-shadow: 0 0 15px rgba(0,255,204,0.4);
+            transform: scale(1.05);
+        }
+
+        /* ===== CLICK RIPPLE ===== */
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,204,0.5) 0%, transparent 70%);
+            transform: scale(0);
+            animation: ripple-anim 0.6s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* ================================================ */
+        /* THEME 3: THẦN THOẠI (them3.html - Nguyên Anh)   */
+        /* ================================================ */
+        body.theme-than-thoai {
+            --bg-primary: #02010c !important;
+            --bg-glass: rgba(6,3,23,0.94) !important;
+            --border-glass: rgba(139,92,246,0.45) !important;
+            --text-primary: #ffffff !important;
+            --text-secondary: #e9d5ff !important;
+            --card-shadow: 0 30px 80px 0 rgba(0,0,0,0.98) !important;
+            --accent-cyan: #8b5cf6 !important;
+            --accent-purple: #a855f7 !important;
+            --accent-orange: #f59e0b !important;
+            --accent-pink: #ec4899 !important;
+            --accent-gold: #fbbf24 !important;
+            background-color: #02010c !important;
+            background-image: radial-gradient(at 10% 10%, rgba(139,92,246,0.22) 0px, transparent 55%), radial-gradient(at 90% 10%, rgba(76,29,149,0.25) 0px, transparent 55%), radial-gradient(at 50% 90%, rgba(168,85,247,0.15) 0px, transparent 65%) !important;
+            background-attachment: fixed !important;
+            color: var(--text-primary) !important;
+        }
+        body.theme-than-thoai .glass-card {
+            background: var(--bg-glass) !important;
+            backdrop-filter: blur(30px) !important;
+            -webkit-backdrop-filter: blur(30px) !important;
+            border: 1.5px solid var(--border-glass) !important;
+            border-radius: 20px !important;
+            box-shadow: var(--card-shadow), inset 0 0 45px rgba(168,85,247,0.12) !important;
+        }
+        body.theme-than-thoai header { background: rgba(6,3,23,0.92) !important; backdrop-filter: blur(15px) !important; border-color: rgba(139,92,246,0.4) !important; }
+        body.theme-than-thoai footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
+
+        /* ===== THẦN THOẠI TEXT FIX ===== */
+        body.theme-than-thoai .text-slate-700,
+        body.theme-than-thoai .text-slate-800 { color: #d8b4fe !important; }
+        body.theme-than-thoai .text-slate-500,
+        body.theme-than-thoai .text-slate-600 { color: #a78bfa !important; }
+        body.theme-than-thoai .text-slate-400 { color: #8b5cf6 !important; }
+        body.theme-than-thoai .text-slate-300 { color: #a855f7 !important; }
+        body.theme-than-thoai .bg-white\/50,
+        body.theme-than-thoai .bg-white\/60,
+        body.theme-than-thoai .bg-white\/90 { background: rgba(6,3,23,0.5) !important; }
+        body.theme-than-thoai .border-gray-100,
+        body.theme-than-thoai .border-gray-200 { border-color: rgba(139,92,246,0.2) !important; }
+        body.theme-than-thoai .text-amber-600 { color: #fbbf24 !important; }
+        body.theme-than-thoai .text-cyan-600 { color: #8b5cf6 !important; }
+        body.theme-than-thoai .text-cyan-700 { color: #a855f7 !important; }
+        body.theme-than-thoai .bg-amber-50 { background: rgba(251,191,36,0.12) !important; border-color: rgba(251,191,36,0.2) !important; }
+        body.theme-than-thoai .bg-cyan-50 { background: rgba(139,92,246,0.12) !important; border-color: rgba(139,92,246,0.2) !important; }
+        body.theme-than-thoai .bg-gradient-to-r.from-cyan-50,
+        body.theme-than-thoai .bg-gradient-to-r.from-purple-50 { background: rgba(6,3,23,0.4) !important; }
+        body.theme-than-thoai #profile-inventory > div {
+            background: rgba(6,3,23,0.6) !important;
+            border-color: rgba(139,92,246,0.2) !important;
+        }
+        body.theme-than-thoai #profile-inventory > div .text-slate-700 { color: #e9d5ff !important; }
+        /* Theme selector buttons in than-thoai */
+        body.theme-than-thoai .theme-btn { color: #e9d5ff !important; }
+        body.theme-than-thoai .theme-btn.locked { color: #666 !important; }
+
+        /* ===== SHOP MODAL TEXT FIX CHO CÁC THEME TỐI ===== */
+        body.theme-thien-co #shop-modal .text-slate-800,
+        body.theme-thien-co #shop-modal .text-slate-700,
+        body.theme-thien-co .shop-item-name { color: #1e293b !important; }
+        body.theme-thien-co #shop-modal .text-slate-500 { color: #64748b !important; }
+        body.theme-thien-co #shop-modal .text-slate-400 { color: #94a3b8 !important; }
+        body.theme-thien-co #shop-modal .text-cyan-600 { color: #0891b2 !important; }
+        body.theme-thien-co #shop-modal .text-amber-600 { color: #d97706 !important; }
+        body.theme-thien-co #shop-modal .sticky h3 { color: #1e293b !important; }
+
+        body.theme-tien-linh #shop-modal .text-slate-800,
+        body.theme-tien-linh #shop-modal .text-slate-700,
+        body.theme-tien-linh .shop-item-name { color: #1e293b !important; }
+        body.theme-tien-linh #shop-modal .text-slate-500 { color: #64748b !important; }
+        body.theme-tien-linh #shop-modal .text-slate-400 { color: #94a3b8 !important; }
+        body.theme-tien-linh #shop-modal .text-cyan-600 { color: #0891b2 !important; }
+        body.theme-tien-linh #shop-modal .text-amber-600 { color: #d97706 !important; }
+        body.theme-tien-linh #shop-modal .sticky h3 { color: #1e293b !important; }
+
+        body.theme-than-thoai #shop-modal .text-slate-800,
+        body.theme-than-thoai #shop-modal .text-slate-700,
+        body.theme-than-thoai .shop-item-name { color: #1e293b !important; }
+        body.theme-than-thoai #shop-modal .text-slate-500 { color: #64748b !important; }
+        body.theme-than-thoai #shop-modal .text-slate-400 { color: #94a3b8 !important; }
+        body.theme-than-thoai #shop-modal .text-cyan-600 { color: #0891b2 !important; }
+        body.theme-than-thoai #shop-modal .text-amber-600 { color: #d97706 !important; }
+        body.theme-than-thoai #shop-modal .sticky h3 { color: #1e293b !important; }
+
+        /* ===== FIX TOOLTIP BỊ OVERFLOW HIDDEN CẮT ===== */
+        .stat-item:hover { overflow: visible !important; }
+        .stat-tooltip { z-index: 99999 !important; }
+
+        /* ===== THẦN THOẠI EFFECTS ===== */
+
+        /* 1. Avatar Wrapper - Sword Orbit (Dual Canvas) */
+        .avatar-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+        .avatar-wrapper .sword-canvas-bg,
+        .avatar-wrapper .sword-canvas-fg {
+            position: absolute;
+            inset: -50px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            width: calc(100% + 100px);
+            height: calc(100% + 100px);
+        }
+        body.theme-than-thoai .avatar-wrapper .sword-canvas-bg,
+        body.theme-than-thoai .avatar-wrapper .sword-canvas-fg {
+            opacity: 1;
+        }
+        .avatar-wrapper .sword-canvas-fg { z-index: 3; }
+        .avatar-wrapper .sword-canvas-bg { z-index: 1; }
+        .avatar-frame {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.theme-than-thoai .avatar-wrapper:hover .avatar-frame {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(139,92,246,0.6), 0 0 60px rgba(168,85,247,0.3);
+        }
+        .avatar-wrapper .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-name {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 12px;
+            position: relative;
+        }
+        body.theme-than-thoai .avatar-name {
+            color: #e9d5ff;
+        }
+
+        /* 2. Gravity Background - Black Hole Vortex */
+        #gravity-bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        body.theme-than-thoai #gravity-bg-canvas { opacity: 1; }
+
+        /* 3. Global Lightning Strike Canvas */
+        #lightning-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        body.theme-than-thoai #lightning-canvas { opacity: 1; }
+
+        /* 4. Lightning Border Buttons */
+        body.theme-than-thoai .lightning-btn {
+            position: relative;
+            overflow: visible !important;
+        }
+        body.theme-than-thoai .lightning-btn .btn-lightning-canvas {
+            position: absolute;
+            top: -10px; left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.theme-than-thoai .lightning-btn:hover .btn-lightning-canvas {
+            opacity: 1;
+        }
+
+        /* 5. Sword Slash Text - Clip-path split */
+        .sword-slash-text {
+            position: relative;
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+        }
+        .sword-slash-text .text-top,
+        .sword-slash-text .text-bottom {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+        .sword-slash-text .text-top {
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 45%);
+        }
+        .sword-slash-text .text-bottom {
+            clip-path: polygon(0 45%, 100% 50%, 100% 100%, 0 100%);
+        }
+        .sword-slash-text:hover .text-top {
+            transform: translateX(8px);
+        }
+        .sword-slash-text:hover .text-bottom {
+            transform: translateX(-8px);
+        }
+        body.theme-than-thoai #avatar-name-display {
+            display: inline-block;
+        }
+        /* Spark particles container for slash text */
+        #slash-spark-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            background-image: var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--card-shadow);
+            transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; } .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.5); border-radius: 10px; } .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 210, 255, 0.5); border-radius: 10px; }
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .animate-spin-slow { animation: spin-slow 10s linear infinite; }
+        @keyframes rotate-furnace { 0% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 8px rgba(0,210,255,0.4)); } 50% { transform: rotate(180deg) scale(1.05); filter: drop-shadow(0 0 20px rgba(138,43,226,0.6)); } 100% { transform: rotate(360deg) scale(1); filter: drop-shadow(0 0 8px rgba(0,210,255,0.4)); } }
+        .furnace-active { animation: rotate-furnace 3s infinite linear; }
+        @keyframes lightning-flash { 0%,100% { background: transparent; } 10%,30%,50% { background: rgba(255,255,255,0.9); } 20%,40% { background: rgba(0,243,255,0.8); } }
+        .lightning-active { animation: lightning-flash 0.8s ease-out; position: fixed; inset: 0; z-index: 999; pointer-events: none; }
+        .furnace-cooldown { position: relative; } .furnace-cooldown::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); z-index: 5; } .furnace-cooldown .cooldown-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; color: white; font-weight: bold; font-size: 13px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
+
+        /* ===== FURNACE REDESIGN ===== */
+        @keyframes furnace-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,210,255,0.3), 0 0 40px rgba(138,43,226,0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 30px rgba(0,210,255,0.5), 0 0 60px rgba(138,43,226,0.4); transform: scale(1.02); }
+        }
+        @keyframes furnace-rotate-ring {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes furnace-glow-orb {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(0,210,255,0.4)) drop-shadow(0 0 20px rgba(138,43,226,0.2)); }
+            50% { filter: drop-shadow(0 0 15px rgba(0,210,255,0.6)) drop-shadow(0 0 35px rgba(138,43,226,0.4)); }
+        }
+        @keyframes furnace-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes furnace-sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        @keyframes furnace-emoji-bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+        .furnace-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px 0;
+        }
+        .furnace-outer-ring {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(from 0deg, rgba(0,210,255,0.15), rgba(138,43,226,0.15), rgba(255,126,95,0.15), rgba(0,210,255,0.15));
+            animation: furnace-pulse 3s ease-in-out infinite;
+        }
+        .furnace-outer-ring::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08), transparent 70%);
+            z-index: 0;
+        }
+        .furnace-rotating-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px dashed rgba(0,210,255,0.25);
+            animation: furnace-rotate-ring 12s linear infinite;
+            pointer-events: none;
+        }
+        .furnace-rotating-ring-2 {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 1.5px dotted rgba(138,43,226,0.2);
+            animation: furnace-rotate-ring 20s linear infinite reverse;
+            pointer-events: none;
+        }
+        .furnace-core {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), rgba(200,240,255,0.8) 40%, rgba(180,220,255,0.6) 70%, rgba(150,200,255,0.4));
+            border: 2px solid rgba(0,210,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            animation: furnace-glow-orb 3s ease-in-out infinite, furnace-float 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: inset 0 -4px 15px rgba(0,0,0,0.05), inset 0 4px 15px rgba(255,255,255,0.5);
+        }
+        .furnace-core:hover {
+            transform: scale(1.05);
+            border-color: rgba(0,210,255,0.6);
+        }
+        .furnace-core .furnace-emoji {
+            font-size: 48px;
+            line-height: 1;
+            animation: furnace-emoji-bounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(0,210,255,0.3));
+        }
+        .furnace-core.furnace-active {
+            animation: furnace-glow-orb 0.8s ease-in-out infinite, furnace-float 1s ease-in-out infinite !important;
+        }
+        .furnace-core.furnace-active .furnace-emoji {
+            animation: furnace-emoji-bounce 0.5s ease-in-out infinite !important;
+        }
+        .furnace-sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,210,255,0.6);
+            pointer-events: none;
+            animation: furnace-sparkle 2s ease-in-out infinite;
+        }
+        .furnace-sparkle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .furnace-sparkle:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; background: rgba(138,43,226,0.5); }
+        .furnace-sparkle:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 1s; background: rgba(255,126,95,0.5); }
+        .furnace-sparkle:nth-child(4) { bottom: 25%; right: 15%; animation-delay: 1.5s; background: rgba(0,210,255,0.4); }
+        .furnace-sparkle:nth-child(5) { top: 45%; left: 5%; animation-delay: 0.8s; background: rgba(138,43,226,0.4); }
+        .furnace-sparkle:nth-child(6) { top: 40%; right: 5%; animation-delay: 1.2s; background: rgba(255,126,95,0.4); }
+        .furnace-label-text {
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'Inter', monospace;
+            letter-spacing: 1px;
+            margin-top: 16px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: furnace-pulse 2s ease-in-out infinite;
+        }
+        .furnace-cooldown-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .furnace-cooldown-overlay.show {
+            display: flex;
+        }
+        .furnace-cooldown-overlay span {
+            color: white;
+            font-weight: 800;
+            font-size: 14px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0,0,0,0.9);
+            line-height: 1.3;
+        }
+
+        /* ===== TOOLTIP ===== */
+        .tooltip-container { position: relative; display: inline-flex; align-items: center; }
+        .tooltip-box { visibility: hidden; opacity: 0; position: absolute; background: #1e293b; color: #f1f5f9; font-size: 10px; line-height: 1.4; padding: 8px 10px; border-radius: 10px; white-space: normal; width: 220px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 99999 !important; transition: opacity 0.15s ease, visibility 0.15s ease; pointer-events: none; border: 1px solid rgba(255,255,255,0.1); }
+        .tooltip-box.show { visibility: visible; opacity: 1; }
+        .tooltip-box::after { content: ''; position: absolute; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; }
+        .tooltip-box.tooltip-above::after { top: 100%; border-color: #1e293b transparent transparent transparent; }
+        .tooltip-box.tooltip-below::after { bottom: 100%; border-color: transparent transparent #1e293b transparent; }
+        .tooltip-trigger { cursor: help; border-bottom: 1px dashed rgba(0,210,255,0.3); }
+        .stat-tooltip { visibility: hidden; opacity: 0; position: absolute; left: 0; top: calc(100% + 6px); background: #1e293b; color: #f1f5f9; font-size: 10px; line-height: 1.4; padding: 8px 10px; border-radius: 10px; width: 240px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 9999; transition: opacity 0.15s ease, visibility 0.15s ease; pointer-events: none; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-tooltip::after { content: ''; position: absolute; bottom: 100%; left: 20px; margin-left: -5px; border-width: 5px; border-style: solid; border-color: transparent transparent #1e293b transparent; }
+        .stat-item:hover .stat-tooltip { visibility: visible; opacity: 1; }
+
+        .realm-pham-nhan { border-color: #94a3b8 !important; box-shadow: 0 0 15px rgba(148,163,184,0.2); }
+        .realm-luyen-khi { border-color: var(--accent-cyan) !important; box-shadow: 0 0 15px rgba(0,210,255,0.3); }
+        .realm-truoc-co { border-color: #22c55e !important; box-shadow: 0 0 15px rgba(34,197,94,0.3); }
+        .realm-ket-dan { border-color: #8a2be2 !important; box-shadow: 0 0 15px rgba(138,43,226,0.3); }
+        .realm-nguyen-anh { border-color: #f59e0b !important; box-shadow: 0 0 15px rgba(245,158,11,0.4); }
+
+        .badge-pham-nhan { background: #94a3b8; } .badge-luyen-khi { background: linear-gradient(135deg, #00d2ff, #0ea5e9); } .badge-truoc-co { background: linear-gradient(135deg, #22c55e, #16a34a); } .badge-ket-dan { background: linear-gradient(135deg, #8a2be2, #7c3aed); } .badge-nguyen-anh { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .profile-locked { opacity: 0.6; pointer-events: none; filter: grayscale(0.5); }
+        .theme-btn { transition: all 0.3s; position: relative; overflow: hidden; }
+        .theme-btn.active-theme { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-cyan); }
+        .theme-btn.locked { opacity: 0.45; filter: grayscale(0.7); cursor: not-allowed; }
+        .theme-btn .lock-icon { position: absolute; top: 2px; right: 2px; font-size: 7px; background: rgba(0,0,0,0.6); padding: 1px 3px; border-radius: 4px; }
+        header, .nav-btn { transition: all 0.3s; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <div id="lightning-strike" class="pointer-events-none"></div>
+
+    <!-- HEADER TỰ ĐỘNG NẠP TỪ SERVER -->
+    <div id="app-header"></div>
+
+    <!-- MAIN CONTENT (GIỮ NGUYÊN NHƯ FILE GỐC) -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+        <div class="glass-card p-4 rounded-2xl border-l-4 border-brandCyan shadow-sm">
+            <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-brandCyan/10 flex items-center justify-center flex-shrink-0 mt-0.5"><i class="fa-solid fa-book text-brandCyan text-sm"></i></div>
+                <div class="text-xs leading-relaxed space-y-1" style="color:var(--text-secondary);">
+                    <p class="font-bold" style="color:var(--text-primary);">📖 Hướng dẫn Tu Tiên:</p>
+                    <p>🔹 <strong style="color:var(--accent-cyan);">Tu Vi (EXP)</strong> → Kiếm bằng cách <strong>đọc chương truyện</strong> hoặc <strong>click lò tu luyện</strong> 🔮 (có cooldown).</p>
+                    <p>🔹 <strong style="color:var(--accent-purple);">Chỉ số Thần lực</strong> (Kinh Mạch, Thần Thức, Thần Thể) → Ảnh hưởng <strong>điều kiện đột phá</strong>.</p>
+                    <p>🔹 <strong class="text-emerald-600">Đột Phá</strong> 💥 → Cần đủ <strong>EXP</strong> + <strong>Thần lực TB</strong>. Tỷ lệ giảm dần!</p>
+                    <p>🔹 <strong style="color:var(--accent-orange);">Phiếu Đề Cử</strong> 📋 → Mua 100 LT/phiếu. Đề cử truyện yêu thích!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center py-4">
+            <span class="inline-block px-4 py-1.5 bg-gradient-to-r from-cyan-100 to-purple-100 border border-cyan-200 text-brandPurple text-[10px] font-black tracking-widest uppercase rounded-full shadow-sm"><i class="fa-solid fa-user-ninja text-brandOrange mr-1"></i> Thông Tin Tu Sĩ</span>
+            <h2 class="text-3xl md:text-4xl font-black leading-tight tracking-tight mt-2" style="color:var(--text-primary);">HỒ SƠ <br class="md:hidden"><span class="bg-gradient-to-r from-brandOrange via-brandPink to-brandPurple bg-clip-text text-transparent">ĐẠO HỮU</span></h2>
+            <p class="text-sm mt-1 font-medium" style="color:var(--text-secondary);">Tu luyện → Tích EXP → Nâng chỉ số → Đột phá cảnh giới → Mạnh hơn!</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Cột trái -->
+            <div class="space-y-6">
+                <div class="glass-card p-5 rounded-3xl relative overflow-hidden group" id="profile-card">
+                    <div class="absolute -right-6 -bottom-6 opacity-[0.03] text-8xl text-brandPurple group-hover:scale-110 transition-transform duration-700"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="flex items-center gap-3 mb-4 border-b border-gray-200/60 pb-3"><div class="w-10 h-10 rounded-xl bg-brandCyan/10 flex items-center justify-center text-brandCyan text-lg"><i class="fa-solid fa-id-card"></i></div><h3 class="font-bold text-lg" style="color:var(--text-primary);">Hồ Sơ Độc Giả</h3></div>
+                    <div class="space-y-4 relative z-10 text-sm">
+                        <div class="text-center"><span class="inline-block px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-wider shadow-md" id="realm-badge">Phàm Nhân</span></div>
+                        <div><span class="block text-xs mb-1" style="color:var(--text-secondary);">Cảnh Giới Hiện Tại:</span><span class="font-black text-lg" id="user-tier-display" style="color:var(--text-primary);">Phàm Nhân (Tầng 1)</span></div>
+                        <div class="flex items-center gap-4 bg-white/50 p-3 rounded-xl border border-gray-100">
+                            <div class="relative" id="avatar-section">
+                                <div class="avatar-wrapper">
+                                    <canvas class="sword-canvas-bg"></canvas>
+                                    <div class="avatar-frame">
+                                        <img id="profile-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-brandCyan/50" src="https://api.dicebear.com/7.x/bottts/svg?seed=Guest&backgroundColor=140d2e" alt="avatar">
+                                    </div>
+                                    <canvas class="sword-canvas-fg"></canvas>
+                                    <button id="btn-change-avatar" onclick="changeAvatar()" class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-brandCyan text-white text-[9px] flex items-center justify-center shadow-md hover:bg-brandPurple transition-all" style="z-index:10;"><i class="fa-solid fa-camera"></i></button>
+                                </div>
+                                <div class="avatar-name">
+                                    <span class="sword-slash-text" id="avatar-name-display">
+                                        <span class="text-top" id="avatar-name-top">Đạo Hữu</span>
+                                        <span class="text-bottom" id="avatar-name-bottom">Đạo Hữu</span>
+                                        <canvas id="slash-spark-canvas"></canvas>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex-1"><div class="flex items-center gap-2"><span class="font-bold text-sm" id="profile-display-name" style="color:var(--text-primary);">Đạo Hữu</span><button id="btn-change-name" onclick="changeName()" class="w-6 h-6 rounded-full bg-amber-100 text-amber-500 text-[9px] flex items-center justify-center hover:bg-amber-200 transition-all"><i class="fa-solid fa-pen"></i></button></div><p class="text-[10px] mt-1" id="profile-name-requirement" style="color:var(--text-secondary);">📌 Cần Luyện Khí để đổi tên</p><p class="text-[10px]" id="profile-avatar-requirement" style="color:var(--text-secondary);">📌 Cần Trúc Cơ để đổi avatar</p></div>
+                        </div>
+                        <div class="tooltip-container flex justify-between items-center bg-white/50 p-3 rounded-xl border border-gray-100 shadow-sm cursor-help"><span class="font-medium flex items-center gap-2" style="color:var(--text-secondary);"><i class="fa-solid fa-gem text-amber-400"></i> Kim Cương:</span><span class="font-black text-amber-600 text-base" id="user-kim-cuong">0</span><span class="tooltip-box">💎 <strong>Kim Cương</strong> - Tiền tệ cao cấp<br>🔹 <strong>Cách kiếm:</strong> Nạp tiền (1.000 VND = 1 KC)<br>🔹 <strong>Công dụng:</strong> Mua gói Linh Thạch, Ngộ Tính Đan<br>🔹 Tỷ giá: 1 KC = 100 Linh Thạch</span></div>
+                        <div class="tooltip-container flex justify-between items-center bg-white/50 p-3 rounded-xl border border-gray-100 shadow-sm cursor-help"><span class="font-medium flex items-center gap-2" style="color:var(--text-secondary);"><i class="fa-solid fa-coins text-brandOrange animate-bounce"></i> Linh Thạch:</span><span class="font-black text-base" id="user-linh-thach" style="color:var(--text-primary);">0</span><span class="tooltip-box">🪙 <strong>Linh Thạch</strong> - Tiền tệ cơ bản<br>🔹 <strong>Cách kiếm:</strong> Đọc chương, click lò tu luyện, làm nhiệm vụ, đánh giá truyện<br>🔹 <strong>Công dụng:</strong> Tăng chỉ số (100 LT/điểm), mua vật phẩm, mua Phiếu Đề Cử</span></div>
+                        <div><div class="flex justify-between text-xs mb-1.5"><span class="font-medium" style="color:var(--text-secondary);">Tu Vi (EXP)</span><span class="font-bold text-brandPurple" id="user-exp-text">0 / 100</span></div><div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden shadow-inner"><div id="user-exp-bar" class="bg-gradient-to-r from-brandCyan via-blue-500 to-brandPurple h-full rounded-full shadow-md transition-all duration-500" style="width: 0%;"></div></div></div>
+                        <div class="tooltip-container flex justify-between items-center bg-white/50 p-3 rounded-xl border border-gray-100 shadow-sm cursor-help"><span class="font-medium flex items-center gap-2" style="color:var(--text-secondary);"><i class="fa-solid fa-brain text-brandCyan"></i> Ngộ Tính:</span><span class="font-black text-brandCyan text-base" id="user-ngo-tinh">x1.0</span><span class="tooltip-box">🧠 <strong>Ngộ Tính</strong> - Hệ số nhân EXP<br>🔹 <strong>Cách kiếm:</strong> Mua Ngộ Tính Đan (20 Kim Cương)<br>🔹 Mỗi chương truyện đọc xong nhận EXP = 10 × Ngộ Tính.</span></div>
+                        <div id="injury-status" class="hidden p-2 bg-red-50 border border-red-200 rounded-xl text-[11px] text-red-600 font-bold text-center">⚠ Đang trong trạng thái thương tổn!</div>
+                    </div>
+                </div>
+
+                <!-- THEME SELECTOR -->
+                <div class="glass-card p-5 rounded-3xl">
+                    <div class="flex items-center gap-2 mb-4 border-b border-gray-200/60 pb-3">
+                        <i class="fa-solid fa-palette" style="color:var(--accent-cyan);"></i>
+                        <h3 class="font-bold text-sm" style="color:var(--text-primary);">Giao Diện Tu Tiên</h3>
+                        <span class="tooltip-container ml-auto"><i class="fa-solid fa-circle-question cursor-help text-sm" style="color:var(--text-secondary);"></i><span class="tooltip-box">🎨 <strong>Giao Diện Tu Tiên</strong><br>🔹 Mỗi cảnh giới mở khóa 1 theme mới<br>🔹 Theme ảnh hưởng toàn bộ màu sắc trang web<br>🔹 Bấm để đổi giao diện ngay lập tức</span></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2" id="theme-selector"></div>
+                </div>
+
+                <!-- MISSIONS -->
+                <div class="glass-card p-5 rounded-3xl"><h3 class="font-bold text-sm mb-4 flex items-center gap-2" style="color:var(--text-primary);"><i class="fa-solid fa-scroll text-brandPurple"></i> Nhiệm Vụ Hàng Ngày</h3><div class="space-y-3 text-xs" id="daily-missions-container"></div></div>
+
+                <!-- LỊCH SỬ ĐỌC -->
+                <div class="glass-card p-4 rounded-3xl">
+                    <div onclick="toggleCollapse('reading-history-body', this)" class="flex items-center gap-2 cursor-pointer select-none"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-cyan);"></i><h3 class="font-bold text-sm flex-1" style="color:var(--text-primary);">Lịch Sử Đọc</h3><i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform" id="reading-history-arrow"></i></div>
+                    <div id="reading-history-body" class="space-y-2 text-xs mt-3 border-t border-gray-100 pt-3"><div id="reading-history-list" class="space-y-2"><p class="text-[10px] italic py-2 text-center" style="color:var(--text-secondary);">Đang tải...</p></div></div>
+                </div>
+
+                <!-- BOOKMARKS -->
+                <div class="glass-card p-4 rounded-3xl">
+                    <div onclick="toggleCollapse('bookmarks-body', this)" class="flex items-center gap-2 cursor-pointer select-none"><i class="fa-solid fa-bookmark" style="color:var(--accent-orange);"></i><h3 class="font-bold text-sm flex-1" style="color:var(--text-primary);">Truyện Đã Lưu</h3><i class="fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform" id="bookmarks-arrow"></i></div>
+                    <div id="bookmarks-body" class="space-y-2 text-xs mt-3 border-t border-gray-100 pt-3"><div id="bookmarks-list" class="space-y-2"><p class="text-[10px] italic py-2 text-center" style="color:var(--text-secondary);">Đang tải...</p></div></div>
+                </div>
+            </div>
+
+            <!-- Cột giữa: Lò đột phá -->
+            <div class="glass-card p-5 rounded-3xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-4 border-b border-gray-200/60 pb-3">
+                        <div class="w-10 h-10 rounded-xl bg-brandPurple/10 flex items-center justify-center text-brandPurple text-lg"><i class="fa-solid fa-fire"></i></div>
+                        <h4 class="font-bold text-base" style="color:var(--text-primary);">LÒ ĐỘT PHÁ CẢNH GIỚI</h4>
+                        <span class="tooltip-container ml-auto"><i class="fa-solid fa-circle-question cursor-help text-sm" style="color:var(--text-secondary);"></i><span class="tooltip-box">🔥 <strong>Lò Tu Luyện</strong><br>🔹 Click để vận khí tu luyện, nhận EXP + Linh Thạch<br>🔹 <strong>Giới hạn:</strong> Theo cảnh giới (cao hơn = nhiều lượt hơn)<br>🔹 <strong>Cooldown:</strong> Cảnh giới thấp: 1h/lần. Cao: giảm dần<br>🔹 <strong>Đột Phá:</strong> Cần đủ EXP + Thần lực TB → Click "Độ Kiếp"</span></span>
+                    </div>
+                    <div class="text-center py-2"><span class="text-[10px] font-mono uppercase border px-2 py-0.5 rounded" style="color:var(--accent-purple);border-color:rgba(138,43,226,0.3);">Khí Hải Đan Điền</span></div>
+                    <div class="furnace-container">
+                        <div class="furnace-outer-ring">
+                            <div class="furnace-rotating-ring"></div>
+                            <div class="furnace-rotating-ring-2"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div class="furnace-sparkle"></div>
+                            <div id="profile-furnace" class="furnace-core" onclick="startQiTraining()">
+                                <span class="furnace-emoji" id="furnace-emoji">🔮</span>
+                                <div id="furnace-cooldown-overlay" class="furnace-cooldown-overlay">
+                                    <span id="furnace-cooldown-text">ĐỢI...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="tooltip-box" style="width:250px;">🔥 <strong>Lò Tu Luyện</strong><br>🔹 Click để nhận EXP + Linh Thạch ngẫu nhiên<br>🔹 <strong>Lượt hôm nay:</strong> <span id="furnace-uses-tooltip">0/1</span><br>🔹 <strong>Cooldown:</strong> <span id="furnace-cooldown-tooltip">1 giờ</span><br>🔹 Mỗi lần tăng ngẫu nhiên 1 chỉ số Thần lực<br>🔹 Cảnh giới càng cao: càng nhiều lượt, cooldown càng thấp</span>
+                        <p class="furnace-label-text" id="furnace-label">⟐ NHẤP VÀO ĐỂ VẬN KHÍ TU LUYỆN ⟐</p>
+                    </div>
+                    <div class="space-y-3 mt-4 text-xs">
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Cảnh giới hiện tại: <span class="font-bold" style="color:var(--accent-cyan);" id="current-level-name">Phàm Nhân</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Kế tiếp: <span class="font-bold" id="next-level-name" style="color:var(--accent-orange);">Phàm Nhân T2</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">EXP yêu cầu: <span class="font-bold" id="exp-required" style="color:var(--accent-orange);">100</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Thần lực TB: <span class="font-bold" id="stat-required" style="color:var(--accent-orange);">10</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Tỷ lệ: <span class="font-bold text-emerald-600" id="success-rate">100%</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Lượt hôm nay: <span class="font-bold" id="furnace-today-uses" style="color:var(--accent-orange);">0/1</span></div>
+                        <div class="flex justify-between" style="color:var(--text-secondary);">Cooldown: <span class="font-bold" id="furnace-cooldown-display" style="color:var(--accent-cyan);">Sẵn sàng</span></div>
+                        <div id="breakthrough-error" class="hidden p-2 bg-red-50 border border-red-200 rounded-xl text-[11px] text-red-600"></div>
+                        <button id="btn-breakthrough" onclick="attemptBreakthrough()" class="w-full py-3 rounded-xl font-bold text-white bg-gradient-to-r from-brandCyan to-brandPurple shadow-md uppercase text-sm">💥 Độ Kiếp Đột Phá 💥</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="space-y-6">
+                <div class="glass-card p-5 rounded-3xl">
+                    <div class="flex items-center gap-3 mb-4 border-b border-gray-200/60 pb-3"><div class="w-10 h-10 rounded-xl" style="background:rgba(255,126,95,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent-orange);font-size:1.25rem;"><i class="fa-solid fa-dumbbell"></i></div><h4 class="font-bold text-base flex-1" style="color:var(--text-primary);">CHỈ SỐ THẦN LỰC</h4></div>
+                    <div class="space-y-3">
+                        <div class="stat-item relative flex items-center justify-between bg-white/60 p-3 rounded-xl border border-gray-100"><div><h5 class="text-xs font-bold tooltip-trigger" style="color:var(--text-primary);">Kinh Mạch 💪</h5><p class="text-[9px]" style="color:var(--text-secondary);">Sức mạnh cơ thể</p><div class="stat-tooltip">💪 <strong>Kinh Mạch</strong><br>🔹 <strong>Cách kiếm:</strong> Đánh giá truyện, click lò tu luyện<br>🔹 <strong>Công dụng:</strong> Chịu đựng năng lượng đột phá</div></div><div class="flex items-center gap-2"><span id="stat-kinh-mach" class="text-sm font-bold" style="color:var(--accent-cyan);">10</span><button onclick="upgradeStat('kinh_mach')" class="w-7 h-7 rounded-lg flex items-center justify-center transition-all" style="background:rgba(0,210,255,0.1);color:var(--accent-cyan);" title="Tăng Kinh Mạch (100 Linh Thạch)"><i class="fa-solid fa-plus text-[10px]"></i></button></div></div>
+                        <div class="stat-item relative flex items-center justify-between bg-white/60 p-3 rounded-xl border border-gray-100"><div><h5 class="text-xs font-bold tooltip-trigger" style="color:var(--text-primary);">Thần Thức 🧠</h5><p class="text-[9px]" style="color:var(--text-secondary);">Tinh thần lực</p><div class="stat-tooltip">🧠 <strong>Thần Thức</strong><br>🔹 <strong>Cách kiếm:</strong> Đánh giá truyện, click lò tu luyện<br>🔹 <strong>Công dụng:</strong> Né tránh tẩu hỏa nhập ma</div></div><div class="flex items-center gap-2"><span id="stat-than-thuc" class="text-sm font-bold" style="color:var(--accent-cyan);">12</span><button onclick="upgradeStat('than_thuc')" class="w-7 h-7 rounded-lg flex items-center justify-center transition-all" style="background:rgba(0,210,255,0.1);color:var(--accent-cyan);" title="Tăng Thần Thức (100 Linh Thạch)"><i class="fa-solid fa-plus text-[10px]"></i></button></div></div>
+                        <div class="stat-item relative flex items-center justify-between bg-white/60 p-3 rounded-xl border border-gray-100"><div><h5 class="text-xs font-bold tooltip-trigger" style="color:var(--text-primary);">Thần Thể 🛡️</h5><p class="text-[9px]" style="color:var(--text-secondary);">Thể chất bất hoại</p><div class="stat-tooltip">🛡️ <strong>Thần Thể</strong><br>🔹 <strong>Cách kiếm:</strong> Nhiệm vụ hàng ngày, click lò tu luyện<br>🔹 <strong>Công dụng:</strong> Chịu áp lực đột phá, giảm thương tổn</div></div><div class="flex items-center gap-2"><span id="stat-than-the" class="text-sm font-bold" style="color:var(--accent-cyan);">15</span><button onclick="upgradeStat('than_the')" class="w-7 h-7 rounded-lg flex items-center justify-center transition-all" style="background:rgba(0,210,255,0.1);color:var(--accent-cyan);" title="Tăng Thần Thể (100 Linh Thạch)"><i class="fa-solid fa-plus text-[10px]"></i></button></div></div>
+                        <div class="tooltip-container flex items-center justify-between bg-white/60 p-3 rounded-xl border border-gray-100 cursor-help"><div><h5 class="text-xs font-bold" style="color:var(--text-primary);">🔮 Ngộ Tính</h5><p class="text-[9px]" style="color:var(--text-secondary);">Hệ số nhân EXP</p></div><span id="stat-ngo-tinh" class="text-sm font-bold" style="color:var(--accent-orange);">x1.0</span><span class="tooltip-box">🧠 <strong>Ngộ Tính</strong><br>🔹 Mua Ngộ Tính Đan (20 Kim Cương) trong Bảo Khố<br>🔹 Mỗi viên tăng +0.5 Ngộ Tính vĩnh viễn</span></div>
+                        <div class="p-3 rounded-xl border text-[10px]" style="background:linear-gradient(135deg,rgba(138,43,226,0.05),rgba(0,210,255,0.05));border-color:rgba(138,43,226,0.2);color:var(--accent-purple);"><div class="font-bold mb-1">📊 Thần lực TB: <span id="avg-stats" style="color:var(--accent-cyan);">0</span></div><div class="flex justify-between text-[9px]"><span>Yêu cầu đột phá: <span class="font-bold" id="stat-required-hint" style="color:var(--accent-orange);">0</span></span><span class="font-bold" id="stat-ok-status">❌ Chưa đủ</span></div></div>
+                        <div class="p-2 rounded-xl border text-[10px] text-center" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.2);color:var(--accent-orange);"><i class="fa-solid fa-circle-info mr-1"></i> 💡 Lò tu luyện tăng ngẫu nhiên 1 chỉ số mỗi lần.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-3xl">
+                    <div class="flex items-center gap-3 mb-4 border-b border-gray-200/60 pb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style="background:rgba(0,210,255,0.1);color:var(--accent-cyan);"><i class="fa-solid fa-box-open"></i></div><h4 class="font-bold text-base" style="color:var(--text-primary);">TÚI ĐỒ</h4><button onclick="openShop()" class="ml-auto px-3 py-1 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-white text-[10px] font-bold hover:shadow-md transition-all"><i class="fa-solid fa-store mr-1"></i> Bảo Khố</button></div>
+                    <div class="grid grid-cols-2 gap-3" id="profile-inventory"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Shop -->
+    <div id="shop-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full max-h-[80vh] overflow-y-auto shadow-2xl border border-white">
+            <div class="sticky top-0 bg-white/95 backdrop-blur-sm p-4 border-b border-gray-200 flex justify-between items-center z-10"><h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-store text-brandCyan mr-2"></i> BẢO KHỐ</h3><button onclick="closeShop()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="p-4 space-y-3" id="shop-items-list"></div>
+        </div>
+    </div>
+
+    <!-- Modal Topup -->
+    <div id="topup-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-white"><h3 class="font-bold text-lg text-slate-800 mb-4"><i class="fa-solid fa-gem text-amber-400 mr-2"></i> NẠP KIM CƯƠNG</h3><div class="space-y-3"><p class="text-xs text-slate-500">1.000 VND = 1 Kim Cương. Tối thiểu 10,000 VND.</p><div class="grid grid-cols-2 gap-2">
+            <button onclick="topup(10000)" class="p-3 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-all text-center"><div class="font-bold text-amber-600">10,000 VND</div><div class="text-[10px] text-amber-500">+10 Kim Cương</div></button>
+            <button onclick="topup(50000)" class="p-3 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-all text-center"><div class="font-bold text-amber-600">50,000 VND</div><div class="text-[10px] text-amber-500">+50 Kim Cương</div></button>
+            <button onclick="topup(100000)" class="p-3 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-all text-center"><div class="font-bold text-amber-600">100,000 VND</div><div class="text-[10px] text-amber-500">+100 Kim Cương</div></button>
+            <button onclick="topup(200000)" class="p-3 rounded-xl bg-amber-50 border border-amber-200 hover:bg-amber-100 transition-all text-center"><div class="font-bold text-amber-600">200,000 VND</div><div class="text-[10px] text-amber-500">+200 Kim Cương</div></button>
+        </div><button onclick="closeModal('topup-modal')" class="w-full py-2 rounded-xl border border-gray-200 text-xs font-bold text-slate-600 hover:bg-gray-50 transition-all">Đóng</button></div></div>
+    </div>
+
+    <footer class="bg-white/40 backdrop-blur-md border-t border-white/60 py-6 text-center text-xs space-y-2 mt-8" style="background:var(--bg-glass);border-color:var(--border-glass);"><p class="font-bold" style="color:var(--text-primary);">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p><p class="text-[10px]" style="color:var(--text-secondary);">Cổng thông tin được thiết kế với giao diện Glassmorphism độc quyền.</p></footer>
+    <div id="system-notif-container" class="fixed bottom-5 left-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+    <canvas id="fairy-dust-canvas"></canvas>
+    <canvas id="lightning-canvas"></canvas>
+    <canvas id="cursor-canvas"></canvas>
+
+    <script>
+        const API_BASE = '/api';
+        function getDbProfile() { try { const s=localStorage.getItem('user_data'); return s?JSON.parse(s):null; } catch(e){ return null; } }
+        function saveDbProfile(p) { localStorage.setItem('user_data', JSON.stringify(p)); }
+
+        function showSystemNotif(msg, type='info') {
+            const c=document.getElementById('system-notif-container'); if(!c) return;
+            const n=document.createElement('div'); let cls='border-brandCyan text-brandCyan', ic='fa-circle-info';
+            if(type==='success'){cls='border-brandPurple text-brandPurple'; ic='fa-check-circle';}
+            if(type==='error'){cls='border-brandPink text-brandPink'; ic='fa-triangle-exclamation';}
+            if(type==='gold'){cls='border-amber-400 text-amber-500'; ic='fa-crown';}
+            n.className=`bg-white/90 backdrop-blur-md border ${cls} shadow-glass px-5 py-3 rounded-2xl flex items-center gap-3 text-sm font-bold pointer-events-auto transition-all duration-300 transform translate-x-2 opacity-0`;
+            n.innerHTML=`<i class="fa-solid ${ic} animate-bounce mr-2"></i> ${msg}`; c.appendChild(n);
+            setTimeout(()=>n.classList.remove('translate-x-2','opacity-0'),10);
+            setTimeout(()=>{n.classList.add('opacity-0','translate-x-2');setTimeout(()=>n.remove(),300);},3500);
+        }
+
+        // ===== THEMES =====
+        const THEMES = [
+            { id:'default', name:'Mặc Định', icon:'🎨', requiredLevel:1, desc:'Giao diện mặc định, có sẵn cho mọi đạo hữu' },
+            { id:'thien-co', name:'Thiên Cơ', icon:'🌌', requiredLevel:4, desc:'Theme Thiên Cơ - Mở khóa ở Luyện Khí. Từ theme1.html. Gam màu xanh tím thâm trầm.' },
+            { id:'tien-linh', name:'Tiên Linh', icon:'🧚', requiredLevel:13, desc:'Theme Tiên Linh - Mở khóa ở Trúc Cơ. Từ theme2.html. Gam màu xanh ngọc bích.' },
+            { id:'than-thoai', name:'Thần Thoại', icon:'⚡', requiredLevel:24, desc:'Theme Thần Thoại - Mở khóa ở Nguyên Anh. Từ them3.html. Gam màu tím vàng thần linh.' }
+        ];
+        let currentTheme = localStorage.getItem('tdt_theme') || 'default';
+        function isThemeUnlocked(id, cg) { if(id==='default') return true; const t=THEMES.find(x=>x.id===id); return cg>=(t?t.requiredLevel:999); }
+        function applyTheme(id) {
+            document.body.className = document.body.className.replace(/theme-\S+/g,'').replace(/\s+/g,' ').trim();
+            if(id!=='default') document.body.classList.add('theme-'+id);
+            currentTheme=id; localStorage.setItem('tdt_theme',id);
+            document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active-theme',b.dataset.theme===id));
+        }
+        function switchTheme(id) {
+            const cg=cultivation?cultivation.canh_gioi_id:1;
+            if(!isThemeUnlocked(id,cg)){const t=THEMES.find(x=>x.id===id);const names={4:'Luyện Khí',13:'Trúc Cơ',24:'Nguyên Anh'};showSystemNotif(`🔒 ${t.name} cần đạt ${names[t.requiredLevel]||'cảnh giới '+t.requiredLevel}`,'error');return;}
+            applyTheme(id);showSystemNotif(`🎨 Đã đổi sang giao diện ${THEMES.find(x=>x.id===id).name}!`,'success');
+        }
+        function renderThemes(cgId) {
+            const container=document.getElementById('theme-selector');if(!container)return;
+            container.innerHTML=THEMES.map(t=>{const unlocked=isThemeUnlocked(t.id,cgId||1),active=currentTheme===t.id;const lock=unlocked?'':'<span class="lock-icon"><i class="fa-solid fa-lock"></i></span>';const reqLabel=t.requiredLevel===1?'Có sẵn':'Cảnh giới '+t.requiredLevel;return `<button class="theme-btn p-2 rounded-xl text-center text-[10px] font-bold border-2 ${active?'active-theme':''} ${!unlocked?'locked':''}" data-theme="${t.id}" onclick="switchTheme('${t.id}')" style="border-color:${active?'var(--accent-cyan)':unlocked?'rgba(255,255,255,0.2)':'rgba(100,100,100,0.3)'};color:${active?'var(--accent-cyan)':unlocked?'var(--text-primary)':'#888'};background:${active?'rgba(0,210,255,0.08)':'rgba(255,255,255,0.03)'};"><div class="flex items-center justify-center gap-1 mb-0.5"><span>${t.icon}</span><span>${t.name}</span>${lock}</div><div class="text-[7px] font-normal" style="color:${unlocked?'#94a3b8':'#666'};">${reqLabel}</div><div class="tooltip-box" style="width:200px;">${t.icon} <strong>${t.name}</strong><br>${t.desc}</div></button>`;}).join('');
+        }
+
+        // ===== REALM =====
+        const REALM_TIERS={pham_nhan:{max:3,name:'Phàm Nhân',class:'realm-pham-nhan',badge:'badge-pham-nhan',color:'#94a3b8',label:'gray'},luyen_khi:{max:12,name:'Luyện Khí',class:'realm-luyen-khi',badge:'badge-luyen-khi',color:'#00d2ff',label:'cyan'},truoc_co:{max:20,name:'Trúc Cơ',class:'realm-truoc-co',badge:'badge-truoc-co',color:'#22c55e',label:'green'},ket_dan:{max:23,name:'Kết Đan',class:'realm-ket-dan',badge:'badge-ket-dan',color:'#8a2be2',label:'purple'},nguyen_anh:{max:99,name:'Nguyên Anh',class:'realm-nguyen-anh',badge:'badge-nguyen-anh',color:'#f59e0b',label:'gold'}};
+        function getRealmTier(cgId){if(cgId<=3)return REALM_TIERS.pham_nhan;if(cgId<=12)return REALM_TIERS.luyen_khi;if(cgId<=20)return REALM_TIERS.truoc_co;if(cgId<=23)return REALM_TIERS.ket_dan;return REALM_TIERS.nguyen_anh;}
+        function getRealmClass(cgId){return getRealmTier(cgId).class;}
+        function getRealmBadge(cgId){return getRealmTier(cgId).badge;}
+        function getFurnaceConfig(cgId){if(cgId<=3)return{maxUses:1,cooldownMs:3600000};if(cgId<=12)return{maxUses:2,cooldownMs:2700000};if(cgId<=20)return{maxUses:3,cooldownMs:1800000};if(cgId<=23)return{maxUses:5,cooldownMs:1200000};return{maxUses:10,cooldownMs:600000};}
+
+        let cultivation=null,currentLevel=null,nextLevel=null,userItems=[];
+        let furnaceCooldownUntil=null,furnaceTodayUses=0,furnaceMaxUses=1,furnaceCooldownMs=3600000,furnaceTimerInterval=null;
+
+        async function loadCultivation(){
+            const db=getDbProfile();if(!db){showSystemNotif('Vui lòng đăng nhập!','error');return;}
+            try{const r=await fetch(`${API_BASE}/get_cultivation?user_id=${db.id}`);const d=await r.json();if(d.success&&d.cultivation){cultivation=d.cultivation;currentLevel=d.current_level;nextLevel=d.next_level;userItems=d.items||[];Object.assign(db,{tu_vi_exp:cultivation.tu_vi_exp,linh_thach:cultivation.linh_thach,kim_cuong:cultivation.kim_cuong,canh_gioi_id:cultivation.canh_gioi_id,kinh_mach:cultivation.kinh_mach,than_thuc:cultivation.than_thuc,than_the:cultivation.than_the,ngo_tinh:cultivation.ngo_tinh});saveDbProfile(db);}}catch(e){console.error(e);}
+            if(!cultivation){cultivation={id:db.id,kim_cuong:parseInt(db.kim_cuong)||0,linh_thach:parseInt(db.linh_thach)||0,tu_vi_exp:parseInt(db.tu_vi_exp||db.exp)||0,canh_gioi_id:parseInt(db.canh_gioi_id)||1,kinh_mach:parseInt(db.kinh_mach)||10,than_thuc:parseInt(db.than_thuc)||12,than_the:parseInt(db.than_the)||15,ngo_tinh:parseFloat(db.ngo_tinh)||1.0,is_injured:false,injured_until:null};currentLevel=null;nextLevel=null;userItems=[];}
+            const saved=localStorage.getItem('furnace_state_'+db.id);if(saved){try{const s=JSON.parse(saved);if(s.date===new Date().toDateString()){furnaceTodayUses=s.uses||0;furnaceCooldownUntil=s.cooldownUntil?new Date(s.cooldownUntil):null;}}catch(e){}}
+            const cfg=getFurnaceConfig(cultivation.canh_gioi_id);furnaceMaxUses=cfg.maxUses;furnaceCooldownMs=cfg.cooldownMs;
+            renderProfile();renderThemes(cultivation.canh_gioi_id);setTimeout(initTooltips,50);startFurnaceTimer();
+        }
+
+        function renderProfile(){
+            if(!cultivation)return;const db=getDbProfile();const lvName=currentLevel?currentLevel.ten_canh_gioi:'Phàm Nhân';
+            const exp=cultivation.tu_vi_exp||0;const nextExp=nextLevel?nextLevel.exp_yeu_cau:(exp+100);
+            const pct=nextExp>0?Math.min((exp/nextExp)*100,100):0;const cgId=cultivation.canh_gioi_id||1;const tier=getRealmTier(cgId);
+            document.getElementById('header-kim-cuong').textContent=(cultivation.kim_cuong||0).toLocaleString('vi-VN');
+            document.getElementById('header-linh-thach').textContent=(cultivation.linh_thach||0).toLocaleString('vi-VN');
+            const pi=userItems.find(i=>i.item_name==='Phiếu Đề Cử');document.getElementById('header-phieu-de-cu').textContent=pi?pi.so_luong:0;
+            if(db){document.getElementById('user-display-name').textContent=db.display_name||db.dao_hieu||'Đạo Hữu';document.getElementById('user-level').textContent=`Lv.${cgId} - ${lvName}`;document.getElementById('header-exp-bar').style.width=pct+'%';document.getElementById('header-avatar').src='https://api.dicebear.com/7.x/bottts/svg?seed='+encodeURIComponent(db.display_name||'Guest')+'&backgroundColor=140d2e';}
+            const badge=document.getElementById('realm-badge');badge.className='inline-block px-3 py-1 rounded-full text-white text-[10px] font-black uppercase tracking-wider shadow-md '+getRealmBadge(cgId);badge.textContent=tier.name;
+            document.getElementById('profile-card').className='glass-card p-5 rounded-3xl relative overflow-hidden group '+getRealmClass(cgId);
+            document.getElementById('user-tier-display').textContent=lvName+' (Cấp '+cgId+')';document.getElementById('user-kim-cuong').textContent=(cultivation.kim_cuong||0).toLocaleString('vi-VN');document.getElementById('user-linh-thach').textContent=(cultivation.linh_thach||0).toLocaleString('vi-VN');document.getElementById('user-exp-text').textContent=exp.toLocaleString()+' / '+nextExp.toLocaleString();document.getElementById('user-exp-bar').style.width=pct+'%';document.getElementById('user-ngo-tinh').textContent='x'+(parseFloat(cultivation.ngo_tinh)||1.0).toFixed(1);
+            const dn=db.display_name||db.dao_hieu||'Đạo Hữu';document.getElementById('profile-display-name').textContent=dn;document.getElementById('profile-avatar').src='https://api.dicebear.com/7.x/bottts/svg?seed='+encodeURIComponent(dn)+'&backgroundColor=140d2e';
+            const cN=cgId>=4,cA=cgId>=13;const nR=document.getElementById('profile-name-requirement'),aR=document.getElementById('profile-avatar-requirement'),nB=document.getElementById('btn-change-name'),aB=document.getElementById('btn-change-avatar');
+            if(cN){nR.textContent='✅ Có thể đổi tên (Luyện Khí)';nR.className='text-[10px] text-emerald-600';nB.classList.remove('profile-locked');nB.disabled=false;}else{nR.textContent='🔒 Cần Luyện Khí (còn '+(4-cgId)+' cảnh giới)';nR.className='text-[10px] text-slate-400';nB.classList.add('profile-locked');nB.disabled=true;}
+            if(cA){aR.textContent='✅ Có thể đổi avatar (Trúc Cơ)';aR.className='text-[10px] text-emerald-600';aB.classList.remove('profile-locked');aB.disabled=false;}else{aR.textContent='🔒 Cần Trúc Cơ (còn '+(13-cgId)+' cảnh giới)';aR.className='text-[10px] text-slate-400';aB.classList.add('profile-locked');aB.disabled=true;}
+            const inj=document.getElementById('injury-status');if(cultivation.is_injured&&cultivation.injured_until&&new Date()<new Date(cultivation.injured_until)){inj.classList.remove('hidden');inj.textContent='⚠ Thương tổn đến '+new Date(cultivation.injured_until).toLocaleString('vi-VN');}else inj.classList.add('hidden');
+            document.getElementById('current-level-name').textContent=lvName;document.getElementById('next-level-name').textContent=nextLevel?nextLevel.ten_canh_gioi:'MAX';document.getElementById('exp-required').textContent=nextLevel?nextLevel.exp_yeu_cau.toLocaleString():'MAX';document.getElementById('stat-required').textContent=nextLevel?nextLevel.than_luc_yeu_cau:'MAX';document.getElementById('success-rate').textContent=nextLevel?nextLevel.ty_le_thanh_cong+'%':'100%';
+            document.getElementById('stat-kinh-mach').textContent=cultivation.kinh_mach||0;document.getElementById('stat-than-thuc').textContent=cultivation.than_thuc||0;document.getElementById('stat-than-the').textContent=cultivation.than_the||0;
+            const avg=Math.round(((cultivation.kinh_mach||0)+(cultivation.than_thuc||0)+(cultivation.than_the||0))/3);document.getElementById('avg-stats').textContent=avg;
+            const sr=nextLevel?nextLevel.than_luc_yeu_cau:0;document.getElementById('stat-required-hint').textContent=sr;const ok=document.getElementById('stat-ok-status');if(avg>=sr){ok.textContent='✅ Đủ điều kiện';ok.className='font-bold text-emerald-600';}else{ok.textContent='❌ Cần thêm '+(sr-avg)+' điểm';ok.className='font-bold text-red-500';}
+            updateFurnaceDisplay();renderInventory();
+        }
+
+        function startFurnaceTimer(){if(furnaceTimerInterval)clearInterval(furnaceTimerInterval);furnaceTimerInterval=setInterval(updateFurnaceDisplay,1000);updateFurnaceDisplay();}
+        function updateFurnaceDisplay(){const max=furnaceMaxUses;document.getElementById('furnace-uses-tooltip').textContent=furnaceTodayUses+'/'+max;document.getElementById('furnace-today-uses').textContent=furnaceTodayUses+'/'+max;const now=new Date();let can=furnaceTodayUses<max,rem=0;if(furnaceCooldownUntil&&furnaceCooldownUntil>now){can=false;rem=furnaceCooldownUntil-now;}const cdL=furnaceCooldownMs>=3600000?Math.round(furnaceCooldownMs/3600000)+'h':furnaceCooldownMs>=60000?Math.round(furnaceCooldownMs/60000)+'p':Math.round(furnaceCooldownMs/1000)+'s';document.getElementById('furnace-cooldown-tooltip').textContent=cdL;const cEl=document.getElementById('furnace-cooldown-display'),cO=document.getElementById('furnace-cooldown-overlay'),cT=document.getElementById('furnace-cooldown-text'),fEl=document.getElementById('profile-furnace');if(!can){if(rem>0){const m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);cEl.textContent='⏳ '+m+'p '+s+'s';cEl.className='font-bold text-brandPink';cO.classList.add('show');cT.textContent=m+':'+s.toString().padStart(2,'0');fEl.style.cursor='not-allowed';}else if(furnaceTodayUses>=max){cEl.textContent='🔒 Hết lượt hôm nay';cEl.className='font-bold text-red-500';cO.classList.add('show');cT.textContent='HẾT LƯỢT';fEl.style.cursor='not-allowed';}}else{cEl.textContent='✅ Sẵn sàng ('+furnaceTodayUses+'/'+max+')';cEl.className='font-bold text-emerald-600';cO.classList.remove('show');fEl.style.cursor='pointer';}}
+        function saveFurnaceState(){const db=getDbProfile();if(!db)return;localStorage.setItem('furnace_state_'+db.id,JSON.stringify({date:new Date().toDateString(),uses:furnaceTodayUses,cooldownUntil:furnaceCooldownUntil?furnaceCooldownUntil.toISOString():null}));}
+        let isQiTraining=false;
+        async function startQiTraining(){if(isQiTraining)return;const db=getDbProfile();if(!db){showSystemNotif('Vui lòng đăng nhập!','error');return;}if(furnaceTodayUses>=furnaceMaxUses){showSystemNotif('🔒 Đã hết lượt ('+furnaceTodayUses+'/'+furnaceMaxUses+')!','error');return;}const now=new Date();if(furnaceCooldownUntil&&furnaceCooldownUntil>now){const m=Math.floor((furnaceCooldownUntil-now)/60000),s=Math.floor(((furnaceCooldownUntil-now)%60000)/1000);showSystemNotif('⏳ Còn '+m+'p '+s+'s cooldown!','error');return;}
+            isQiTraining=true;const f=document.getElementById('profile-furnace'),e=document.getElementById('furnace-emoji');f.classList.add('furnace-active');e.innerText='🔥';document.getElementById('furnace-label').textContent='🔥 ĐANG TU LUYỆN...';
+            try{const r=await fetch(API_BASE+'/complete_chapter_reward',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id})});const d=await r.json();if(d.success)showSystemNotif('Tu luyện xong! +'+d.exp_gained+' EXP, +'+d.linh_thach_gained+' Linh Thạch','success');else{const g=Math.floor(Math.random()*20)+10;showSystemNotif('Tu luyện xong! +'+g+' EXP','purple');}}catch(e){const g=Math.floor(Math.random()*20)+10;showSystemNotif('Tu luyện xong! +'+g+' EXP (local)','purple');}
+            furnaceTodayUses++;furnaceCooldownUntil=new Date(Date.now()+furnaceCooldownMs);saveFurnaceState();
+            f.classList.remove('furnace-active');e.innerText='🔮';document.getElementById('furnace-label').textContent='✅ TU LUYỆN XONG!';setTimeout(()=>{document.getElementById('furnace-label').textContent='⟐ NHẤP VÀO ĐỂ VẬN KHÍ TU LUYỆN ⟐';},2000);isQiTraining=false;updateFurnaceDisplay();loadCultivation();
+        }
+        function changeName(){const db=getDbProfile();if(!db)return;const cgId=cultivation?cultivation.canh_gioi_id:1;if(cgId<4){showSystemNotif('🔒 Cần đạt Luyện Khí để đổi tên!','error');return;}const n=prompt('Nhập tên mới (Đạo hiệu):',db.display_name||'');if(n&&n.trim()){db.display_name=n.trim();db.dao_hieu=n.trim();saveDbProfile(db);renderProfile();showSystemNotif('✅ Đổi tên thành công!','success');}}
+        function changeAvatar(){const db=getDbProfile();if(!db)return;const cgId=cultivation?cultivation.canh_gioi_id:1;if(cgId<13){showSystemNotif('🔒 Cần đạt Trúc Cơ để đổi avatar!','error');return;}const s=prompt('Nhập seed avatar (tên để sinh avatar mới):',db.display_name||'');if(s&&s.trim()){db.display_name=s.trim();saveDbProfile(db);renderProfile();showSystemNotif('✅ Đổi avatar thành công!','success');}}
+        function renderInventory(){const c=document.getElementById('profile-inventory');const p=userItems.find(i=>i.item_name==='Phiếu Đề Cử');const o=userItems.filter(i=>i.item_name!=='Phiếu Đề Cử');let h='';const pc=p?p.so_luong:0;h+='<div class="col-span-2 bg-gradient-to-r from-cyan-50 to-blue-50 p-3 rounded-xl border border-cyan-200 shadow-sm"><div class="flex items-center justify-between mb-1"><div class="flex items-center gap-2"><span class="text-lg">📋</span><div><span class="font-bold text-xs text-slate-700">Phiếu Đề Cử</span><p class="text-[9px] text-slate-500">Đề cử truyện yêu thích lên BXH</p></div></div><div class="flex items-center gap-2"><span class="font-black text-brandCyan text-sm">SL: '+pc+'</span><button onclick="buyNominationTicket()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[9px] font-bold hover:shadow-md transition-all"><i class="fa-solid fa-cart-plus mr-1"></i> Mua (100 LT)</button></div></div></div>';if(!o.length){h+='<p class="col-span-2 text-center text-[10px] text-slate-400 italic py-4">Không còn vật phẩm nào khác.</p>';}else{h+=o.map(item=>'<div class="bg-white/60 p-3 rounded-xl border border-gray-100 text-center shadow-sm"><div class="text-xl mb-1">📦</div><div class="text-[10px] font-bold text-slate-700">'+item.item_name+'</div><div class="text-[10px] text-brandCyan font-bold mt-1">SL: '+item.so_luong+'</div><button onclick="useItem(\''+item.item_name+'\')" class="w-full mt-2 py-1 rounded-lg bg-brandCyan/10 text-brandCyan text-[9px] font-bold hover:bg-brandCyan/20 transition-all">Dùng</button></div>').join('');}c.innerHTML=h;}
+        async function buyNominationTicket(){const db=getDbProfile();if(!db){showSystemNotif('Vui lòng đăng nhập!','error');return;}if(!cultivation||(cultivation.linh_thach||0)<100){showSystemNotif('Không đủ Linh Thạch! Cần 100 LT.','error');return;}try{const r=await fetch(API_BASE+'/buy_nomination_ticket',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id})});const d=await r.json();if(d.success){showSystemNotif('✅ Mua Phiếu Đề Cử thành công!','gold');loadCultivation();}else showSystemNotif(d.error,'error');}catch(e){showSystemNotif('Lỗi mạng!','error');}}
+        async function attemptBreakthrough(){const db=getDbProfile();if(!db){showSystemNotif('Vui lòng đăng nhập!','error');return;}const err=document.getElementById('breakthrough-error');err.classList.add('hidden');try{const r=await fetch(API_BASE+'/breakthrough',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id})});const d=await r.json();const s=document.getElementById('lightning-strike');s.classList.add('lightning-active');setTimeout(()=>{s.classList.remove('lightning-active');if(d.success)showSystemNotif(d.message,'gold');else{if(d.protected)showSystemNotif(d.error,'gold');else{err.textContent=d.error;err.classList.remove('hidden');showSystemNotif('Đột phá thất bại!','error');}}loadCultivation();},1000);}catch(e){showSystemNotif('Lỗi kết nối!','error');}}
+        async function upgradeStat(sn){const db=getDbProfile();if(!db){showSystemNotif('Vui lòng đăng nhập!','error');return;}if(!cultivation||(cultivation.linh_thach||0)<100){showSystemNotif('Không đủ Linh Thạch! Cần 100 LT.','error');return;}const nkm=cultivation.kinh_mach||0,ntt=cultivation.than_thuc||0,ntt2=cultivation.than_the||0;let up={};if(sn==='kinh_mach')up={kinh_mach:nkm+1,than_thuc:ntt,than_the:ntt2};else if(sn==='than_thuc')up={kinh_mach:nkm,than_thuc:ntt+1,than_the:ntt2};else if(sn==='than_the')up={kinh_mach:nkm,than_thuc:ntt,than_the:ntt2+1};else return;try{const r=await fetch(API_BASE+'/assign_stats',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id,...up,linh_thach_cost:100})});const d=await r.json();if(d.success){Object.assign(cultivation,up,{linh_thach:(cultivation.linh_thach||0)-100});if(db.linh_thach)db.linh_thach=parseInt(db.linh_thach)-100||0;saveDbProfile(db);renderProfile();showSystemNotif('✅ Tăng chỉ số thành công!','success');}else showSystemNotif(d.error,'error');}catch(e){showSystemNotif('Lỗi mạng!','error');}}
+        function openShop(){document.getElementById('shop-modal').classList.remove('hidden');document.getElementById('shop-modal').classList.add('flex');loadShopItems();}function closeShop(){document.getElementById('shop-modal').classList.remove('flex');document.getElementById('shop-modal').classList.add('hidden');}
+        async function loadShopItems(){try{const r=await fetch(API_BASE+'/get_shop_items');const d=await r.json();if(d.success){const c=document.getElementById('shop-items-list');let h='';h+='<div class="flex items-center justify-between p-3 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border border-cyan-200 shadow-sm"><div class="flex items-start gap-3"><span class="text-xl mt-1">📋</span><div><div class="font-bold text-xs text-slate-700">Phiếu Đề Cử</div><div class="text-[10px] text-slate-500">100 LT</div></div></div><button onclick="buyNominationTicket()" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[10px] font-bold">Mua</button></div>';h+=d.items.map(item=>{let icon='📦';if(item.name.includes('Đan'))icon='💊';else if(item.name.includes('Linh Thạch'))icon='🪙';return '<div class="flex items-center justify-between p-3 bg-white/80 rounded-xl border border-gray-200 shadow-sm"><div class="flex items-start gap-3"><span class="text-xl mt-1">'+icon+'</span><div><div class="font-bold text-xs text-slate-700">'+item.name+'</div><div class="text-[10px] text-slate-500">'+item.description+'</div><div class="text-[9px] text-slate-400 mt-1">'+(item.price_linh_thach>0?'<span class="text-cyan-600">'+item.price_linh_thach+' 💎 LT</span>':'')+' '+(item.price_kim_cuong>0?'<span class="text-amber-600">'+item.price_kim_cuong+' 💎 KC</span>':'')+'</div></div></div><button onclick="buyItem('+item.id+')" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[10px] font-bold">Mua</button></div>';}).join('');c.innerHTML=h;}}catch(e){}}
+        async function buyItem(id){const db=getDbProfile();if(!db)return;try{const r=await fetch(API_BASE+'/buy_item',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id,item_id:id})});const d=await r.json();if(d.success){showSystemNotif(d.message,'gold');loadCultivation();loadShopItems();}else showSystemNotif(d.error,'error');}catch(e){}}
+        async function useItem(name){const db=getDbProfile();if(!db)return;try{const r=await fetch(API_BASE+'/use_item',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id,item_name:name})});const d=await r.json();if(d.success){showSystemNotif(d.message,'success');loadCultivation();}else showSystemNotif(d.error,'error');}catch(e){}}
+        function openTopup(){closeShop();document.getElementById('topup-modal').classList.remove('hidden');document.getElementById('topup-modal').classList.add('flex');}function closeModal(id){document.getElementById(id).classList.remove('flex');document.getElementById(id).classList.add('hidden');}
+        async function topup(amount){const db=getDbProfile();if(!db)return;const methods=['momo','bank','card'];const method=methods[Math.floor(Math.random()*methods.length)];try{const r=await fetch(API_BASE+'/topup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:db.id,amount_vnd:amount,payment_method:method})});const d=await r.json();if(d.success){showSystemNotif(d.message,'gold');closeModal('topup-modal');loadCultivation();}else showSystemNotif(d.error,'error');}catch(e){}}
+        const missions=[{id:1,title:"Đọc 1 chương truyện",target:1,count:0,exp:120,gold:50},{id:2,title:"Đột phá cảnh giới",target:1,count:0,exp:50,gold:100},{id:3,title:"Vận khí tu luyện",target:3,count:0,exp:100,gold:20}];
+        function renderMissions(){const c=document.getElementById('daily-missions-container');if(!c)return;c.innerHTML=missions.map(m=>{const p=Math.min((m.count/m.target)*100,100),d=m.count>=m.target;return '<div class="p-3 bg-white/60 rounded-xl border border-gray-100 shadow-sm space-y-2"><div class="flex justify-between items-center"><span class="font-bold '+(d?'line-through text-slate-400':'text-slate-700')+' text-xs">'+m.title+'</span><span class="'+(d?'text-brandPurple font-black':'text-brandCyan font-bold')+' text-xs">'+m.count+'/'+m.target+'</span></div><div class="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden"><div class="'+(d?'bg-brandPurple':'bg-gradient-to-r from-brandCyan to-brandPurple')+' h-full transition-all" style="width:'+p+'%"></div></div><p class="text-[10px] text-slate-500 font-medium">Thưởng: +'+m.exp+' EXP | +'+m.gold+' Linh Thạch</p></div>';}).join('');}
+
+        function initTooltips(){
+            document.querySelectorAll('.tooltip-box').forEach(t => {
+                const p = t.parentElement;
+                if (!p) return;
+                // Skip if already initialized to prevent duplicate listeners
+                if (p.dataset.tooltipInitialized === 'true') return;
+                p.dataset.tooltipInitialized = 'true';
+
+                const trigger = p;
+                // Store a direct reference to the tooltip element
+                const tooltipEl = t;
+                let restoredParent = null;
+                let restoredSibling = null;
+                let hideTimer = null;
+
+                trigger.addEventListener('mouseenter', function() {
+                    if (hideTimer) {
+                        clearTimeout(hideTimer);
+                        hideTimer = null;
+                    }
+                    if (tooltipEl.classList.contains('show')) return;
+
+                    // Remember original position in DOM before moving
+                    restoredParent = tooltipEl.parentNode;
+                    restoredSibling = tooltipEl.nextSibling;
+
+                    // Move tooltip to body to escape any stacking context
+                    document.body.appendChild(tooltipEl);
+
+                    // Get trigger element's real viewport coordinates
+                    const triggerRect = this.getBoundingClientRect();
+
+                    // Determine tooltip width (use inline style or default 220px)
+                    let tooltipWidth = 220;
+                    const iw = tooltipEl.style.width;
+                    if (iw) {
+                        const parsed = parseInt(iw);
+                        if (!isNaN(parsed)) tooltipWidth = parsed;
+                    }
+
+                    // Calculate position relative to document (top/left positioning)
+                    const scrollX = window.scrollX || window.pageXOffset;
+                    const scrollY = window.scrollY || window.pageYOffset;
+
+                    // Default: place above the trigger
+                    let posTop = triggerRect.top + scrollY - tooltipEl.offsetHeight - 8;
+                    let posLeft = triggerRect.left + scrollX + (triggerRect.width / 2) - (tooltipWidth / 2);
+                    let placeAbove = true;
+
+                    // If not enough space above, place below
+                    if (triggerRect.top < 150 && (window.innerHeight - triggerRect.bottom) > 150) {
+                        placeAbove = false;
+                        posTop = triggerRect.bottom + scrollY + 8;
+                    }
+
+                    // Clamp left to prevent overflow
+                    posLeft = Math.max(8, Math.min(window.innerWidth - tooltipWidth - 8, posLeft));
+
+                    // Apply position
+                    tooltipEl.style.top = posTop + 'px';
+                    tooltipEl.style.left = posLeft + 'px';
+                    tooltipEl.style.bottom = 'auto';
+                    tooltipEl.style.right = 'auto';
+
+                    // Set arrow direction class (the ::after pseudo-element on the tooltip)
+                    tooltipEl.classList.remove('tooltip-above', 'tooltip-below');
+                    tooltipEl.classList.add(placeAbove ? 'tooltip-above' : 'tooltip-below');
+
+                    // Show tooltip
+                    tooltipEl.classList.add('show');
+                });
+
+                trigger.addEventListener('mouseleave', function() {
+                    // Small delay to allow moving mouse from trigger to tooltip
+                    if (hideTimer) clearTimeout(hideTimer);
+                    hideTimer = setTimeout(function() {
+                        if (!tooltipEl) return;
+
+                        // Hide tooltip
+                        tooltipEl.classList.remove('show');
+                        tooltipEl.classList.remove('tooltip-above', 'tooltip-below');
+
+                        // Restore tooltip back to its original DOM position
+                        if (restoredParent && restoredParent !== document.body) {
+                            if (restoredSibling) {
+                                restoredParent.insertBefore(tooltipEl, restoredSibling);
+                            } else {
+                                restoredParent.appendChild(tooltipEl);
+                            }
+                        }
+
+                        // Reset inline styles
+                        tooltipEl.style.top = '';
+                        tooltipEl.style.left = '';
+                        tooltipEl.style.bottom = '';
+                        tooltipEl.style.right = '';
+                    }, 100);
+                });
+
+                // Also hide tooltip when mouse leaves the tooltip itself (it's now in body)
+                tooltipEl.addEventListener('mouseleave', function() {
+                    if (hideTimer) clearTimeout(hideTimer);
+                    hideTimer = setTimeout(function() {
+                        tooltipEl.classList.remove('show');
+                        tooltipEl.classList.remove('tooltip-above', 'tooltip-below');
+
+                        if (restoredParent && restoredParent !== document.body) {
+                            if (restoredSibling) {
+                                restoredParent.insertBefore(tooltipEl, restoredSibling);
+                            } else {
+                                restoredParent.appendChild(tooltipEl);
+                            }
+                        }
+
+                        tooltipEl.style.top = '';
+                        tooltipEl.style.left = '';
+                        tooltipEl.style.bottom = '';
+                        tooltipEl.style.right = '';
+                    }, 100);
+                });
+
+                // Prevent hiding when moving mouse over the tooltip
+                tooltipEl.addEventListener('mouseenter', function() {
+                    if (hideTimer) {
+                        clearTimeout(hideTimer);
+                        hideTimer = null;
+                    }
+                });
+            });
+        }
+
+        async function loadReadingHistory(){const db=getDbProfile();if(!db)return;const c=document.getElementById('reading-history-list');if(!c)return;try{const r=await fetch(API_BASE+'/get_reading_history?user_id='+db.id);const d=await r.json();if(d.success&&d.history.length){c.innerHTML=d.history.slice(0,5).map(h=>{const cn=h.current_chapter_id||1;return '<a href="doc-truyen.html?book_id='+h.book_id+'&chapter_number='+cn+'" class="flex items-center gap-2 p-2 bg-white/60 rounded-lg border border-gray-100 hover:border-brandCyan/50 transition-all"><img src="'+(h.anh_bia||'https://placehold.co/40x60/00d2ff/ffffff?text=?')+'" class="w-8 h-12 rounded object-cover"><div class="flex-1 min-w-0"><div class="text-[10px] font-bold text-slate-700 truncate">'+(h.ten_truyen||'Không tên')+'</div><div class="text-[8px] text-slate-400">📍 Chương '+cn+' · '+new Date(h.updated_at).toLocaleDateString('vi-VN')+'</div></div><i class="fa-solid fa-chevron-right text-[8px] text-slate-300 flex-shrink-0"></i></a>';}).join('');}else c.innerHTML='<p class="text-[10px] text-slate-400 italic py-2 text-center">Chưa đọc truyện nào</p>';}catch(e){c.innerHTML='<p class="text-[10px] text-slate-400 italic py-2 text-center">Lỗi tải lịch sử</p>';}}
+        async function loadBookmarks(){const db=getDbProfile();if(!db)return;const c=document.getElementById('bookmarks-list');if(!c)return;try{let b=[];try{const r=await fetch(API_BASE+'/get_bookmarks?user_id='+db.id);const d=await r.json();if(d.success&&d.bookmarks)b=d.bookmarks;}catch(e){}if(!b.length){const s=localStorage.getItem('tdt_bookmarks_'+db.id);if(s)b=JSON.parse(s);}if(b.length){c.innerHTML=b.slice(0,5).map(b=>'<a href="chi-tiet-truyen.html?id='+b.book_id+'" class="flex items-center gap-2 p-2 bg-white/60 rounded-lg border border-gray-100 hover:border-brandOrange/50 transition-all"><i class="fa-solid fa-bookmark text-brandOrange text-[10px]"></i><div class="flex-1 min-w-0"><div class="text-[10px] font-bold text-slate-700 truncate">'+(b.ten_truyen||b.book_name||'Đã lưu')+'</div><div class="text-[8px] text-slate-400">Đã bookmark</div></div></a>').join('');}else c.innerHTML='<p class="text-[10px] text-slate-400 italic py-2 text-center">Chưa có bookmark</p>';}catch(e){c.innerHTML='<p class="text-[10px] text-slate-400 italic py-2 text-center">Lỗi tải bookmark</p>';}}
+        function toggleCollapse(id,h){const b=document.getElementById(id);if(!b)return;const vis=b.classList.contains('hidden');if(vis){b.classList.remove('hidden');const a=h.querySelector('i.fa-chevron-down,i.fa-chevron-up');if(a)a.className='fa-solid fa-chevron-up text-slate-400 text-[10px] transition-transform';}else{b.classList.add('hidden');const a=h.querySelector('i.fa-chevron-down,i.fa-chevron-up');if(a)a.className='fa-solid fa-chevron-down text-slate-400 text-[10px] transition-transform';}}
+
+        // ===== FAIRY DUST MOUSE TRAIL =====
+        function initFairyDust() {
+            const canvas = document.getElementById('fairy-dust-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = -100, mouseY = -100;
+            let isActive = false;
+            let animFrame = null;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                if (!isActive) {
+                    isActive = true;
+                    if (!animFrame) animateDust();
+                }
+                // Spawn particles on move
+                for (let i = 0; i < 2; i++) {
+                    particles.push({
+                        x: mouseX + (Math.random() - 0.5) * 8,
+                        y: mouseY + (Math.random() - 0.5) * 8,
+                        vx: (Math.random() - 0.5) * 1.5,
+                        vy: -Math.random() * 2 - 0.5,
+                        size: Math.random() * 3 + 1.5,
+                        alpha: 0.7 + Math.random() * 0.3,
+                        life: 1,
+                        color: Math.random() > 0.5 ? '0,255,204' : '255,215,0'
+                    });
+                }
+            });
+
+            function animateDust() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Update and draw particles
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= 0.02;
+                    p.alpha = p.life * 0.7;
+                    if (p.life <= 0) {
+                        particles.splice(i, 1);
+                        continue;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = `rgba(${p.color},${p.alpha * 0.5})`;
+                    ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+
+                if (particles.length > 0 || isActive) {
+                    animFrame = requestAnimationFrame(animateDust);
+                } else {
+                    animFrame = null;
+                    isActive = false;
+                }
+            }
+        }
+
+        // ===== CLICK RIPPLE EFFECT =====
+        function initRippleEffect() {
+            document.querySelectorAll('button:not(.theme-btn)').forEach(btn => {
+                if (btn.dataset.rippleInitialized === 'true') return;
+                btn.dataset.rippleInitialized = 'true';
+                btn.style.position = btn.style.position || 'relative';
+                btn.style.overflow = 'hidden';
+                
+                btn.addEventListener('click', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple-effect';
+                    const size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        }
+
+        // ===== VANILLA TILT INIT =====
+        function initVanillaTilt() {
+            if (typeof VanillaTilt === 'undefined') return;
+            // Apply to stat items and inventory items
+            document.querySelectorAll('.stat-item, #profile-inventory > div, #btn-breakthrough').forEach(el => {
+                if (el.dataset.tiltInitialized === 'true') return;
+                el.dataset.tiltInitialized = 'true';
+                VanillaTilt.init(el, {
+                    max: 8,
+                    speed: 400,
+                    glare: true,
+                    'max-glare': 0.25,
+                    scale: 1.01
+                });
+            });
+        }
+
+        // ========== THẦN THOẠI EFFECTS V2 (CYBER-XIANXIA) ==========
+
+        // 1. Dual Canvas Sword Orbit - Cổ Kiếm bay trước/sau Avatar
+        function initSwordOrbitDual() {
+            const wrapper = document.querySelector('.avatar-wrapper');
+            if (!wrapper) return;
+            const bgCanvas = wrapper.querySelector('.sword-canvas-bg');
+            const fgCanvas = wrapper.querySelector('.sword-canvas-fg');
+            if (!bgCanvas || !fgCanvas) return;
+            const ctxBg = bgCanvas.getContext('2d');
+            const ctxFg = fgCanvas.getContext('2d');
+            
+            let angle = 0, speed = 0.8;
+            let isHovering = false;
+            const NUM_SWORDS = 4;
+            let swords = [];
+            let animId = null;
+
+            function setupSwords() {
+                const rect = wrapper.getBoundingClientRect();
+                const w = rect.width + 100, h = rect.height + 100;
+                bgCanvas.width = w; bgCanvas.height = h;
+                fgCanvas.width = w; fgCanvas.height = h;
+                const cx = w / 2, cy = h / 2;
+                const rx = Math.min(cx, cy) * 0.75;
+                const ry = Math.min(cx, cy) * 0.45;
+                swords = [];
+                for (let i = 0; i < NUM_SWORDS; i++) {
+                    swords.push({
+                        angleOffset: (i / NUM_SWORDS) * Math.PI * 2,
+                        len: 16 + Math.random() * 8,
+                        w: 3 + Math.random() * 2,
+                        color: i % 2 === 0 ? '139,92,246' : '168,85,247',
+                        rx, ry, cx, cy
+                    });
+                }
+            }
+            setupSwords();
+            new ResizeObserver(() => setupSwords()).observe(wrapper);
+
+            // Hover
+            wrapper.addEventListener('mouseenter', () => { isHovering = true; speed = 2.4; });
+            wrapper.addEventListener('mouseleave', () => { isHovering = false; speed = 0.8; });
+
+            function drawBlade(ctx, x, y, deg, swd, scale) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(deg * Math.PI / 180);
+                ctx.scale(scale, scale);
+                ctx.beginPath();
+                ctx.moveTo(0, -swd.len);
+                ctx.lineTo(swd.w / 2, 0);
+                ctx.lineTo(0, swd.len * 0.2);
+                ctx.lineTo(-swd.w / 2, 0);
+                ctx.closePath();
+                ctx.shadowBlur = 18 * scale;
+                ctx.shadowColor = `rgba(${swd.color},0.7)`;
+                ctx.fillStyle = `rgba(${swd.color},${0.6 + 0.4 * scale})`;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = `rgba(255,255,255,${0.4 * scale})`;
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(0, -swd.len);
+                ctx.lineTo(0, swd.len * 0.2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function animate() {
+                ctxBg.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                ctxFg.clearRect(0, 0, fgCanvas.width, fgCanvas.height);
+                angle += speed * 0.02;
+                for (const swd of swords) {
+                    const a = angle + swd.angleOffset;
+                    const x = swd.cx + Math.cos(a) * swd.rx;
+                    const y = swd.cy + Math.sin(a) * swd.ry;
+                    const sinVal = Math.sin(a);
+                    const scale = 0.5 + 0.7 * ((sinVal + 1) / 2);
+                    const rot = 45 - sinVal * 25;
+                    if (sinVal < 0) {
+                        // Behind avatar → draw on bg canvas (smaller, dimmer)
+                        drawBlade(ctxBg, x, y, rot, swd, scale * 0.7);
+                    } else {
+                        // In front → draw on fg canvas (bigger, brighter)
+                        drawBlade(ctxFg, x, y, rot, swd, scale * 1.0);
+                    }
+                }
+                animId = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 2. Gravity Black Hole Background - Vực sâu hấp lực
+        function initGravityBg() {
+            const canvas = document.getElementById('gravity-bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let W, H, mouseX = -9999, mouseY = -9999;
+            const particles = [];
+            const NUM_PARTICLES = 200;
+            const GRAVITY_STRENGTH = 0.4;
+            const VORTEX_STRENGTH = 0.15;
+            const INFLUENCE_RADIUS = 300;
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+                particles.length = 0;
+                for (let i = 0; i < NUM_PARTICLES; i++) {
+                    particles.push({
+                        x: Math.random() * W, y: Math.random() * H,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        baseVx: (Math.random() - 0.5) * 0.3,
+                        baseVy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 2.5 + 0.8,
+                        color: Math.random() > 0.5 ? '139,92,246' : '168,85,247'
+                    });
+                }
+            }
+            window.addEventListener('resize', resize);
+            document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+            resize();
+
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                for (const p of particles) {
+                    const dx = mouseX - p.x;
+                    const dy = mouseY - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < INFLUENCE_RADIUS && dist > 5) {
+                        const force = (INFLUENCE_RADIUS - dist) / INFLUENCE_RADIUS * GRAVITY_STRENGTH;
+                        p.vx += (dx / dist) * force;
+                        p.vy += (dy / dist) * force;
+                        // Vortex (perpendicular force)
+                        p.vx += (dy / dist) * force * VORTEX_STRENGTH;
+                        p.vy -= (dx / dist) * force * VORTEX_STRENGTH;
+                    }
+                    
+                    if (dist < 8) {
+                        // Respawn at edge
+                        const edge = Math.floor(Math.random() * 4);
+                        if (edge === 0) { p.x = Math.random() * W; p.y = -10; }
+                        else if (edge === 1) { p.x = W + 10; p.y = Math.random() * H; }
+                        else if (edge === 2) { p.x = Math.random() * W; p.y = H + 10; }
+                        else { p.x = -10; p.y = Math.random() * H; }
+                        p.vx = p.baseVx; p.vy = p.baseVy;
+                        continue;
+                    }
+                    
+                    // Friction
+                    p.vx *= 0.98; p.vy *= 0.98;
+                    p.x += p.vx; p.y += p.vy;
+                    
+                    // Wrap edges
+                    if (p.x < -20) p.x = W + 20;
+                    if (p.x > W + 20) p.x = -20;
+                    if (p.y < -20) p.y = H + 20;
+                    if (p.y > H + 20) p.y = -20;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},0.25)`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = `rgba(${p.color},0.2)`;
+                    ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 3. Global Click Lightning (no screen shake)
+        function initClickLightningV2() {
+            const canvas = document.getElementById('lightning-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let strikes = [];
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+
+            function fractal(startX, startY, endX, endY, depth = 0) {
+                if (depth > 8) return [{ x: endX, y: endY }];
+                const dx = endX - startX, dy = endY - startY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 15) return [{ x: endX, y: endY }];
+                const midX = (startX + endX) / 2 + (Math.random() - 0.5) * dist * 0.3;
+                const midY = (startY + endY) / 2 + (Math.random() - 0.5) * dist * 0.3;
+                const left = fractal(startX, startY, midX, midY, depth + 1);
+                const right = fractal(midX, midY, endX, endY, depth + 1);
+                return [{ x: startX, y: startY }].concat(left, right);
+            }
+
+            window.addEventListener('click', (e) => {
+                const points = fractal(
+                    e.clientX + (Math.random() - 0.5) * 300, -10,
+                    e.clientX + (Math.random() - 0.5) * 40, e.clientY
+                );
+                strikes.push({ points, life: 1 });
+                document.body.style.backgroundColor = 'rgba(139,92,246,0.06)';
+                setTimeout(() => document.body.style.backgroundColor = '', 100);
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = strikes.length - 1; i >= 0; i--) {
+                    const s = strikes[i];
+                    s.life -= 0.03;
+                    if (s.life <= 0) { strikes.splice(i, 1); continue; }
+                    const alpha = s.life;
+                    ctx.shadowBlur = 25; ctx.shadowColor = `rgba(139,92,246,${alpha})`;
+                    ctx.strokeStyle = `rgba(168,85,247,${alpha})`;
+                    ctx.lineWidth = 2 + s.life * 2;
+                    ctx.beginPath();
+                    for (let j = 0; j < s.points.length - 1; j++) {
+                        ctx.moveTo(s.points[j].x, s.points[j].y);
+                        ctx.lineTo(s.points[j + 1].x, s.points[j + 1].y);
+                    }
+                    ctx.stroke();
+                    ctx.shadowBlur = 35; ctx.shadowColor = `rgba(255,255,255,${alpha * 0.4})`;
+                    ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.3})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    for (let j = 0; j < s.points.length - 1; j++) {
+                        ctx.moveTo(s.points[j].x, s.points[j].y);
+                        ctx.lineTo(s.points[j + 1].x, s.points[j + 1].y);
+                    }
+                    ctx.stroke();
+                }
+                ctx.shadowBlur = 0;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // 4. Lightning Border Buttons - Nút Trận Lôi Điện
+        function initLightningButtons() {
+            document.querySelectorAll('.lightning-btn').forEach(btn => {
+                const canvas = btn.querySelector('.btn-lightning-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let animId = null;
+
+                function drawBorderLightning(progress) {
+                    const rect = btn.getBoundingClientRect();
+                    canvas.width = rect.width + 20;
+                    canvas.height = rect.height + 20;
+                    const cx = canvas.width / 2, cy = canvas.height / 2;
+                    const hw = (rect.width) / 2, hh = (rect.height) / 2;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw 4 edge segments with midpoint displacement
+                    const segments = [
+                        { x1: cx - hw, y1: cy - hh, x2: cx + hw, y2: cy - hh },
+                        { x1: cx + hw, y1: cy - hh, x2: cx + hw, y2: cy + hh },
+                        { x1: cx + hw, y1: cy + hh, x2: cx - hw, y2: cy + hh },
+                        { x1: cx - hw, y1: cy + hh, x2: cx - hw, y2: cy - hh }
+                    ];
+                    
+                    const activeCount = Math.floor(progress * segments.length);
+                    
+                    for (let s = 0; s < activeCount; s++) {
+                        const seg = segments[s];
+                        const points = [{ x: seg.x1, y: seg.y1 }];
+                        // Midpoint displacement
+                        const mx = (seg.x1 + seg.x2) / 2 + (Math.random() - 0.5) * 15;
+                        const my = (seg.y1 + seg.y2) / 2 + (Math.random() - 0.5) * 15;
+                        points.push({ x: mx, y: my });
+                        points.push({ x: seg.x2, y: seg.y2 });
+                        
+                        ctx.shadowBlur = 12;
+                        ctx.shadowColor = '#a855f7';
+                        ctx.strokeStyle = '#22d3ee';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(points[0].x, points[0].y);
+                        for (let i = 1; i < points.length; i++) {
+                            ctx.lineTo(points[i].x, points[i].y);
+                        }
+                        ctx.stroke();
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = '#7e22ce';
+                        ctx.strokeStyle = 'rgba(168,85,247,0.6)';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(points[0].x, points[0].y);
+                        for (let i = 1; i < points.length; i++) {
+                            ctx.lineTo(points[i].x, points[i].y);
+                        }
+                        ctx.stroke();
+                    }
+                }
+
+                let progress = 0;
+                btn.addEventListener('mouseenter', () => {
+                    if (animId) return;
+                    function loop() {
+                        progress = Math.min(1, progress + 0.03);
+                        drawBorderLightning(progress);
+                        if (progress < 1) animId = requestAnimationFrame(loop);
+                        else {
+                            // Continuous pulsing
+                            let t = 0;
+                            function pulse() {
+                                t += 0.05;
+                                drawBorderLightning(0.5 + 0.5 * Math.sin(t));
+                                animId = requestAnimationFrame(pulse);
+                            }
+                            pulse();
+                        }
+                    }
+                    loop();
+                });
+                btn.addEventListener('mouseleave', () => {
+                    if (animId) { cancelAnimationFrame(animId); animId = null; }
+                    progress = 0;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+            });
+        }
+
+        // 5. Sword Slash Text - Chữ Kiếm Ý Vô Song (spark particles)
+        function initSwordSlashText() {
+            const textEl = document.getElementById('avatar-name-display');
+            if (!textEl) return;
+            const canvas = document.getElementById('slash-spark-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let sparks = [];
+            let isHovering = false;
+
+            function resizeCanvas() {
+                const rect = textEl.getBoundingClientRect();
+                canvas.width = rect.width || 200;
+                canvas.height = rect.height || 40;
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+            }
+            resizeCanvas();
+            new ResizeObserver(() => resizeCanvas()).observe(textEl);
+
+            textEl.addEventListener('mouseenter', () => {
+                isHovering = true;
+                // Spawn sparks along the slash line
+                for (let i = 0; i < 20; i++) {
+                    sparks.push({
+                        x: Math.random() * canvas.width,
+                        y: canvas.height * (0.4 + Math.random() * 0.2),
+                        vx: (Math.random() - 0.5) * 3,
+                        vy: -Math.random() * 4 - 1,
+                        life: 1,
+                        size: Math.random() * 3 + 1,
+                        color: Math.random() > 0.5 ? '251,191,36' : '249,115,22'
+                    });
+                }
+            });
+            textEl.addEventListener('mouseleave', () => {
+                isHovering = false;
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = sparks.length - 1; i >= 0; i--) {
+                    const p = sparks[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.1; // gravity
+                    p.life -= 0.02;
+                    if (p.life <= 0) { sparks.splice(i, 1); continue; }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},${p.life * 0.8})`;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = `rgba(${p.color},${p.life * 0.5})`;
+                    ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // ===== MOBILE MENU (inline) =====
+        (function(){var _tm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;var x=!o.classList.contains('hidden');if(x){p.style.transform='translateX(100%)';b.style.opacity='0';if(n)n.style.pointerEvents='none';setTimeout(function(){o.classList.add('hidden');if(n){n.style.pointerEvents='';n.style.opacity=''}},400)}else{o.classList.remove('hidden');void p.offsetWidth;p.style.transform='translateX(0)';b.style.opacity='1';if(n)n.style.opacity='0.6'}};var _cm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;p.style.transform='translateX(100%)';b.style.opacity='0';if(n){n.style.pointerEvents='none';n.style.opacity=''}setTimeout(function(){o.classList.add('hidden');if(n)n.style.pointerEvents=''},400)};window.toggleMobileMenu=_tm;window.closeMobileMenu=_cm;document.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-header-action]'):null;if(t){var a=t.getAttribute('data-header-action');if(a==='toggle-menu')_tm();else if(a==='close-menu')_cm()}else{var ov=document.getElementById('mobile-menu-overlay');if(ov&&!ov.classList.contains('hidden')){var pn=document.getElementById('mobile-menu-panel');if(pn&&!pn.contains(e.target)&&!e.target.closest('#mobile-menu-btn'))_cm()}}})})();
+
+        // ===== TỰ ĐỘNG NẠP HEADER DÙNG CHUNG =====
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/header.html')
+                .then(function(res) { if (!res.ok) throw new Error('Lỗi tải header'); return res.text(); })
+                .then(function(html) { 
+                    document.getElementById('app-header').innerHTML = html; 
+                    var script = document.createElement('script');
+                    script.src = '/js/header-init.js';
+                    document.body.appendChild(script);
+                    // Khởi tạo các tính năng khác sau khi header đã load
+                    setTimeout(function() {
+                        loadCultivation();
+                    }, 50);
+                })
+                .catch(function(err) { console.error("Header error:", err); });
+        });
+
+        // ===== DOM READY =====
+        document.addEventListener('DOMContentLoaded',()=>{
+            initFairyDust();
+            initTooltips();
+            renderMissions();
+            loadReadingHistory();
+            loadBookmarks();
+            applyTheme(localStorage.getItem('tdt_theme')||'default');
+            ['reading-history-body','bookmarks-body'].forEach(id=>{
+                const el=document.getElementById(id);
+                if(el) el.classList.add('hidden');
+            });
+            // Init effects after a short delay to ensure DOM is ready
+            setTimeout(() => {
+                initVanillaTilt();
+                initRippleEffect();
+                // Thần Thoại effects V2
+                initSwordOrbitDual();
+                initGravityBg();
+                initClickLightningV2();
+                initLightningButtons();
+                initSwordSlashText();
+            }, 200);
+        });
+    </script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>
+
+

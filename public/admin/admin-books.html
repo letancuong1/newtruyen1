@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloTruyen - Quản Lý Truyện</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0c29;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius:10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.5); }
+
+        /* ===== SIDEBAR ===== */
+        #sidebar {
+            width: 250px;
+            background: #1a1635;
+            border-right: 1px solid #1f2937;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-logo {
+            padding: 22px 20px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .sidebar-logo h1 {
+            font-size: 20px; font-weight: 800;
+            color: #a78bfa;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sidebar-logo h1 i { font-size: 18px; color: #c084fc; }
+        .sidebar-logo p { font-size: 10px; color: #6b7280; margin-top: 2px; letter-spacing: 0.5px; padding-left: 30px; }
+        .sidebar-menu { flex:1; overflow-y:auto; padding: 12px 10px; }
+        .sidebar-menu .menu-label {
+            font-size: 9px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #6b7280;
+            padding: 16px 12px 6px;
+        }
+        .sidebar-menu a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: 8px;
+            font-size: 13px; font-weight: 500;
+            color: #9ca3af; text-decoration: none;
+            transition: all 0.15s ease; cursor: pointer;
+            margin-bottom: 2px;
+        }
+        .sidebar-menu a i { width: 18px; text-align: center; font-size: 14px; color: #6b7280; }
+        .sidebar-menu a:hover { background: #374151; color: #f1f5f9; }
+        .sidebar-menu a:hover i { color: #a78bfa; }
+        .sidebar-menu a.active { background: #7c3aed; color: white; }
+        .sidebar-menu a.active i { color: white; }
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 10px; color: #6b7280; text-align: center;
+        }
+
+        /* ===== MAIN ===== */
+        #main-wrapper { margin-left: 250px; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* ===== TOPBAR ===== */
+        #topbar {
+            height: 64px;
+            background: #1a1635;
+            border-bottom: 1px solid #1f2937;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky; top: 0; z-index: 50;
+        }
+        #topbar .admin-profile {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; padding: 4px 8px; border-radius: 8px;
+            transition: background 0.15s;
+        }
+        #topbar .admin-profile:hover { background: rgba(255,255,255,0.04); }
+        #topbar .admin-profile .avatar {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 12px;
+        }
+        #topbar .admin-profile .name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+        #back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: #9ca3af; text-decoration: none; font-size: 13px;
+            padding: 6px 12px; border-radius: 6px; transition: 0.15s;
+        }
+        #back-link:hover { background: rgba(255,255,255,0.04); color: #e2e8f0; }
+
+        /* ===== CONTENT ===== */
+        #content { padding: 28px; max-width: 1440px; }
+        .page-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 24px; }
+
+        /* ===== FILTER BAR ===== */
+        .filter-bar {
+            display: flex; gap: 12px; align-items: center;
+            flex-wrap: wrap; margin-bottom: 20px;
+        }
+        .filter-bar input, .filter-bar select {
+            background: #0f0c29;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 8px 14px;
+            color: white; font-size: 13px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .filter-bar input:focus, .filter-bar select:focus { border-color: #7c3aed; }
+        .filter-bar input::placeholder { color: #6b7280; }
+        .filter-bar select { cursor: pointer; min-width: 140px; }
+        .filter-bar select option { background: #1a1635; }
+        .filter-btn {
+            padding: 8px 18px; border-radius: 8px;
+            font-size: 13px; font-weight: 600; border: none;
+            cursor: pointer; transition: 0.15s;
+        }
+        .filter-btn.primary {
+            background: #7c3aed; color: white;
+        }
+        .filter-btn.primary:hover { background: #6d28d9; }
+        .filter-btn.secondary {
+            background: rgba(255,255,255,0.06); color: #9ca3af;
+            border: 1px solid #374151;
+        }
+        .filter-btn.secondary:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+
+        /* ===== TABLE ===== */
+        .admin-table-container { overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table thead th {
+            text-align: left; padding: 10px 12px;
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #9ca3af;
+            border-bottom: 1px solid #374151;
+            white-space: nowrap;
+        }
+        .admin-table tbody td {
+            padding: 10px 12px; font-size: 13px;
+            color: #d1d5db; border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: middle;
+        }
+        .admin-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .admin-table .book-info {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .admin-table .book-cover {
+            width: 36px; height: 48px; border-radius: 4px;
+            object-fit: cover; background: rgba(255,255,255,0.06);
+        }
+        .admin-table .book-title-link {
+            font-weight: 600; color: #f1f5f9;
+            text-decoration: none; transition: color 0.15s;
+        }
+        .admin-table .book-title-link:hover { color: #a78bfa; }
+        .admin-table .book-author-small { font-size: 11px; color: #6b7280; margin-top: 2px; }
+
+        /* Status badges */
+        .badge-status {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 6px;
+            font-size: 10px; font-weight: 600;
+        }
+        .badge-status.pending { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+        .badge-status.active { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+        .badge-status.completed { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+        .badge-status.rejected { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+        .badge-status.deleted { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.2); }
+        .badge-status.default { background: rgba(255,255,255,0.06); color: #d1d5db; border: 1px solid rgba(255,255,255,0.1); }
+        .badge-vip { 
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: 700;
+            background: rgba(168,85,247,0.15); color: #c084fc;
+            border: 1px solid rgba(168,85,247,0.2);
+        }
+        .badge-vip.off { background: rgba(255,255,255,0.04); color: #6b7280; border-color: rgba(255,255,255,0.06); }
+
+        /* Action buttons */
+        .action-btn-group { display: flex; gap: 4px; flex-wrap: nowrap; }
+        .action-btn {
+            padding: 5px 10px; border-radius: 6px;
+            font-size: 11px; font-weight: 600; border: none;
+            cursor: pointer; transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .action-btn.edit { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+        .action-btn.edit:hover { background: rgba(59,130,246,0.25); }
+        .action-btn.chapters { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+        .action-btn.chapters:hover { background: rgba(16,185,129,0.25); }
+        .action-btn.delete { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+        .action-btn.delete:hover { background: rgba(239,68,68,0.25); }
+        .action-btn.vip-toggle { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
+        .action-btn.vip-toggle:hover { background: rgba(168,85,247,0.25); }
+        .action-btn.status-toggle { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+        .action-btn.status-toggle:hover { background: rgba(245,158,11,0.25); }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex; gap: 6px; align-items: center;
+            justify-content: center; margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            padding: 6px 14px; border-radius: 6px;
+            font-size: 12px; font-weight: 600; border: 1px solid #374151;
+            background: transparent; color: #9ca3af;
+            cursor: pointer; transition: 0.15s;
+        }
+        .page-btn:hover { background: rgba(255,255,255,0.06); color: #e2e8f0; }
+        .page-btn.active { background: #7c3aed; color: white; border-color: #7c3aed; }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .page-info { font-size: 12px; color: #6b7280; margin: 0 8px; }
+
+        /* ===== MODAL ===== */
+        #modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6); z-index: 999;
+            backdrop-filter: blur(4px);
+        }
+        #modal-overlay.show { display: flex; align-items: center; justify-content: center; }
+        .modal-box {
+            background: #1a1635; border: 1px solid #374151;
+            border-radius: 16px; padding: 28px 32px;
+            max-width: 440px; width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .modal-box h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 12px; }
+        .modal-box p { font-size: 13px; color: #9ca3af; line-height: 1.6; margin-bottom: 20px; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-btn {
+            padding: 9px 22px; border-radius: 8px;
+            font-size: 13px; font-weight: 600; border: none;
+            cursor: pointer; transition: 0.15s;
+        }
+        .modal-btn.cancel { background: rgba(255,255,255,0.06); color: #9ca3af; border: 1px solid #374151; }
+        .modal-btn.cancel:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+        .modal-btn.danger { background: #dc2626; color: white; }
+        .modal-btn.danger:hover { background: #b91c1c; }
+        .modal-btn.primary { background: #7c3aed; color: white; }
+        .modal-btn.primary:hover { background: #6d28d9; }
+
+        /* ===== TOAST ===== */
+        #admin-toast-container {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 99999; display: flex; flex-direction: column;
+            gap: 8px; pointer-events: none;
+        }
+        .admin-toast {
+            pointer-events: auto;
+            padding: 12px 18px; border-radius: 10px;
+            border: 1px solid; font-size: 13px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            transform: translateX(100%); opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .admin-toast.show { transform: translateX(0); opacity: 1; }
+        .admin-toast.success { background: #0a1f14; border-color: rgba(16,185,129,0.4); color: #34d399; }
+        .admin-toast.error { background: #1f0f0f; border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+        .skeleton-load {
+            background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+        }
+        @keyframes shimmer { 0% { background-position: -200px 0; } 100% { background-position: 200px 0; } }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            #sidebar { transform: translateX(-100%); }
+            #sidebar.open { transform: translateX(0); }
+            #main-wrapper { margin-left: 0; }
+            #content { padding: 16px; }
+            .filter-bar { flex-direction: column; align-items: stretch; }
+            .filter-bar input, .filter-bar select { width: 100%; }
+        }
+        @media (max-width: 640px) {
+            .admin-table thead { display: none; }
+            .admin-table tbody td {
+                display: block; padding: 6px 10px; border: none;
+            }
+            .admin-table tbody tr {
+                display: block; padding: 12px;
+                border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 8px; margin-bottom: 8px;
+            }
+            .admin-table tbody td:before {
+                content: attr(data-label);
+                font-size: 10px; color: #6b7280; font-weight: 600;
+                display: block; margin-bottom: 2px;
+                text-transform: uppercase; letter-spacing: 0.5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar">
+        <div class="sidebar-logo">
+            <h1><i class="fa-solid fa-shield-halved"></i> AloTruyen</h1>
+            <p>QUẢN LÝ TRUYỆN</p>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-label">Chung</div>
+            <a href="admin.html"><i class="fa-solid fa-chart-pie"></i> Tổng Quan</a>
+
+            <div class="menu-label">Quản Lý</div>
+            <a href="admin-books.html" class="active"><i class="fa-solid fa-book"></i> Quản Lý Truyện</a>
+            <a href="admin-crawler.html"><i class="fa-solid fa-robot"></i> Cào Truyện Tự Động</a>
+            <a href="admin-videos.html"><i class="fa-solid fa-video"></i> Quản Lý Video</a>
+            <a href="admin-chapters.html"><i class="fa-solid fa-align-left"></i> Quản Lý Chương</a>
+            <a href="admin-users.html"><i class="fa-solid fa-users"></i> Quản Lý Đạo Hữu</a>
+            <a href="admin-billing.html"><i class="fa-solid fa-gem"></i> Giao Dịch & Gói Nạp</a>
+            <a href="admin-rpg.html"><i class="fa-solid fa-mountain"></i> Cấu Hình RPG</a>
+
+            <div class="menu-label">Hệ Thống</div>
+            <a href="admin-notifications.html"><i class="fa-solid fa-bell"></i> Thông Báo</a>
+        </nav>
+        <div class="sidebar-footer">AloTruyen v2.0 · Quản Lý Truyện</div>
+    </aside>
+
+    <!-- ===== MAIN WRAPPER ===== -->
+    <div id="main-wrapper">
+        <header id="topbar">
+            <div class="flex items-center gap-3">
+                <button id="mobile-toggle" onclick="toggleSidebar()" style="display:none;width:36px;height:36px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid #374151;color:#9ca3af;cursor:pointer;align-items:center;justify-content:center;">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a href="admin.html" id="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Về Dashboard
+                </a>
+            </div>
+            <div class="topbar-right flex items-center gap-4">
+                <div class="admin-profile">
+                    <div class="avatar">TV</div>
+                    <span class="name">Admin</span>
+                </div>
+            </div>
+        </header>
+        <style>
+            @media (max-width:1024px) { #mobile-toggle { display:flex !important; } }
+        </style>
+
+        <main id="content">
+            <h1 class="page-title">
+                <i class="fa-solid fa-book text-indigo-400"></i> 
+                Quản Lý Bí Tịch (Truyện)
+            </h1>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <input type="text" id="search-input" placeholder="🔍 Tìm kiếm tên truyện, tác giả..." style="flex:1;min-width:200px;" />
+                <select id="status-filter">
+                    <option value="">📋 Tất cả trạng thái</option>
+                    <option value="chờ">⏳ Chờ duyệt</option>
+                    <option value="đã duyệt">✅ Đã duyệt</option>
+                    <option value="đã từ chối">❌ Đã từ chối</option>
+                    <option value="đã xóa">🗑️ Đã xóa</option>
+                    <option value="hoàn thành">🏆 Hoàn thành</option>
+                </select>
+                <select id="vip-filter">
+                    <option value="">👑 Tất cả</option>
+                    <option value="true">💎 VIP</option>
+                    <option value="false">📖 Thường</option>
+                </select>
+                <button class="filter-btn primary" onclick="applyFilters()">
+                    <i class="fa-solid fa-filter"></i> Lọc
+                </button>
+                <button class="filter-btn secondary" onclick="resetFilters()">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+            </div>
+
+            <!-- Table Panel -->
+            <div class="panel" style="background:#1a1635;border:1px solid #374151;border-radius:12px;padding:20px 24px;">
+                <div class="panel-title" style="font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+                    <i class="fa-solid fa-list text-indigo-400"></i>
+                    Danh Sách Bí Tịch
+                    <span class="text-[11px] font-normal text-gray-500 ml-auto" id="books-count">(Đang tải...)</span>
+                </div>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40px;">Ảnh</th>
+                                <th>Truyện</th>
+                                <th>Tác Giả</th>
+                                <th>Trạng Thái</th>
+                                <th>VIP</th>
+                                <th>Số Chương</th>
+                                <th>Lượt Xem</th>
+                                <th style="width:200px;">Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="books-table-body">
+                            <tr><td colspan="8" class="text-center text-gray-500 py-10">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" id="prev-page" onclick="goToPage(currentPage - 1)" disabled>
+                        <i class="fa-solid fa-chevron-left"></i> Trước
+                    </button>
+                    <span class="page-info" id="page-info">Trang 1 / 1</span>
+                    <button class="page-btn" id="next-page" onclick="goToPage(currentPage + 1)" disabled>
+                        Sau <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== CONFIRM MODAL ===== -->
+    <div id="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modal-title">Xác nhận</h3>
+            <p id="modal-message">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeModal()">Hủy</button>
+                <button class="modal-btn danger" id="modal-confirm-btn" onclick="confirmModalAction()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== EDIT BOOK MODAL ===== -->
+    <div id="edit-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);overflow-y:auto;">
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;">
+            <div style="background:#1a1635;border:1px solid #374151;border-radius:16px;padding:28px 32px;max-width:640px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+                    <h3 style="font-size:18px;font-weight:700;color:white;display:flex;align-items:center;gap:10px;">
+                        <i class="fa-solid fa-pen text-blue-400"></i> Chỉnh Sửa Truyện
+                    </h3>
+                    <button onclick="closeEditModal()" style="background:none;border:none;color:#6b7280;cursor:pointer;font-size:20px;">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <input type="hidden" id="edit-book-id" value="" />
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div style="margin-bottom:14px;grid-column:span 2;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-heading"></i> Tên Truyện</label>
+                        <input type="text" id="edit-book-name" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="Nhập tên truyện..." />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-user-pen"></i> Tác Giả</label>
+                        <input type="text" id="edit-book-author" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="Tác giả..." />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-image"></i> Ảnh Bìa (URL)</label>
+                        <input type="text" id="edit-book-cover" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="URL ảnh bìa..." />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-link"></i> Slug</label>
+                        <input type="text" id="edit-book-slug" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="slug-truyen" />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-list"></i> Trạng Thái</label>
+                        <select id="edit-book-status" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;">
+                            <option value="chờ">⏳ Chờ duyệt</option>
+                            <option value="đã duyệt">✅ Đã duyệt</option>
+                            <option value="đã từ chối">❌ Đã từ chối</option>
+                            <option value="đã xóa">🗑️ Đã xóa</option>
+                            <option value="hoàn thành">🏆 Hoàn thành</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-tag"></i> Thể Loại</label>
+                        <input type="text" id="edit-book-categories" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="Tiên hiệp, Huyền huyễn,..." />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-bookmark"></i> Nguồn</label>
+                        <input type="text" id="edit-book-source" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="Nguồn..." />
+                    </div>
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-globe"></i> Link Gốc</label>
+                        <input type="text" id="edit-book-link" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;" placeholder="https://..." />
+                    </div>
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;"><i class="fa-solid fa-align-left"></i> Giới Thiệu</label>
+                    <textarea id="edit-book-desc" style="width:100%;background:#0f0c29;border:1px solid #374151;border-radius:8px;padding:10px 14px;color:white;font-size:13px;outline:none;min-height:100px;resize:vertical;font-family:'Inter',sans-serif;" placeholder="Mô tả ngắn về truyện..."></textarea>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:flex-end;">
+                    <button class="modal-btn cancel" onclick="closeEditModal()">Hủy</button>
+                    <button class="modal-btn primary" onclick="saveBookEdit()"><i class="fa-solid fa-floppy-disk"></i> Lưu Thay Đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="admin-toast-container"></div>
+
+    <script src="/js/admin-books.js"></script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>
+

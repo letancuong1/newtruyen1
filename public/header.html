@@ -1,0 +1,121 @@
+<header class="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-md px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="window.location.href='index.html'">
+            <div class="overflow-hidden rounded-xl shadow-md border border-white/80 bg-white group-hover:shadow-neonCyan transition-all">
+                <img src="logo.svg" alt="AloTruyen Logo" class="h-10 md:h-12 w-auto object-cover" onerror="this.src='https://placehold.co/100x100/00d2ff/ffffff?text=Alo';">
+            </div>
+            <div class="hidden sm:block">
+                <span class="text-xl md:text-2xl font-black bg-gradient-to-r from-brandCyan via-blue-500 to-brandPurple bg-clip-text text-transparent">AloTruyen</span>
+                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Đọc Truyện Mọi Lúc, Mọi Nơi</p>
+            </div>
+        </div>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="hover:text-brandCyan transition-colors flex items-center gap-2"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+            <a href="bxh.html" class="hover:text-brandPurple transition-colors flex items-center gap-2"><i class="fa-solid fa-trophy"></i> Bảng Xếp Hạng</a>
+            <a href="theloai.html" class="hover:text-brandPink transition-colors flex items-center gap-2"><i class="fa-solid fa-layer-group"></i> Thể Loại</a>
+            <a href="video-reviews.html" class="hover:text-brandPink transition-colors flex items-center gap-2"><i class="fa-solid fa-video"></i> Video Review</a>
+            <a href="author.html" class="hover:text-brandOrange transition-colors flex items-center gap-2"><i class="fa-solid fa-feather"></i> Trở Thành Tác Giả</a>
+        </nav>
+
+        <!-- Mobile: ẩn guest-ui buttons, chỉ hiện hamburger -->
+        <div class="flex md:hidden items-center gap-2">
+            <button id="mobile-menu-btn" class="flex items-center justify-center w-9 h-9 rounded-xl border border-gray-300 bg-white text-slate-700 hover:text-brandCyan hover:border-brandCyan transition-all shadow-sm" data-header-action="toggle-menu" aria-label="Menu">
+                <i class="fa-solid fa-bars text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 z-[100] hidden">
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-[400ms] ease-out opacity-0" id="mobile-menu-bg"></div>
+            <div class="absolute top-0 right-0 w-72 h-full bg-white border-l border-gray-300 shadow-2xl p-5 flex flex-col translate-x-full transition-transform duration-[400ms] cubic-bezier(0.22, 1, 0.36, 1)" id="mobile-menu-panel">
+                <!-- Header menu -->
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <span class="font-bold text-sm text-slate-700"><i class="fa-solid fa-compass text-brandCyan mr-2"></i>Điều Hướng</span>
+                    <button data-header-action="close-menu" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all hover:rotate-90 duration-300">
+                        <i class="fa-solid fa-xmark text-slate-500 text-sm"></i>
+                    </button>
+                </div>
+                <!-- Navigation links -->
+                <nav class="flex flex-col gap-1 flex-1">
+                    <a href="index.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-brandCyan hover:bg-cyan-50 hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-house w-5 text-center text-brandCyan"></i> Trang Chủ
+                    </a>
+                    <a href="bxh.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-brandPurple hover:bg-purple-50 hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-trophy w-5 text-center text-brandPurple"></i> Bảng Xếp Hạng
+                    </a>
+                    <a href="theloai.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-brandPink hover:bg-pink-50 hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-layer-group w-5 text-center text-brandPink"></i> Thể Loại
+                    </a>
+                    <a href="video-reviews.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-brandPink hover:bg-pink-50 hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-video w-5 text-center text-brandPink"></i> Video Review
+                    </a>
+                    <a href="author.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-brandOrange hover:bg-orange-50 hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-feather w-5 text-center text-brandOrange"></i> Trở Thành Tác Giả
+                    </a>
+                    <!-- Mobile auth buttons -->
+                    <div class="mt-4 pt-4 border-t border-gray-200 space-y-2">
+                        <a href="login.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-cyan-600 hover:text-white hover:bg-gradient-to-r hover:from-brandCyan hover:to-brandPurple hover:translate-x-1 transition-all">
+                            <i class="fa-solid fa-right-to-bracket w-5 text-center"></i> Đăng Nhập
+                        </a>
+                        <a href="register.html" data-header-action="close-menu" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-purple-600 hover:text-white hover:bg-gradient-to-r hover:from-brandPurple hover:to-brandPink hover:translate-x-1 transition-all">
+                            <i class="fa-solid fa-user-plus w-5 text-center"></i> Đăng Ký
+                        </a>
+                    </div>
+                </nav>
+                <!-- Footer info -->
+                <div class="mt-auto pt-4 border-t border-gray-200 text-center">
+                    <p class="text-[10px] text-slate-400">© AloTruyen</p>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+            <div id="guest-ui" class="flex items-center gap-2">
+                <button onclick="window.location.href='login.html'" class="px-4 py-2 rounded-full border border-cyan-300 bg-cyan-100 text-cyan-700 text-xs font-bold hover:bg-cyan-200">Đăng Nhập</button>
+                <button onclick="window.location.href='register.html'" class="px-4 py-2 rounded-full bg-gradient-to-r from-brandCyan to-brandPurple text-white text-xs font-bold hover:shadow-md">Đăng Ký</button>
+            </div>
+            <div id="user-ui" class="hidden items-center gap-2">
+                <!-- Icon chuông thông báo -->
+                <div class="relative cursor-pointer" onclick="toggleNotifPopup()" title="Truyền Âm Các">
+                    <i class="fa-solid fa-bell text-amber-500 text-base"></i>
+                    <span id="notif-badge" class="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[8px] font-bold flex items-center justify-center shadow-lg" style="display:none;">0</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-[10px] pr-2 border-r border-gray-300 text-slate-600">
+                    <span class="tooltip-container">
+                        <span class="flex items-center gap-1 bg-amber-50 px-2 py-1 rounded-full border border-amber-200 cursor-help">
+                            <i class="fa-solid fa-gem text-amber-400 text-[9px]"></i>
+                            <span class="font-bold text-amber-600" id="header-kim-cuong">0</span>
+                        </span>
+                        <span class="tooltip-box">💎 <strong>Kim Cương</strong> - Đơn vị cao cấp<br>🔹 Kiếm từ: <strong>Nạp tiền</strong> (1.000 VND = 1 KC)<br>🔹 Dùng để: Mua gói Linh Thạch, Ngộ Tính Đan, đổi Linh Thạch (1 KC = 100 LT)</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <span class="flex items-center gap-1 bg-cyan-50 px-2 py-1 rounded-full border border-cyan-200 cursor-help">
+                            <i class="fa-solid fa-coins text-cyan-400 text-[9px]"></i>
+                            <span class="font-bold text-cyan-600" id="header-linh-thach">0</span>
+                        </span>
+                        <span class="tooltip-box">🪙 <strong>Linh Thạch</strong> - Đơn vị cơ bản<br>🔹 Kiếm từ: <strong>Đọc truyện, Tu luyện, Nhiệm vụ hàng ngày</strong><br>🔹 Dùng để: Tăng chỉ số Thần lực, mua vật phẩm, mua Phiếu Đề Cử</span>
+                    </span>
+                    <span class="tooltip-container">
+                        <span class="flex items-center gap-1 bg-gradient-to-r from-cyan-50 to-blue-50 px-2 py-1 rounded-full border border-cyan-300 cursor-help">
+                            <span class="text-[11px]">📋</span>
+                            <span class="font-bold text-cyan-700" id="header-phieu-de-cu">0</span>
+                        </span>
+                        <span class="tooltip-box">📋 <strong>Phiếu Đề Cử</strong><br>🔹 Mua: 100 Linh Thạch/phiếu<br>🔹 Dùng để: Đề cử truyện yêu thích lên BXH</span>
+                    </span>
+                </div>
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='profile.html'">
+                    <img id="header-avatar" class="w-8 h-8 rounded-full object-cover border-2 border-brandCyan/50" src="https://api.dicebear.com/7.x/bottts/svg?seed=Guest&backgroundColor=140d2e" alt="avatar">
+                    <div class="text-[10px] leading-tight min-w-[80px]">
+                        <div class="font-bold text-slate-800 truncate max-w-[80px]" id="user-display-name">Đạo Hữu</div>
+                        <div class="text-brandPurple font-semibold" id="user-level">Lv.1</div>
+                        <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mt-0.5">
+                            <div id="header-exp-bar" class="h-full bg-gradient-to-r from-brandCyan to-brandPurple rounded-full transition-all" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="handleLogout()" class="px-2 py-1.5 rounded-full border border-red-200 bg-red-50 text-red-500 text-[10px] font-bold hover:bg-red-100"><i class="fa-solid fa-power-off"></i></button>
+            </div>
+        </div>
+    </div>
+</header>
+

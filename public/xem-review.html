@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Video Review - AloTruyen</title>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon">
+    <link rel="icon" href="/icon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brandCyan: '#00d2ff',
+                        brandPurple: '#8a2be2',
+                        brandPink: '#ff3366',
+                        brandOrange: '#ff7e5f'
+                    },
+                    boxShadow: {
+                        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        glassHover: '0 12px 40px 0 rgba(31, 38, 135, 0.12)',
+                        neonCyan: '0 0 15px rgba(0, 210, 255, 0.4)',
+                        neonPurple: '0 0 15px rgba(138, 43, 226, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-glass: rgba(255,255,255,0.65);
+            --border-glass: rgba(255,255,255,0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        body {
+            background-color: #0a0a1a;
+            background-image: radial-gradient(at 0% 0%, rgba(0,210,255,0.08) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(138,43,226,0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(15,15,35,0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,210,255,0.15);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5);
+        }
+
+        /* ===== VIDEO PLAYER WRAPPER ===== */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+        /* CSS Clipping Trick: hide YouTube title/branding at top */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 80px);
+            margin-top: -80px;
+            pointer-events: auto;
+            border: none;
+        }
+
+        /* ===== SKIP TOOLBAR ===== */
+        #skip-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .skip-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .skip-btn:hover {
+            background: rgba(0,210,255,0.12);
+            border-color: rgba(0,210,255,0.3);
+            color: #00d2ff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,210,255,0.15);
+        }
+        .skip-btn:active {
+            transform: translateY(0px) scale(0.97);
+        }
+        .skip-btn.rewind {
+            border-color: rgba(255,51,102,0.2);
+            color: #ff6680;
+        }
+        .skip-btn.rewind:hover {
+            background: rgba(255,51,102,0.12);
+            border-color: rgba(255,51,102,0.3);
+            color: #ff3366;
+        }
+        .skip-btn.forward {
+            border-color: rgba(0,210,255,0.2);
+            color: #4dd0e1;
+        }
+        .skip-btn.forward:hover {
+            background: rgba(0,210,255,0.12);
+            border-color: rgba(0,210,255,0.3);
+            color: #00d2ff;
+        }
+
+        /* ===== CINEMA MODE ===== */
+        #cinema-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.55);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        #cinema-toggle-btn:hover {
+            background: rgba(0,210,255,0.08);
+            border-color: rgba(0,210,255,0.2);
+            color: #00d2ff;
+        }
+        #cinema-toggle-btn.active {
+            background: rgba(0,210,255,0.1);
+            border-color: rgba(0,210,255,0.25);
+            color: #00d2ff;
+        }
+        body.cinema-mode .glass-card {
+            background: transparent !important;
+            border-color: transparent !important;
+            backdrop-filter: none !important;
+            box-shadow: none !important;
+            transition: all 0.4s ease;
+        }
+        body.cinema-mode .video-wrapper {
+            z-index: 100;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0,210,255,0.08);
+        }
+        body.cinema-mode #app-header,
+        body.cinema-mode footer,
+        body.cinema-mode #video-info-section,
+        body.cinema-mode .video-extra-section,
+        body.cinema-mode .pt-2 a {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        body.cinema-mode #skip-toolbar {
+            opacity: 0.5;
+            transition: opacity 0.35s ease;
+        }
+        body.cinema-mode #skip-toolbar:hover {
+            opacity: 1;
+        }
+        body.cinema-mode #cinema-toggle-area {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        body.cinema-mode::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.96) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ===== RESUME TOAST ===== */
+        #resume-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: rgba(15,15,40,0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,210,255,0.15);
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            max-width: 90vw;
+        }
+        #resume-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        #resume-toast .toast-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        #resume-toast .toast-text small {
+            color: #00d2ff;
+            font-weight: 700;
+        }
+        .toast-accept-btn {
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d2ff, #8a2be2);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+        .toast-accept-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(0,210,255,0.3);
+        }
+        .toast-dismiss-btn {
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .toast-dismiss-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ===== EPISODE BADGES ===== */
+        .episode-badge {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .episode-badge.active {
+            background: linear-gradient(to right, #00d2ff, #8a2be2) !important;
+            color: white !important;
+            border-color: transparent !important;
+            box-shadow: 0 0 8px rgba(0,210,255,0.3);
+        }
+        .episode-badge:hover:not(.active) {
+            border-color: #00d2ff;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(0,210,255,0.3); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(138,43,226,0.5); }
+
+        @media (max-width: 640px) {
+            .skip-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+            #resume-toast {
+                padding: 12px 16px;
+                gap: 10px;
+                bottom: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            #resume-toast .toast-text {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- HEADER -->
+    <div id="app-header"></div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 main-content">
+        <div class="glass-card rounded-3xl p-4 md:p-6 space-y-4">
+            <!-- Video Player with CSS Clipping Trick -->
+            <div id="player-container" class="video-wrapper mx-auto">
+                <iframe id="youtube-player"
+                    src="about:blank"
+                    allow="autoplay; fullscreen; encrypted-media; accelerometer; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Quick Skip Toolbar -->
+            <div id="skip-toolbar">
+                <button class="skip-btn rewind" data-seconds="-120"><i class="fa-solid fa-backward-step mr-1"></i>2 phút</button>
+                <button class="skip-btn rewind" data-seconds="-60"><i class="fa-solid fa-backward mr-1"></i>1 phút</button>
+                <button class="skip-btn rewind" data-seconds="-30"><i class="fa-solid fa-backward mr-1"></i>30s</button>
+                <button class="skip-btn forward" data-seconds="30"><i class="fa-solid fa-forward mr-1"></i>30s</button>
+                <button class="skip-btn forward" data-seconds="60"><i class="fa-solid fa-forward mr-1"></i>1 phút</button>
+                <button class="skip-btn forward" data-seconds="120"><i class="fa-solid fa-forward-step mr-1"></i>2 phút</button>
+            </div>
+
+            <!-- Cinema Mode Toggle -->
+            <div id="cinema-toggle-area" class="flex justify-end items-center gap-3">
+                <button id="cinema-toggle-btn" title="Chế độ Rạp phim - làm tối toàn bộ nền">
+                    <i class="fa-solid fa-film mr-1"></i> Chế độ Rạp phim
+                </button>
+            </div>
+
+            <!-- Video Info -->
+            <div id="video-info-section" class="space-y-3">
+                <h1 class="text-lg md:text-xl font-bold text-white" id="video-title">Đang tải...</h1>
+                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-400" id="video-meta">
+                    <span><i class="fa-regular fa-eye mr-1 text-brandCyan"></i> <span id="meta-views">0</span></span>
+                    <span><i class="fa-regular fa-heart mr-1 text-brandPink"></i> <span id="meta-likes">0</span></span>
+                    <span><i class="fa-regular fa-clock mr-1 text-brandPurple"></i> <span id="meta-duration">00:00</span></span>
+                    <span><i class="fa-regular fa-calendar mr-1 text-slate-400"></i> <span id="meta-date">--</span></span>
+                </div>
+                <div class="flex flex-wrap gap-2" id="meta-tags"></div>
+            </div>
+
+            <!-- Story Parts / Siblings -->
+            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-list mr-2 text-brandCyan"></i> Các phần khác</h3>
+                <div class="flex flex-wrap gap-2" id="siblings-container">
+                    <span class="text-xs text-slate-500">Đang tải...</span>
+                </div>
+            </div>
+
+            <!-- Video Recommendations -->
+            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-video mr-2 text-brandCyan"></i> Video Review Liên Quan</h3>
+                <div id="video-recommendations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="col-span-full text-center text-xs text-slate-500 py-4">Đang tải đề xuất video...</div>
+                </div>
+            </div>
+
+            <!-- Text Story Recommendations -->
+            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-book mr-2 text-purple-400"></i> Đọc Bản Truyện Chữ Tại AloTruyen</h3>
+                <div id="text-recommendations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="col-span-full text-center text-xs text-slate-500 py-4">Đang tải truyện chữ...</div>
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <a href="video-reviews.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 text-xs font-bold hover:bg-white/10 hover:text-white transition-all">
+                    <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Resume Toast -->
+    <div id="resume-toast">
+        <div class="toast-text">
+            <i class="fa-regular fa-clock text-brandCyan mr-2"></i>
+            Bạn đang xem dở tại <small id="toast-time">00:00</small>. Tiếp tục xem từ đoạn này?
+        </div>
+        <div class="flex items-center gap-2">
+            <button class="toast-accept-btn" id="toast-accept">Đồng ý</button>
+            <button class="toast-dismiss-btn" id="toast-dismiss">Bỏ qua</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black/40 backdrop-blur-md border-t border-white/5 py-6 text-center text-xs space-y-2 mt-8">
+        <p class="font-bold text-gray-400">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p>
+        <p class="text-[10px] text-gray-600">Trình phát video được tối ưu hóa trải nghiệm xem review truyện.</p>
+    </footer>
+
+    <script>
+        // ===== MOBILE MENU (inline) =====
+        (function(){var _tm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;var x=!o.classList.contains('hidden');if(x){p.style.transform='translateX(100%)';b.style.opacity='0';if(n)n.style.pointerEvents='none';setTimeout(function(){o.classList.add('hidden');if(n){n.style.pointerEvents='';n.style.opacity=''}},400)}else{o.classList.remove('hidden');void p.offsetWidth;p.style.transform='translateX(0)';b.style.opacity='1';if(n)n.style.opacity='0.6'}};var _cm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;p.style.transform='translateX(100%)';b.style.opacity='0';if(n){n.style.pointerEvents='none';n.style.opacity=''}setTimeout(function(){o.classList.add('hidden');if(n)n.style.pointerEvents=''},400)};window.toggleMobileMenu=_tm;window.closeMobileMenu=_cm;document.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-header-action]'):null;if(t){var a=t.getAttribute('data-header-action');if(a==='toggle-menu')_tm();else if(a==='close-menu')_cm()}else{var ov=document.getElementById('mobile-menu-overlay');if(ov&&!ov.classList.contains('hidden')){var pn=document.getElementById('mobile-menu-panel');if(pn&&!pn.contains(e.target)&&!e.target.closest('#mobile-menu-btn'))_cm()}}})})();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/header.html')
+                .then(function(res) { if (!res.ok) throw new Error('Lỗi tải header'); return res.text(); })
+                .then(function(html) {
+                    document.getElementById('app-header').innerHTML = html;
+                    var script = document.createElement('script');
+                    script.src = '/js/header-init.js';
+                    document.body.appendChild(script);
+                })
+                .catch(function(err) { console.error("Header error:", err); });
+        });
+    </script>
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/js/video-player.js"></script>
+</body>
+</html>

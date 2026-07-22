@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /uploads/
+Allow: /images/
+
+User-agent: Googlebot
+Allow: /
+Allow: /uploads/
+Allow: /images/
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /uploads/
+Allow: /images/
+
+Sitemap: https://alotruyen.pro/sitemap.xml

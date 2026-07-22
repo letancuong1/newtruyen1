@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Review Truyện Hot - AloTruyen | Review Truyện Tu Tiên, Huyền Huyễn</title>
+    <meta name="description" content="Xem video review truyện hot nhất: truyện tu tiên, huyền huyễn, ngôn tình. Cập nhật video review truyện chữ mới nhất tại AloTruyen.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://alotruyen.pro/video-reviews.html">
+    <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon">
+    <link rel="icon" href="/icon-48x48.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="/icon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="/icon-144x144.png" sizes="144x144" type="image/png">
+    <link rel="icon" href="/icon-192x192.png" sizes="192x192" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brandCyan: '#00d2ff',
+                        brandPurple: '#8a2be2',
+                        brandPink: '#ff3366',
+                        brandOrange: '#ff7e5f'
+                    },
+                    boxShadow: {
+                        glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+                        glassHover: '0 12px 40px 0 rgba(31, 38, 135, 0.12)',
+                        neonCyan: '0 0 15px rgba(0, 210, 255, 0.4)',
+                        neonPurple: '0 0 15px rgba(138, 43, 226, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-glass: rgba(255,255,255,0.65);
+            --border-glass: rgba(255,255,255,0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --bg-gradient-1: radial-gradient(at 0% 0%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --bg-gradient-2: radial-gradient(at 100% 0%, rgba(138,43,226,0.12) 0px, transparent 50%);
+            --bg-gradient-3: radial-gradient(at 100% 100%, rgba(255,126,95,0.12) 0px, transparent 50%);
+            --bg-gradient-4: radial-gradient(at 0% 100%, rgba(0,210,255,0.12) 0px, transparent 50%);
+        }
+        body {
+            background-color: var(--bg-primary);
+            background-image: var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--card-shadow);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 210, 255, 0.5); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(138, 43, 226, 0.6); }
+
+        /* Style tab buttons */
+        .style-tab {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .style-tab.active {
+            background: linear-gradient(to right, #00d2ff, #8a2be2);
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        /* Episode badge */
+        .episode-badge {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .episode-badge.active {
+            background: linear-gradient(to right, #00d2ff, #8a2be2) !important;
+            color: white !important;
+            border-color: transparent !important;
+            box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
+        }
+        .episode-badge:hover:not(.active) {
+            border-color: #00d2ff;
+            transform: translateY(-1px);
+        }
+
+        /* Pagination */
+        .page-btn {
+            transition: all 0.2s ease;
+        }
+        .page-btn.active {
+            background: linear-gradient(to right, #00d2ff, #8a2be2);
+            color: white;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Story card */
+        .story-card {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .story-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+            border-color: #00d2ff;
+        }
+
+        /* Filter dropdowns */
+        .filter-select {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.9);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .filter-select:focus {
+            border-color: #00d2ff;
+            box-shadow: 0 0 0 3px rgba(0,210,255,0.15);
+        }
+
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.4) 25%, rgba(200,200,220,0.3) 50%, rgba(255,255,255,0.4) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- HEADER -->
+    <div id="app-header"></div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+        <div class="glass-card rounded-3xl p-5 md:p-6 space-y-6">
+            <!-- Title -->
+            <h1 class="text-xl md:text-2xl font-black flex items-center gap-3 border-b border-gray-200/60 pb-4">
+                <i class="fa-solid fa-video text-brandPink"></i> VIDEO REVIEW TRUYỆN
+            </h1>
+
+            <!-- Filter Bar -->
+            <div class="space-y-4" id="filter-section">
+                <!-- Search + Style tabs row -->
+                <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center">
+                    <!-- Search -->
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="search-input" placeholder="Tìm tên truyện..." class="filter-select w-full pl-8 pr-4">
+                    </div>
+                    <!-- Style Tabs -->
+                    <div class="flex gap-1.5 flex-wrap" id="style-tabs">
+                        <button data-style="" class="style-tab active px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-600 border border-gray-200">Tất Cả</button>
+                    </div>
+                </div>
+                <!-- Category + Sub-genre + Sort row -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <select id="category-select" class="filter-select flex-1">
+                        <option value="">📂 Thể Loại: Tất Cả</option>
+                    </select>
+                    <select id="subgenre-select" class="filter-select flex-1">
+                        <option value="">🏷️ Phân Loại: Tất Cả</option>
+                    </select>
+                    <select id="duration-select" class="filter-select flex-shrink-0">
+                        <option value="">⏱ Độ Dài: Tất Cả</option>
+                        <option value="under1h">🟢 Dưới 1 giờ</option>
+                        <option value="1to3h">🟡 1 - 3 giờ</option>
+                        <option value="3to5h">🟠 3 - 5 giờ</option>
+                        <option value="5to10h">🔵 5 - 10 giờ</option>
+                        <option value="over10h">🔴 Trên 10 giờ</option>
+                    </select>
+                    <select id="sort-select" class="filter-select flex-shrink-0">
+                        <option value="date">📅 Ngày Đăng</option>
+                        <option value="views">🔥 Lượt Xem</option>
+                        <option value="likes">❤️ Lượt Thích</option>
+                    </select>
+                    <span class="text-[10px] font-medium text-slate-500 flex items-center whitespace-nowrap" id="result-count">Đang tải...</span>
+                </div>
+            </div>
+
+            <!-- Story Cards Grid -->
+            <div id="stories-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Skeleton loading -->
+                <div class="story-card p-4 space-y-3 skeleton-card" id="skeleton-template">
+                    <div class="skeleton h-6 w-3/4"></div>
+                    <div class="skeleton h-4 w-1/2"></div>
+                    <div class="flex gap-2">
+                        <div class="skeleton h-8 w-16"></div>
+                        <div class="skeleton h-8 w-16"></div>
+                    </div>
+                    <div class="skeleton h-4 w-full"></div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination-container" class="flex justify-center items-center gap-2 pt-4 flex-wrap"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/40 backdrop-blur-md border-t border-white/60 py-6 text-center text-xs space-y-2 mt-8">
+        <p class="font-bold text-slate-700">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p>
+        <p class="text-[10px] text-slate-500">Cổng thông tin được thiết kế với giao diện Glassmorphism độc quyền.</p>
+    </footer>
+
+    <!-- System Notifications -->
+    <div id="system-notif-container" class="fixed bottom-5 left-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Scripts -->
+    <script>
+        // ===== MOBILE MENU (inline) =====
+        (function(){var _tm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;var x=!o.classList.contains('hidden');if(x){p.style.transform='translateX(100%)';b.style.opacity='0';if(n)n.style.pointerEvents='none';setTimeout(function(){o.classList.add('hidden');if(n){n.style.pointerEvents='';n.style.opacity=''}},400)}else{o.classList.remove('hidden');void p.offsetWidth;p.style.transform='translateX(0)';b.style.opacity='1';if(n)n.style.opacity='0.6'}};var _cm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;p.style.transform='translateX(100%)';b.style.opacity='0';if(n){n.style.pointerEvents='none';n.style.opacity=''}setTimeout(function(){o.classList.add('hidden');if(n)n.style.pointerEvents=''},400)};window.toggleMobileMenu=_tm;window.closeMobileMenu=_cm;document.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-header-action]'):null;if(t){var a=t.getAttribute('data-header-action');if(a==='toggle-menu')_tm();else if(a==='close-menu')_cm()}else{var ov=document.getElementById('mobile-menu-overlay');if(ov&&!ov.classList.contains('hidden')){var pn=document.getElementById('mobile-menu-panel');if(pn&&!pn.contains(e.target)&&!e.target.closest('#mobile-menu-btn'))_cm()}}})})();
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/header.html')
+                .then(function(res) { if (!res.ok) throw new Error('Lỗi tải header'); return res.text(); })
+                .then(function(html) {
+                    document.getElementById('app-header').innerHTML = html;
+                    var script = document.createElement('script');
+                    script.src = '/js/header-init.js';
+                    document.body.appendChild(script);
+                })
+                .catch(function(err) { console.error("Header error:", err); });
+        });
+    </script>
+    <script src="/js/video-reviews.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <title>Đăng Nhập - Thiên Đạo Truyện</title>
+    <script src="//cdn.tailwindcss.com"></script>
+    <link href="//fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Patrick+Hand&family=Cinzel:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { darkBg: 'var(--bg-color)', cardBg: 'var(--card-bg)', neonPurple: 'var(--primary-glow)', neonCyan: 'var(--secondary-glow)', neonGold: 'var(--accent-glow)' }, fontFamily: { sans: ['Inter', 'sans-serif'], cultivation: ['Cinzel', 'serif'] } } } }
+    </script>
+    <style>
+        :root {
+            --bg-color: #09051b;
+            --card-bg: rgba(20, 13, 46, 0.45);
+            --primary-glow: #bd00ff;
+            --secondary-glow: #00f0ff;
+            --accent-glow: #ffb800;
+        }
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(189, 0, 255, 0.08) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(0, 240, 255, 0.06) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .text-glow-purple { text-shadow: 0 0 10px rgba(189, 0, 255, 0.6), 0 0 20px rgba(189, 0, 255, 0.3); }
+        .text-glow-cyan { text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3); }
+        .border-glow { box-shadow: 0 0 15px rgba(189, 0, 255, 0.15), inset 0 0 15px rgba(0, 240, 255, 0.05); }
+        .border-glow:hover { box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(189, 0, 255, 0.1); border-color: rgba(0, 240, 255, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 selection:bg-cyan-500/30 selection:text-cyan-200">
+
+    <div id="notification-box" class="fixed top-6 right-6 z-50 transform translate-x-80 opacity-0 transition-all duration-500 ease-out pointer-events-none">
+        <div class="bg-black/80 backdrop-blur-md border border-purple-500/40 px-6 py-3.5 rounded-xl shadow-2xl flex items-center gap-3">
+            <span id="notif-icon" class="text-purple-400 text-base"><i class="fa-solid fa-circle-nodes animate-pulse"></i></span>
+            <p id="notif-text" class="text-xs font-medium text-gray-200 tracking-wide font-sans"></p>
+        </div>
+    </div>
+
+    <div class="w-full max-w-md bg-cardBg backdrop-blur-xl border border-white/5 rounded-3xl p-8 border-glow transition-all duration-500 relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="text-center mb-8">
+            <a href="index.html" class="inline-block mb-3 text-2xl font-black tracking-widest font-cultivation text-white group">
+                THIÊN ĐẠO <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 group-hover:text-glow-cyan transition-all duration-300">TRUYỆN</span>
+            </a>
+            <p class="text-xs text-gray-400/80 uppercase tracking-widest font-medium">Khởi động Thần thức - Định vị Đạo quả</p>
+        </div>
+
+        <form id="signin-form" class="space-y-5">
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2 font-sans">Linh Phù (Email)</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500 text-xs"><i class="fa-solid fa-envelope-open-text"></i></span>
+                    <input type="email" id="signin-email" required placeholder="dao_huu@tien_gioi.com" 
+                        class="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500/50 focus:bg-black/60 focus:ring-1 focus:ring-cyan-500/20 transition-all font-sans">
+                </div>
+            </div>
+
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label class="block text-[11px] font-bold uppercase tracking-widest text-gray-400 font-sans">Khẩu Quyết (Mật khẩu)</label>
+                    <a href="#" class="text-[10px] text-purple-400/80 hover:text-purple-300 transition-colors font-sans">Quên Khẩu Quyết?</a>
+                </div>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500 text-xs"><i class="fa-solid fa-key"></i></span>
+                    <input type="password" id="signin-password" required placeholder="••••••••" 
+                        class="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:bg-black/60 focus:ring-1 focus:ring-purple-500/20 transition-all font-sans">
+                </div>
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" id="btn-login-submit"
+                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-widest py-3.5 px-4 rounded-xl shadow-lg hover:shadow-purple-500/20 transition-all duration-300 flex items-center justify-center gap-2 border border-purple-400/20 font-sans">
+                    <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8 pt-6 border-t border-white/5 text-center">
+            <p class="text-xs text-gray-500 font-sans">Chưa lập danh tịch tại Thiên Đạo? 
+                <a href="register.html" class="text-cyan-400 hover:text-cyan-300 font-bold transition-colors ml-1">Khai Bản Mệnh (Đăng Ký)</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Hàm bắn thông báo Huyền ảo
+        function showNotif(text, color = "purple") {
+            const box = document.getElementById('notification-box');
+            const txt = document.getElementById('notif-text');
+            const icon = document.getElementById('notif-icon');
+
+            txt.innerText = text;
+            if (color === "red") {
+                box.firstElementChild.className = "bg-black/80 backdrop-blur-md border border-red-500/40 px-6 py-3.5 rounded-xl shadow-2xl flex items-center gap-3";
+                icon.className = "text-red-400 text-base";
+                icon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            } else if (color === "cyan") {
+                box.firstElementChild.className = "bg-black/80 backdrop-blur-md border border-cyan-500/40 px-6 py-3.5 rounded-xl shadow-2xl flex items-center gap-3";
+                icon.className = "text-cyan-400 text-base";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check animate-bounce"></i>';
+            } else {
+                box.firstElementChild.className = "bg-black/80 backdrop-blur-md border border-purple-500/40 px-6 py-3.5 rounded-xl shadow-2xl flex items-center gap-3";
+                icon.className = "text-purple-400 text-base";
+                icon.innerHTML = '<i class="fa-solid fa-circle-nodes animate-pulse"></i>';
+            }
+
+            box.classList.remove('translate-x-80', 'opacity-0');
+            box.classList.add('translate-x-0', 'opacity-100');
+
+            setTimeout(() => {
+                box.classList.remove('translate-x-0', 'opacity-100');
+                box.classList.add('translate-x-80', 'opacity-0');
+            }, 3000);
+        }
+
+        // KÍCH HOẠT KẾT NỐI API NODE.JS ĐĂNG NHẬP
+        document.getElementById('signin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+            const btn = document.getElementById('btn-login-submit');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Đang vận khí...';
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+
+                if (data.error) {
+                    showNotif(data.error, "red");
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập';
+                } else {
+                    showNotif("Đăng nhập thành công! Kích hoạt truyền tống trận...", "cyan");
+                    btn.innerHTML = 'Thành công ✓';
+                    
+                    // Lưu Thẻ bài Token và thông tin Tu sĩ vào trình duyệt để trang chủ nhận diện
+                    localStorage.setItem('user_session', data.token);
+                    localStorage.setItem('user_data', JSON.stringify(data.user));
+                    
+                    // Chuyển hướng về trang chủ sau 1.5 giây
+                    setTimeout(() => window.location.href = "index.html", 1500);
+                }
+            } catch (err) {
+                showNotif("Thiên địa nghẽn mạch, không thể kết nối đến tàng kinh các!", "red");
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập';
+            }
+        });
+    </script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloTruyen - Cào Truyện Tự Động</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0c29;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.5); }
+
+        #sidebar {
+            width: 250px;
+            background: #1a1635;
+            border-right: 1px solid #1f2937;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0;
+            height: 100vh;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-logo {
+            padding: 22px 20px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .sidebar-logo h1 {
+            font-size: 20px; font-weight: 800;
+            color: #a78bfa;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .sidebar-logo h1 i { font-size: 18px; color: #c084fc; }
+        .sidebar-logo p { font-size: 10px; color: #6b7280; margin-top: 2px; letter-spacing: 0.5px; padding-left: 30px; }
+        .sidebar-menu { flex:1; overflow-y:auto; padding: 12px 10px; }
+        .sidebar-menu .menu-label {
+            font-size: 9px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: #6b7280;
+            padding: 16px 12px 6px;
+        }
+        .sidebar-menu a {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: 8px;
+            font-size: 13px; font-weight: 500;
+            color: #9ca3af; text-decoration: none;
+            transition: all 0.15s ease; cursor: pointer;
+            margin-bottom: 2px;
+        }
+        .sidebar-menu a i { width: 18px; text-align: center; font-size: 14px; color: #6b7280; }
+        .sidebar-menu a:hover { background: #374151; color: #f1f5f9; }
+        .sidebar-menu a:hover i { color: #a78bfa; }
+        .sidebar-menu a.active { background: #7c3aed; color: white; }
+        .sidebar-menu a.active i { color: white; }
+        .sidebar-footer {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 10px; color: #6b7280; text-align: center;
+        }
+
+        #main-wrapper { margin-left: 250px; min-height: 100vh; display: flex; flex-direction: column; }
+
+        #topbar {
+            height: 64px;
+            background: #1a1635;
+            border-bottom: 1px solid #1f2937;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky; top: 0; z-index: 50;
+        }
+        #topbar .admin-profile {
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; padding: 4px 8px; border-radius: 8px;
+            transition: background 0.15s;
+        }
+        #topbar .admin-profile:hover { background: rgba(255,255,255,0.04); }
+        #topbar .admin-profile .avatar {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 12px;
+        }
+        #topbar .admin-profile .name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+        #back-link {
+            display: flex; align-items: center; gap: 8px;
+            color: #9ca3af; text-decoration: none; font-size: 13px;
+            padding: 6px 12px; border-radius: 6px; transition: 0.15s;
+        }
+        #back-link:hover { background: rgba(255,255,255,0.04); color: #e2e8f0; }
+
+        #content { padding: 28px; max-width: 1200px; }
+        .page-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 24px; }
+
+        /* Cards */
+        .card {
+            background: #1a1635;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 15px; font-weight: 700; color: #e2e8f0;
+            margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+        }
+
+        /* Form elements */
+        .form-input {
+            width: 100%;
+            background: #0f0c29;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: white;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { border-color: #7c3aed; }
+        .form-input::placeholder { color: #6b7280; }
+
+        .btn {
+            padding: 10px 22px; border-radius: 8px;
+            font-size: 13px; font-weight: 600; border: none;
+            cursor: pointer; transition: all 0.15s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary { background: #7c3aed; color: white; }
+        .btn-primary:hover:not(:disabled) { background: #6d28d9; }
+        .btn-success { background: #059669; color: white; }
+        .btn-success:hover:not(:disabled) { background: #047857; }
+        .btn-danger { background: #dc2626; color: white; }
+        .btn-danger:hover:not(:disabled) { background: #b91c1c; }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06); color: #9ca3af;
+            border: 1px solid #374151;
+        }
+        .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+
+        /* Log Console */
+        #log-container {
+            background: #0a0820;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 16px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        #log-container::-webkit-scrollbar { width: 4px; }
+        #log-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        #log-container::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.2); border-radius: 10px; }
+
+        .log-entry { margin-bottom: 2px; }
+        .log-entry.info { color: #93c5fd; }
+        .log-entry.success { color: #34d399; }
+        .log-entry.warning { color: #fbbf24; }
+        .log-entry.error { color: #f87171; }
+        .log-entry.done { color: #a78bfa; font-weight: bold; }
+
+        /* Progress bar */
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .stat-box .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+        .stat-box .stat-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 4px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 16px;
+        }
+        .mode-toggle button {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            background: transparent;
+            color: #6b7280;
+        }
+        .mode-toggle button.active {
+            background: #7c3aed;
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            #sidebar { transform: translateX(-100%); }
+            #sidebar.open { transform: translateX(0); }
+            #main-wrapper { margin-left: 0; }
+            #content { padding: 16px; }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Toast */
+        #admin-toast-container {
+            position: fixed; bottom: 20px; right: 20px;
+            z-index: 99999; display: flex; flex-direction: column;
+            gap: 8px; pointer-events: none;
+        }
+        .admin-toast {
+            pointer-events: auto;
+            padding: 12px 18px; border-radius: 10px;
+            border: 1px solid; font-size: 13px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            transform: translateX(100%); opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .admin-toast.show { transform: translateX(0); opacity: 1; }
+        .admin-toast.success { background: #0a1f14; border-color: rgba(16,185,129,0.4); color: #34d399; }
+        .admin-toast.error { background: #1f0f0f; border-color: rgba(239,68,68,0.4); color: #f87171; }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-logo">
+            <h1><i class="fa-solid fa-shield-halved"></i> AloTruyen</h1>
+            <p>CÀO TRUYỆN TỰ ĐỘNG</p>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-label">Chung</div>
+            <a href="admin.html"><i class="fa-solid fa-chart-pie"></i> Tổng Quan</a>
+
+            <div class="menu-label">Quản Lý</div>
+            <a href="admin-books.html"><i class="fa-solid fa-book"></i> Quản Lý Truyện</a>
+            <a href="admin-crawler.html" class="active"><i class="fa-solid fa-robot"></i> Cào Truyện Tự Động</a>
+            <a href="admin-videos.html"><i class="fa-solid fa-video"></i> Quản Lý Video</a>
+            <a href="admin-chapters.html"><i class="fa-solid fa-align-left"></i> Quản Lý Chương</a>
+            <a href="admin-users.html"><i class="fa-solid fa-users"></i> Quản Lý Đạo Hữu</a>
+            <a href="admin-billing.html"><i class="fa-solid fa-gem"></i> Giao Dịch & Gói Nạp</a>
+            <a href="admin-rpg.html"><i class="fa-solid fa-mountain"></i> Cấu Hình RPG</a>
+
+            <div class="menu-label">Hệ Thống</div>
+            <a href="admin-notifications.html"><i class="fa-solid fa-bell"></i> Thông Báo</a>
+        </nav>
+        <div class="sidebar-footer">AloTruyen v2.0 · Cào Truyện</div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div id="main-wrapper">
+        <header id="topbar">
+            <div class="flex items-center gap-3">
+                <button id="mobile-toggle" onclick="toggleSidebar()" style="display:none;width:36px;height:36px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid #374151;color:#9ca3af;cursor:pointer;align-items:center;justify-content:center;">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <a href="admin.html" id="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Về Dashboard
+                </a>
+            </div>
+            <div class="topbar-right flex items-center gap-4">
+                <div class="admin-profile">
+                    <div class="avatar">TV</div>
+                    <span class="name">Admin</span>
+                </div>
+            </div>
+        </header>
+        <style>
+            @media (max-width:1024px) { #mobile-toggle { display:flex !important; } }
+        </style>
+
+        <main id="content">
+            <h1 class="page-title">
+                <i class="fa-solid fa-robot text-purple-400"></i>
+                Cào Truyện Tự Động
+            </h1>
+
+            <!-- Stats -->
+            <div class="stat-grid" style="margin-bottom:20px;">
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-books">0</div>
+                    <div class="stat-label">Truyện Đã Cào</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-chapters">0</div>
+                    <div class="stat-label">Chương Đã Lưu</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="stat-status" style="font-size:16px;">Sẵn sàng</div>
+                    <div class="stat-label">Trạng Thái</div>
+                </div>
+            </div>
+
+            <!-- Main Card -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fa-solid fa-gear text-purple-400"></i>
+                    Cấu Hình Cào
+                </div>
+
+                <!-- Mode Toggle -->
+                <div class="mode-toggle">
+                    <button id="mode-link" class="active" onclick="setMode('link')">
+                        <i class="fa-solid fa-link"></i> Cào 1 Truyện
+                    </button>
+                    <button id="mode-list" onclick="setMode('list')">
+                        <i class="fa-solid fa-list"></i> Cào Danh Sách
+                    </button>
+                    <button id="mode-pages" onclick="setMode('pages')">
+                        <i class="fa-solid fa-layer-group"></i> Cào Trang Hot
+                    </button>
+                </div>
+
+                <!-- Link Mode -->
+                <div id="form-link" style="display:block;">
+                    <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;">
+                        <i class="fa-solid fa-globe"></i> Link Truyện
+                    </label>
+                    <div style="display:flex;gap:10px;">
+                        <input type="text" id="input-link" class="form-input" placeholder="https://metruyenchuvn.com/ten-truyen-12345" style="flex:1;" />
+                        <button class="btn btn-primary" id="btn-crawl-link" onclick="startCrawl()">
+                            <i class="fa-solid fa-play"></i> Bắt Đầu
+                        </button>
+                    </div>
+                    <p style="font-size:11px;color:#6b7280;margin-top:6px;">
+                        Nhập link 1 truyện từ metruyenchuvn.com. <br>Ví dụ: https://metruyenchuvn.com/ten-truyen-12345
+                    </p>
+                </div>
+
+                <!-- List Mode (mới) -->
+                <div id="form-list" style="display:none;">
+                    <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;">
+                        <i class="fa-solid fa-list"></i> Link Danh Sách
+                    </label>
+                    <div style="display:flex;gap:10px;">
+                        <input type="text" id="input-list" class="form-input" placeholder="https://metruyenchuvn.com/danh-sach/truyen-ngon-tinh-ngan" style="flex:1;" />
+                        <button class="btn btn-primary" id="btn-crawl-list" onclick="startCrawl()">
+                            <i class="fa-solid fa-play"></i> Bắt Đầu
+                        </button>
+                    </div>
+                    <p style="font-size:11px;color:#6b7280;margin-top:6px;">
+                        Nhập link danh sách từ metruyenchuvn.com. Tự động cào hết <strong>TẤT CẢ TRANG</strong> của danh sách đó.
+                        <br>Ví dụ: <code>https://metruyenchuvn.com/danh-sach/truyen-ngon-tinh-ngan</code>
+                        <br><strong>Gợi ý:</strong> Vào metruyenchuvn.com, chọn thể loại, copy link và dán vào đây.
+                    </p>
+                </div>
+
+                <!-- Pages Mode -->
+                <div id="form-pages" style="display:none;">
+                    <label style="display:block;font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:6px;">
+                        <i class="fa-solid fa-hashtag"></i> Số Trang Cần Cào
+                    </label>
+                    <div style="display:flex;gap:10px;align-items:center;">
+                        <input type="number" id="input-pages" class="form-input" value="1" min="1" max="100" style="width:120px;" />
+                        <span style="font-size:12px;color:#6b7280;">trang từ mục "Truyện Hot"</span>
+                        <button class="btn btn-primary" id="btn-crawl-pages" onclick="startCrawl()">
+                            <i class="fa-solid fa-play"></i> Bắt Đầu
+                        </button>
+                    </div>
+                    <p style="font-size:11px;color:#6b7280;margin-top:6px;">
+                        Cào từ danh sách <code>/danh-sach/truyen-hot</code>. Mỗi trang ~20 truyện.
+                        <strong>Cảnh báo:</strong> Nhiều trang sẽ rất lâu!
+                    </p>
+                </div>
+
+                <!-- Progress -->
+                <div id="progress-area" style="display:none;margin-top:16px;">
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="margin-top:16px;display:flex;gap:10px;">
+                    <button class="btn btn-danger" id="btn-stop" onclick="stopCrawl()" disabled>
+                        <i class="fa-solid fa-stop"></i> Dừng
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearLog()">
+                        <i class="fa-solid fa-trash-can"></i> Xóa Log
+                    </button>
+                    <button class="btn btn-secondary" onclick="copyLog()">
+                        <i class="fa-solid fa-copy"></i> Sao Chép Log
+                    </button>
+                </div>
+            </div>
+
+            <!-- Log Console -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fa-solid fa-terminal text-purple-400"></i>
+                    Log Thời Gian Thực
+                    <span id="log-count" style="font-size:11px;color:#6b7280;font-weight:400;">(0 dòng)</span>
+                </div>
+                <div id="log-container">
+                    <div class="log-entry info">🔄 Hệ thống sẵn sàng. Nhập thông tin và nhấn "Bắt Đầu" để cào truyện.</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/admin-crawler.js"></script>
+</body>
+</html>

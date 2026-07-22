@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AloTruyen - Quản Lý Đạo Hữu</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0f0c29; color: #d1d5db; overflow-x: hidden; }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius:10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.5); }
+
+        #sidebar { width:250px; background:#1a1635; border-right:1px solid #1f2937; display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; transition:transform 0.3s ease; }
+        .sidebar-logo { padding:22px 20px 18px; border-bottom:1px solid rgba(255,255,255,0.04); }
+        .sidebar-logo h1 { font-size:20px; font-weight:800; color:#a78bfa; display:flex; align-items:center; gap:10px; }
+        .sidebar-logo h1 i { font-size:18px; color:#c084fc; }
+        .sidebar-logo p { font-size:10px; color:#6b7280; margin-top:2px; letter-spacing:0.5px; padding-left:30px; }
+        .sidebar-menu { flex:1; overflow-y:auto; padding:12px 10px; }
+        .sidebar-menu .menu-label { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#6b7280; padding:16px 12px 6px; }
+        .sidebar-menu a { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:500; color:#9ca3af; text-decoration:none; transition:all 0.15s ease; cursor:pointer; margin-bottom:2px; }
+        .sidebar-menu a i { width:18px; text-align:center; font-size:14px; color:#6b7280; }
+        .sidebar-menu a:hover { background:#374151; color:#f1f5f9; }
+        .sidebar-menu a:hover i { color:#a78bfa; }
+        .sidebar-menu a.active { background:#7c3aed; color:white; }
+        .sidebar-menu a.active i { color:white; }
+        .sidebar-footer { padding:14px 16px; border-top:1px solid rgba(255,255,255,0.04); font-size:10px; color:#6b7280; text-align:center; }
+
+        #main-wrapper { margin-left:250px; min-height:100vh; display:flex; flex-direction:column; }
+        #topbar { height:64px; background:#1a1635; border-bottom:1px solid #1f2937; display:flex; align-items:center; justify-content:space-between; padding:0 28px; position:sticky; top:0; z-index:50; }
+        #topbar .admin-profile { display:flex; align-items:center; gap:10px; cursor:pointer; padding:4px 8px; border-radius:8px; transition:background 0.15s; }
+        #topbar .admin-profile:hover { background:rgba(255,255,255,0.04); }
+        #topbar .admin-profile .avatar { width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg,#7c3aed,#a78bfa); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:12px; }
+        #topbar .admin-profile .name { font-size:13px; font-weight:600; color:#e2e8f0; }
+        #back-link { display:flex; align-items:center; gap:8px; color:#9ca3af; text-decoration:none; font-size:13px; padding:6px 12px; border-radius:6px; transition:0.15s; }
+        #back-link:hover { background:rgba(255,255,255,0.04); color:#e2e8f0; }
+
+        #content { padding:28px; max-width:1440px; }
+        .page-title { font-size:24px; font-weight:700; color:white; margin-bottom:24px; }
+
+        .filter-bar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:20px; }
+        .filter-bar input, .filter-bar select { background:#0f0c29; border:1px solid #374151; border-radius:8px; padding:8px 14px; color:white; font-size:13px; outline:none; transition:border-color 0.2s; }
+        .filter-bar input:focus, .filter-bar select:focus { border-color:#7c3aed; }
+        .filter-bar input::placeholder { color:#6b7280; }
+        .filter-bar select { cursor:pointer; min-width:140px; }
+        .filter-bar select option { background:#1a1635; }
+        .filter-btn { padding:8px 18px; border-radius:8px; font-size:13px; font-weight:600; border:none; cursor:pointer; transition:0.15s; }
+        .filter-btn.primary { background:#7c3aed; color:white; }
+        .filter-btn.primary:hover { background:#6d28d9; }
+        .filter-btn.secondary { background:rgba(255,255,255,0.06); color:#9ca3af; border:1px solid #374151; }
+        .filter-btn.secondary:hover { background:rgba(255,255,255,0.1); color:#e2e8f0; }
+        .filter-btn.danger { background:rgba(239,68,68,0.15); color:#f87171; border:1px solid rgba(239,68,68,0.2); }
+        .filter-btn.danger:hover { background:rgba(239,68,68,0.25); }
+
+        .panel { background:#1a1635; border:1px solid #374151; border-radius:12px; padding:20px 24px; }
+        .panel-title { font-size:15px; font-weight:700; color:#e2e8f0; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+
+        .admin-table { width:100%; border-collapse:collapse; }
+        .admin-table thead th { text-align:left; padding:10px 12px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:#9ca3af; border-bottom:1px solid #374151; white-space:nowrap; }
+        .admin-table tbody td { padding:10px 12px; font-size:13px; color:#d1d5db; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+        .admin-table tbody tr:hover { background:rgba(255,255,255,0.02); }
+        .admin-table .user-avatar { width:30px; height:30px; border-radius:50%; object-fit:cover; background:linear-gradient(135deg,#7c3aed,#a78bfa); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:11px; flex-shrink:0; }
+
+        .badge { display:inline-flex; align-items:center; gap:3px; padding:2px 8px; border-radius:4px; font-size:9px; font-weight:700; }
+        .badge.role-admin { background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.2); }
+        .badge.role-reader { background:rgba(59,130,246,0.12); color:#60a5fa; border:1px solid rgba(59,130,246,0.2); }
+        .badge.role-author { background:rgba(16,185,129,0.12); color:#34d399; border:1px solid rgba(16,185,129,0.2); }
+        .badge.vip { background:rgba(168,85,247,0.15); color:#c084fc; border:1px solid rgba(168,85,247,0.2); }
+        .badge.injured { background:rgba(239,68,68,0.15); color:#f87171; border:1px solid rgba(239,68,68,0.2); }
+        .badge.healthy { background:rgba(16,185,129,0.12); color:#34d399; border:1px solid rgba(16,185,129,0.2); }
+
+        .action-btn { padding:5px 10px; border-radius:6px; font-size:11px; font-weight:600; border:none; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+        .action-btn.balance { background:rgba(168,85,247,0.15); color:#c084fc; border:1px solid rgba(168,85,247,0.2); }
+        .action-btn.balance:hover { background:rgba(168,85,247,0.25); }
+        .action-btn.injure { background:rgba(239,68,68,0.15); color:#f87171; border:1px solid rgba(239,68,68,0.2); }
+        .action-btn.injure:hover { background:rgba(239,68,68,0.25); }
+        .action-btn.heal { background:rgba(16,185,129,0.15); color:#34d399; border:1px solid rgba(16,185,129,0.2); }
+        .action-btn.heal:hover { background:rgba(16,185,129,0.25); }
+
+        .action-btn-group { display:flex; gap:4px; }
+
+        .pagination { display:flex; gap:6px; align-items:center; justify-content:center; margin-top:20px; flex-wrap:wrap; }
+        .page-btn { padding:6px 14px; border-radius:6px; font-size:12px; font-weight:600; border:1px solid #374151; background:transparent; color:#9ca3af; cursor:pointer; transition:0.15s; }
+        .page-btn:hover { background:rgba(255,255,255,0.06); color:#e2e8f0; }
+        .page-btn.active { background:#7c3aed; color:white; border-color:#7c3aed; }
+        .page-btn:disabled { opacity:0.4; cursor:not-allowed; }
+        .page-info { font-size:12px; color:#6b7280; margin:0 8px; }
+
+        #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; backdrop-filter:blur(4px); }
+        #modal-overlay.show { display:flex; align-items:center; justify-content:center; }
+        .modal-box { background:#1a1635; border:1px solid #374151; border-radius:16px; padding:28px 32px; max-width:480px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+        .modal-box h3 { font-size:18px; font-weight:700; color:white; margin-bottom:12px; }
+        .modal-box p { font-size:13px; color:#9ca3af; line-height:1.6; margin-bottom:20px; }
+        .modal-actions { display:flex; gap:10px; justify-content:flex-end; }
+        .modal-btn { padding:9px 22px; border-radius:8px; font-size:13px; font-weight:600; border:none; cursor:pointer; transition:0.15s; }
+        .modal-btn.cancel { background:rgba(255,255,255,0.06); color:#9ca3af; border:1px solid #374151; }
+        .modal-btn.cancel:hover { background:rgba(255,255,255,0.1); color:#e2e8f0; }
+        .modal-btn.danger { background:#dc2626; color:white; }
+        .modal-btn.danger:hover { background:#b91c1c; }
+        .modal-btn.primary { background:#7c3aed; color:white; }
+        .modal-btn.primary:hover { background:#6d28d9; }
+
+        .form-group { margin-bottom:14px; }
+        .form-group label { display:block; font-size:12px; font-weight:600; color:#9ca3af; margin-bottom:6px; }
+        .form-group input, .form-group select { width:100%; background:#0f0c29; border:1px solid #374151; border-radius:8px; padding:10px 14px; color:white; font-size:13px; outline:none; transition:border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus { border-color:#7c3aed; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+        #admin-toast-container { position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+        .admin-toast { pointer-events:auto; padding:12px 18px; border-radius:10px; border:1px solid; font-size:13px; font-weight:500; display:flex; align-items:center; gap:10px; box-shadow:0 10px 30px rgba(0,0,0,0.3); backdrop-filter:blur(10px); transform:translateX(100%); opacity:0; transition:all 0.3s ease; }
+        .admin-toast.show { transform:translateX(0); opacity:1; }
+        .admin-toast.success { background:#0a1f14; border-color:rgba(16,185,129,0.4); color:#34d399; }
+        .admin-toast.error { background:#1f0f0f; border-color:rgba(239,68,68,0.4); color:#f87171; }
+
+        .realm-badge { display:inline-flex; align-items:center; gap:3px; padding:2px 6px; border-radius:4px; font-size:9px; font-weight:600; background:rgba(251,191,36,0.1); color:#fbbf24; border:1px solid rgba(251,191,36,0.15); }
+
+        @media (max-width:1024px) { #sidebar { transform:translateX(-100%); } #sidebar.open { transform:translateX(0); } #main-wrapper { margin-left:0; } #content { padding:16px; } .filter-bar { flex-direction:column; align-items:stretch; } .filter-bar input, .filter-bar select { width:100%; } .form-row { grid-template-columns:1fr; } }
+        @media (max-width:640px) { .admin-table thead { display:none; } .admin-table tbody td { display:block; padding:6px 10px; border:none; } .admin-table tbody tr { display:block; padding:12px; border:1px solid rgba(255,255,255,0.06); border-radius:8px; margin-bottom:8px; } .admin-table tbody td:before { content:attr(data-label); font-size:10px; color:#6b7280; font-weight:600; display:block; margin-bottom:2px; text-transform:uppercase; letter-spacing:0.5px; } }
+    </style>
+</head>
+<body>
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+    <aside id="sidebar">
+        <div class="sidebar-logo"><h1><i class="fa-solid fa-shield-halved"></i> AloTruyen</h1><p>QUẢN LÝ ĐẠO HỮU</p></div>
+        <nav class="sidebar-menu">
+            <div class="menu-label">Chung</div>
+            <a href="admin.html"><i class="fa-solid fa-chart-pie"></i> Tổng Quan</a>
+
+            <div class="menu-label">Quản Lý</div>
+            <a href="admin-books.html"><i class="fa-solid fa-book"></i> Quản Lý Truyện</a>
+            <a href="admin-crawler.html"><i class="fa-solid fa-robot"></i> Cào Truyện Tự Động</a>
+            <a href="admin-videos.html"><i class="fa-solid fa-video"></i> Quản Lý Video</a>
+            <a href="admin-chapters.html"><i class="fa-solid fa-align-left"></i> Quản Lý Chương</a>
+            <a href="admin-users.html" class="active"><i class="fa-solid fa-users"></i> Quản Lý Đạo Hữu</a>
+            <a href="admin-billing.html"><i class="fa-solid fa-gem"></i> Giao Dịch & Gói Nạp</a>
+            <a href="admin-rpg.html"><i class="fa-solid fa-mountain"></i> Cấu Hình RPG</a>
+
+            <div class="menu-label">Hệ Thống</div>
+            <a href="admin-notifications.html"><i class="fa-solid fa-bell"></i> Thông Báo</a>
+        </nav>
+        <div class="sidebar-footer">AloTruyen v2.0 · Quản Lý Đạo Hữu</div>
+    </aside>
+
+    <div id="main-wrapper">
+        <header id="topbar">
+            <div class="flex items-center gap-3">
+                <button id="mobile-toggle" onclick="toggleSidebar()" style="display:none;width:36px;height:36px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid #374151;color:#9ca3af;cursor:pointer;align-items:center;justify-content:center;"><i class="fa-solid fa-bars"></i></button>
+                <a href="admin.html" id="back-link"><i class="fa-solid fa-arrow-left"></i> Về Dashboard</a>
+            </div>
+            <div class="topbar-right flex items-center gap-4">
+                <div class="admin-profile"><div class="avatar">TV</div><span class="name">Admin</span></div>
+            </div>
+        </header>
+        <style>@media(max-width:1024px){#mobile-toggle{display:flex!important;}}</style>
+
+        <main id="content">
+            <h1 class="page-title"><i class="fa-solid fa-users text-emerald-400"></i> Quản Lý Đạo Hữu</h1>
+
+            <div class="filter-bar">
+                <input type="text" id="search-input" placeholder="🔍 Tìm theo tên, đạo hiệu, email..." style="flex:1;min-width:200px;" />
+                <select id="role-filter">
+                    <option value="">🎭 Tất cả vai trò</option>
+                    <option value="reader">📖 Độc giả</option>
+                    <option value="author">✍️ Tác giả</option>
+                    <option value="admin">🛡️ Admin</option>
+                </select>
+                <select id="vip-filter">
+                    <option value="">👑 Tất cả</option>
+                    <option value="true">💎 VIP</option>
+                    <option value="false">📖 Thường</option>
+                </select>
+                <select id="injured-filter">
+                    <option value="">💚 Tất cả trạng thái</option>
+                    <option value="1">🩸 Trọng thương</option>
+                    <option value="0">✅ Bình thường</option>
+                </select>
+                <button class="filter-btn primary" onclick="applyFilters()"><i class="fa-solid fa-filter"></i> Lọc</button>
+                <button class="filter-btn secondary" onclick="resetFilters()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">
+                    <i class="fa-solid fa-list text-indigo-400"></i>
+                    Danh Sách Đạo Hữu
+                    <span class="text-[11px] font-normal text-gray-500 ml-auto" id="users-count">(Đang tải...)</span>
+                </div>
+                <div class="admin-table-container" style="overflow-x:auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Đạo Hữu</th>
+                                <th>Email</th>
+                                <th>Cảnh Giới</th>
+                                <th>Linh Thạch</th>
+                                <th>Kim Cương</th>
+                                <th>EXP</th>
+                                <th>VIP</th>
+                                <th>Trạng Thái</th>
+                                <th style="width:150px;">Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <tr><td colspan="9" class="text-center text-gray-500 py-10">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="pagination">
+                    <button class="page-btn" id="prev-page" onclick="goToPage(currentPage - 1)" disabled><i class="fa-solid fa-chevron-left"></i> Trước</button>
+                    <span class="page-info" id="page-info">Trang 1 / 1</span>
+                    <button class="page-btn" id="next-page" onclick="goToPage(currentPage + 1)" disabled>Sau <i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal xác nhận -->
+    <div id="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modal-title">Xác nhận</h3>
+            <p id="modal-message">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeModal()">Hủy</button>
+                <button class="modal-btn danger" id="modal-confirm-btn" onclick="confirmModalAction()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal can thiệp tài sản -->
+    <div id="balance-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);overflow-y:auto;">
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;">
+            <div class="modal-box" style="max-width:520px;">
+                <h3><i class="fa-solid fa-scale-balanced text-purple-400"></i> Can Thiệp Tài Sản</h3>
+                <p id="balance-user-name" style="font-size:14px;font-weight:600;color:#e2e8f0;margin-bottom:16px;"></p>
+                <input type="hidden" id="balance-user-id" value="" />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-stone"></i> Linh Thạch (+/-)</label>
+                        <input type="number" id="bal-lt" value="0" placeholder="0" />
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-gem"></i> Kim Cương (+/-)</label>
+                        <input type="number" id="bal-kc" value="0" placeholder="0" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-star"></i> EXP Tu Vi (+/-)</label>
+                    <input type="number" id="bal-exp" value="0" placeholder="0" />
+                </div>
+                <div class="flex items-center gap-2 mb-4 p-3 rounded-lg" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">
+                    <i class="fa-solid fa-info-circle text-amber-400 text-sm"></i>
+                    <span class="text-xs text-amber-300">Nhập số dương để tặng, số âm để trừ. Giá trị sẽ không xuống dưới 0.</span>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel" onclick="closeBalanceModal()">Hủy</button>
+                    <button class="modal-btn primary" onclick="saveBalance()"><i class="fa-solid fa-check"></i> Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal trừng phạt -->
+    <div id="injure-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);overflow-y:auto;">
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;">
+            <div class="modal-box" style="max-width:440px;">
+                <h3><i class="fa-solid fa-gavel text-red-400"></i> Đả Thương Đạo Hữu</h3>
+                <p id="injure-user-name" style="font-size:14px;font-weight:600;color:#e2e8f0;margin-bottom:16px;"></p>
+                <input type="hidden" id="injure-user-id" value="" />
+                <div class="form-group">
+                    <label><i class="fa-solid fa-calendar"></i> Số Ngày Trọng Thương</label>
+                    <input type="number" id="injure-days" value="1" min="1" max="365" />
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel" onclick="closeInjureModal()">Hủy</button>
+                    <button class="modal-btn danger" onclick="confirmInjure()"><i class="fa-solid fa-skull"></i> Đả Thương</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-toast-container"></div>
+    <script src="/js/admin-users.js"></script>
+    <script src="/js/rpg-system.js"></script>\n</body>
+</html>
+
