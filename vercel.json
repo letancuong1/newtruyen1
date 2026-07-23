@@ -45,7 +45,31 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "api/sitemap.js"
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-pages.xml",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-categories.xml",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-books.xml",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-chapters.xml",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-chapters-:page.xml",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/sitemap-videos.xml",
+      "destination": "api/index.js"
     },
     {
       "source": "/api/(.*)",

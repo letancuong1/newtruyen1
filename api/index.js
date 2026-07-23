@@ -22,102 +22,114 @@ app.use((req, res, next) => {
     next();
 });
 
-// ===================== SITEMAP ROUTE (catch BOTH paths) =====================
+// ===================== DYNAMIC SITEMAP SYSTEM (SEO-Optimized) =====================
+// Sitemap Index + 5 sub-sitemaps: pages, categories, books, chapters, videos
+// Auto-paginates chapters when > 10,000 records
+const sitemapGenerator = require('./services/sitemap-generator');
+
+// Cache sitemap results in-memory for 1 hour to reduce DB load
+let sitemapCache = {};
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+function getCached(key, generatorFn) {
+  const now = Date.now();
+  if (sitemapCache[key] && (now - sitemapCache[key].timestamp < CACHE_TTL)) {
+    return Promise.resolve(sitemapCache[key].data);
+  }
+  return generatorFn().then(data => {
+    sitemapCache[key] = { data, timestamp: now };
+    return data;
+  });
+}
+
+// 1. SITEMAP INDEX - `/sitemap.xml`
 app.get(['/sitemap.xml', '/api/sitemap.xml'], async (req, res) => {
   try {
-    const pool = require('../db');
-    const BASE_URL = 'https://alotruyen.pro';
-    
+    const xml = await getCached('index', () => sitemapGenerator.generateSitemapIndex());
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
-    
-    // Get all books (non-deleted)
-    const booksResult = await pool.query(
-      "SELECT id, slug, updated_at FROM books WHERE trang_thai IS NULL OR (trang_thai != 'đã xóa' AND trang_thai != 'deleted') ORDER BY id"
-    );
-    const books = booksResult.rows;
-    
-    // Get all categories
-    const categoriesResult = await pool.query('SELECT id, name, slug FROM categories ORDER BY name');
-    const categories = categoriesResult.rows;
-    
-    // Get video reviews
-    const videosResult = await pool.query('SELECT id, slug, created_at FROM video_reviews ORDER BY id');
-    const videos = videosResult.rows;
-    
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
-    
-    // Static pages (priority pages only - no login/register/profile)
-    const staticPages = [
-      { loc: '/', priority: '1.0', changefreq: 'daily' },
-      { loc: '/index.html', priority: '1.0', changefreq: 'daily' },
-      { loc: '/bxh.html', priority: '0.9', changefreq: 'daily' },
-      { loc: '/theloai.html', priority: '0.8', changefreq: 'weekly' },
-      { loc: '/danh-sach.html', priority: '0.8', changefreq: 'daily' },
-      { loc: '/video-reviews.html', priority: '0.7', changefreq: 'weekly' },
-      { loc: '/doc-truyen.html', priority: '0.7', changefreq: 'daily' },
-      { loc: '/chi-tiet-truyen.html', priority: '0.7', changefreq: 'daily' },
-      { loc: '/xem-review.html', priority: '0.6', changefreq: 'weekly' },
-    ];
-    
-    for (const page of staticPages) {
-      xml += `
-  <url>
-    <loc>${BASE_URL}${page.loc}</loc>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>`;
-    }
-    
-    // Category pages
-    const today = new Date().toISOString().split('T')[0];
-    for (const cat of categories) {
-      xml += `
-  <url>
-    <loc>${BASE_URL}/theloai.html?genre=${encodeURIComponent(cat.name)}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`;
-    }
-    
-    // Novel detail pages (dynamic - the MOST important for SEO)
-    for (const book of books) {
-      const lastmod = book.updated_at ? new Date(book.updated_at).toISOString().split('T')[0] : today;
-      xml += `
-  <url>
-    <loc>${BASE_URL}/chi-tiet-truyen.html?id=${book.id}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>`;
-    }
-    
-    // Video review pages
-    for (const video of videos) {
-      const lastmod = video.created_at ? new Date(video.created_at).toISOString().split('T')[0] : today;
-      xml += `
-  <url>
-    <loc>${BASE_URL}/xem-review.html?id=${video.id}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>`;
-    }
-    
-    xml += `
-</urlset>`;
-    
     res.send(xml);
   } catch (err) {
-    console.error('Sitemap generation error:', err);
-    // Fallback to static sitemap file
-    try {
-      res.sendFile(path.join(__dirname, '..', 'public', 'sitemap.xml'));
-    } catch(e) {
-      res.status(500).type('text').send('Sitemap generation failed');
-    }
+    console.error('[SITEMAP INDEX ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap generation failed');
+  }
+});
+
+// 2. SITEMAP PAGES - `/sitemap-pages.xml`
+app.get(['/sitemap-pages.xml', '/api/sitemap-pages.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('pages', () => sitemapGenerator.generateSitemapPages());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP PAGES ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap pages generation failed');
+  }
+});
+
+// 3. SITEMAP CATEGORIES - `/sitemap-categories.xml`
+app.get(['/sitemap-categories.xml', '/api/sitemap-categories.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('categories', () => sitemapGenerator.generateSitemapCategories());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP CATEGORIES ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap categories generation failed');
+  }
+});
+
+// 4. SITEMAP BOOKS - `/sitemap-books.xml`
+app.get(['/sitemap-books.xml', '/api/sitemap-books.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('books', () => sitemapGenerator.generateSitemapBooks());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP BOOKS ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap books generation failed');
+  }
+});
+
+// 5. SITEMAP CHAPTERS (single + paginated) - `/sitemap-chapters.xml`, `/sitemap-chapters-{page}.xml`
+app.get(['/sitemap-chapters.xml', '/api/sitemap-chapters.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('chapters-1', () => sitemapGenerator.generateSitemapChapters(1));
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP CHAPTERS ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap chapters generation failed');
+  }
+});
+
+app.get(['/sitemap-chapters-:page.xml', '/api/sitemap-chapters-:page.xml'], async (req, res) => {
+  try {
+    const page = parseInt(req.params.page) || 1;
+    const xml = await getCached(`chapters-${page}`, () => sitemapGenerator.generateSitemapChapters(page));
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP CHAPTERS PAGE ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap chapters page generation failed');
+  }
+});
+
+// 6. SITEMAP VIDEOS - `/sitemap-videos.xml`
+app.get(['/sitemap-videos.xml', '/api/sitemap-videos.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('videos', () => sitemapGenerator.generateSitemapVideos());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP VIDEOS ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap videos generation failed');
   }
 });
 
@@ -128,7 +140,7 @@ app.use('/css', express.static(path.join(__dirname, '..', 'public', 'css')));
 
 // ===================== COMPATIBILITY MIDDLEWARE =====================
 app.use((req, res, next) => {
-    const publicAliases = ['/get_books', '/get_categories', '/get_books_by_category', '/get_leaderboard_books', '/sitemap.xml'];
+    const publicAliases = ['/get_books', '/get_categories', '/get_books_by_category', '/get_leaderboard_books'];
     if (publicAliases.includes(req.path)) req.url = '/api' + req.url;
     next();
 });
