@@ -538,8 +538,10 @@
             if (!bookId) return;
             // Tìm book trong danh sách đã load
             const book = allBooks.find(b => String(b.id) === String(bookId));
+            var slug = bookId; // fallback to id
             if (book) {
                 try {
+                    slug = book.slug || bookId;
                     const compact = {
                         id: book.id,
                         ten_truyen: book.title,
@@ -551,12 +553,12 @@
                         rating_avg: book.ratingAvg,
                         rating_count: book.ratingCount,
                         the_loai: book.categories,
-                        slug: book.slug || ''
+                        slug: slug
                     };
                     sessionStorage.setItem('preload_book', JSON.stringify(compact));
                 } catch(e) { /* ignore */ }
             }
-            window.location.href = `chi-tiet-truyen.html?slug=${bookId}`;
+            window.location.href = `chi-tiet-truyen.html?slug=${encodeURIComponent(slug)}`;
         }
 
         function loadMoreBooks() {
