@@ -44,16 +44,30 @@ router.get('/get_books', async (req, res) => {
 // GET /api/get_book_detail
 router.get('/get_book_detail', async (req, res) => {
     try {
-        const bookId = req.query.id || null;
-        if (!bookId) return res.status(400).json({ success: false, error: "Thiếu ID truyện!" });
+        // Support both id and slug parameters
+        let bookId = req.query.id || null;
+        let bookSlug = req.query.slug || null;
+        let queryParam, queryValue;
+        
+        if (bookSlug) {
+            queryParam = 'b.slug';
+            queryValue = bookSlug;
+        } else if (bookId) {
+            queryParam = 'b.id';
+            queryValue = bookId;
+        } else {
+            return res.status(400).json({ success: false, error: "Thiếu ID hoặc Slug truyện!" });
+        }
+        
         const sql = `SELECT b.*, COALESCE(c.avg,0)::float AS rating_avg, COALESCE(c.count,0)::int AS rating_count
             FROM books b LEFT JOIN LATERAL (
                 SELECT AVG(rating_stars) AS avg, COUNT(*) AS count FROM comments WHERE book_id = b.id
-            ) c ON true WHERE b.id = $1 LIMIT 1`;
-        const result = await pool.query(sql, [bookId]);
+            ) c ON true WHERE ${queryParam} = $1 LIMIT 1`;
+        const result = await pool.query(sql, [queryValue]);
         if (result.rows.length === 0) return res.status(404).json({ success: false, error: "Không tìm thấy truyện!" });
         
         const book = result.rows[0];
+        const resolvedBookId = book.id;
         const storyTitle = book.ten_truyen || '';
         
         // ===================== RELATED TEXT STORIES (up to 9) =====================
@@ -88,7 +102,7 @@ router.get('/get_book_detail', async (req, res) => {
                 ORDER BY COALESCE(b.luot_xem, 0) DESC LIMIT 10)
                 LIMIT 10
             `;
-            const textResult = await pool.query(textRecSql, [bookId, keywords || 'truyen', categories.length > 0 ? categories : ['truyen']]);
+            const textResult = await pool.query(textRecSql, [resolvedBookId, keywords || 'truyen', categories.length > 0 ? categories : ['truyen']]);
             // Filter unique by id
             const seen = new Set();
             relatedTextStories = textResult.rows.filter(r => {

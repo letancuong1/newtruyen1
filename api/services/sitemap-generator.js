@@ -272,9 +272,9 @@ async function generateSitemapVideos() {
       var lastmodDate = video.ngay_dang || video.created_at;
       var lastmod = formatDateShort(lastmodDate);
 
-      // Use slug if available, fallback to id_video
+      // Use slug for clean URL, fallback to id_video
       var identifier = video.slug || video.id_video;
-      var videoUrl = BASE_URL + '/xem-review.html?slug=' + escapeXml(identifier);
+      var videoUrl = BASE_URL + '/video-review/' + escapeXml(identifier);
 
       xml += '  <url>\n';
       xml += '    <loc>' + videoUrl + '</loc>\n';

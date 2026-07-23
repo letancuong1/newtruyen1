@@ -448,7 +448,9 @@
 
     async function fetchBookDetail() {
         const urlParams = new URLSearchParams(window.location.search);
-        let targetId = urlParams.get('id') || urlParams.get('book') || urlParams.get('slug');
+        // Support both id and slug parameters (prefer slug for SEO)
+        let targetId = urlParams.get('slug') || urlParams.get('id') || urlParams.get('book');
+        let isSlug = urlParams.has('slug');
 
         try {
             if (!targetId) {
@@ -467,7 +469,7 @@
                 const pre = sessionStorage.getItem('preload_book');
                 if (pre) {
                     const parsed = JSON.parse(pre);
-                    if (parsed && String(parsed.id) === String(targetId)) {
+                    if (parsed && (String(parsed.id) === String(targetId) || String(parsed.slug) === String(targetId))) {
                         preloadedBook = parsed;
                         sessionStorage.removeItem('preload_book');
                         renderBookData(preloadedBook);
@@ -482,8 +484,9 @@
                 }
             } catch (e) {}
 
-            // Bước 2: Fetch từ server để cập nhật data + recommendations
-            const response = await fetch(`${API_BASE}/get_book_detail?id=${encodeURIComponent(targetId)}`);
+            // Bước 2: Fetch từ server (hỗ trợ cả id và slug)
+            var apiParam = isSlug ? ('slug=' + encodeURIComponent(targetId)) : ('id=' + encodeURIComponent(targetId));
+            const response = await fetch(`${API_BASE}/get_book_detail?${apiParam}`);
             if (!response.ok) throw new Error("Không thể kết nối API máy chủ!");
             const data = await response.json();
             if (!data.success || !data.book) throw new Error(data.error || "Lỗi tải dữ liệu truyện.");

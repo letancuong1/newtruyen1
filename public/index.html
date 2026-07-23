@@ -704,11 +704,14 @@
                         slug: bookObj.slug || ''
                     };
                     sessionStorage.setItem('preload_book', JSON.stringify(compact));
+                    var targetSlug = bookObj.slug || bookId;
                 } else if (window.PRELOAD_MAP && window.PRELOAD_MAP[String(bookId)]) {
                     sessionStorage.setItem('preload_book', JSON.stringify(window.PRELOAD_MAP[String(bookId)]));
+                    var preSlug = (window.PRELOAD_MAP[String(bookId)].slug || bookId);
                 }
             } catch (e) { /* ignore */ }
-            window.location.href = `chi-tiet-truyen.html?id=${bookId}`;
+            var finalSlug = targetSlug || preSlug || bookId;
+            window.location.href = `chi-tiet-truyen.html?slug=${finalSlug}`;
         }
 
         // ===========================================================

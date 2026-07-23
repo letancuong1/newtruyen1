@@ -281,7 +281,8 @@
             const chapters = parseInt(b.so_chuong || b.chaptersCount || 0) || 0;
             const rating = parseFloat(b.rating_avg || b.rating || 0) || 0;
 
-            return `<div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-gray-100 hover:border-brandCyan/50 transition-all cursor-pointer shadow-sm hover:shadow-md group" onclick="openReadingPage('${b.id}', 1)">
+            const bookSlug = b.slug || b.id;
+            return `<div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-gray-100 hover:border-brandCyan/50 transition-all cursor-pointer shadow-sm hover:shadow-md group" onclick="openReadingPage('${bookSlug}', 1)">
                 ${badge}
                 <img src="${cover}" class="w-10 h-14 rounded-lg object-cover shadow-sm border border-white/80 shrink-0" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop'">
                 <div class="flex-1 min-w-0">
@@ -299,15 +300,18 @@
         // ===========================================================
         // MỞ TRANG CHI TIẾT
         // ===========================================================
-        function openReadingPage(bookId, chapterNum) {
-            if (!bookId) return;
-            try {
-                if (window.PRELOAD_MAP && window.PRELOAD_MAP[String(bookId)]) {
-                    sessionStorage.setItem('preload_book', JSON.stringify(window.PRELOAD_MAP[String(bookId)]));
+    function openReadingPage(bookSlug, chapterNum) {
+        if (!bookSlug) return;
+        try {
+            if (window.PRELOAD_MAP) {
+                var preloadData = window.PRELOAD_MAP[String(bookSlug)] || window.PRELOAD_MAP[String(chapterNum)];
+                if (preloadData) {
+                    sessionStorage.setItem('preload_book', JSON.stringify(preloadData));
                 }
-            } catch (e) { /* ignore */ }
-            window.location.href = `chi-tiet-truyen.html?id=${bookId}`;
-        }
+            }
+        } catch (e) { /* ignore */ }
+        window.location.href = `chi-tiet-truyen.html?slug=${bookSlug}`;
+    }
 
         // ===========================================================
         // RENDER BXH
