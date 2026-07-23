@@ -282,12 +282,24 @@ router.get('/video-reviews/filters', async (req, res) => {
 // GET /api/video-reviews/detail
 router.get('/video-reviews/detail', async (req, res) => {
     try {
+        // Support both id and slug parameters
         const idVideo = req.query.id || '';
-        if (!idVideo) return res.status(400).json({ success: false, error: 'Missing video ID' });
+        const slugVideo = req.query.slug || '';
+        let whereClause, paramValue;
+        
+        if (slugVideo) {
+            whereClause = 'slug = $1';
+            paramValue = slugVideo;
+        } else if (idVideo) {
+            whereClause = 'id_video = $1';
+            paramValue = idVideo;
+        } else {
+            return res.status(400).json({ success: false, error: 'Missing video ID or slug' });
+        }
 
         const result = await pool.query(
-            `SELECT * FROM youtube_truyen WHERE id_video = $1 LIMIT 1`,
-            [idVideo]
+            `SELECT * FROM youtube_truyen WHERE ${whereClause} LIMIT 1`,
+            [paramValue]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ success: false, error: 'Video not found' });

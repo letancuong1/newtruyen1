@@ -75,8 +75,9 @@
             var storyName = r.ten_truyen_sach || 'Không rõ';
             var views = formatNumber(r.luot_xem);
             var duration = formatTime(r.thoi_luong_giay);
+            var slug = r.slug || r.id_video;
             
-            return '<div class="rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-brandCyan/30 transition-all cursor-pointer group" onclick="window.location.href=\'xem-review.html?id=' + encodeURIComponent(r.id_video) + '\'">' +
+            return '<div class="rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-brandCyan/30 transition-all cursor-pointer group" onclick="window.location.href=\'/video-review/' + encodeURIComponent(slug) + '\'">' +
                 '<div class="relative w-full aspect-[16/9] bg-slate-800 overflow-hidden">' +
                     (thumbUrl 
                         ? '<img src="' + escapeHtml(thumbUrl) + '" alt="' + escapeHtml(storyName) + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=\\\'flex items-center justify-center h-full text-slate-600\\\'><i class=\\\'fa-solid fa-video text-2xl\\\'></i></div>\'">'
@@ -92,7 +93,7 @@
                     '<div class="flex items-center justify-between text-[10px] text-slate-500">' +
                         '<span><i class="fa-regular fa-eye mr-1 text-brandCyan"></i>' + views + '</span>' +
                     '</div>' +
-                    '<button onclick="event.stopPropagation();window.location.href=\'xem-review.html?id=' + encodeURIComponent(r.id_video) + '\'" class="w-full py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[10px] font-bold hover:shadow-lg transition-all flex items-center justify-center gap-1.5">' +
+                    '<button onclick="event.stopPropagation();window.location.href=\'/video-review/' + encodeURIComponent(slug) + '\'" class="w-full py-1.5 rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white text-[10px] font-bold hover:shadow-lg transition-all flex items-center justify-center gap-1.5">' +
                         '<i class="fa-solid fa-play"></i> Xem Ngay' +
                     '</button>' +
                 '</div>' +
@@ -115,7 +116,8 @@
             var author = r.tac_gia || 'Khuyết Danh';
             var chapters = r.so_chuong || 0;
             var views = formatNumber(r.luot_xem);
-            var detailPage = 'chi-tiet-truyen.html?id=' + encodeURIComponent(r.id) + (r.slug ? '&slug=' + encodeURIComponent(r.slug) : '');
+            var slug = r.slug || '';
+            var detailPage = slug ? 'chi-tiet-truyen.html?slug=' + encodeURIComponent(slug) : 'chi-tiet-truyen.html?id=' + encodeURIComponent(r.id);
             var genres = '';
             if (r.the_loai && Array.isArray(r.the_loai)) {
                 genres = r.the_loai.slice(0, 3).map(function(g) {
@@ -194,7 +196,10 @@
     // ===================== LOAD VIDEO DATA =====================
     async function loadVideoData(videoId) {
         try {
-            var res = await fetch('/api/video-reviews/detail?id=' + encodeURIComponent(videoId));
+            var isSlugMode = typeof videoId === 'string' && videoId.indexOf('SLUG_MODE:') === 0;
+            var actualId = isSlugMode ? videoId.replace('SLUG_MODE:', '') : videoId;
+            var apiParam = isSlugMode ? ('slug=' + encodeURIComponent(actualId)) : ('id=' + encodeURIComponent(actualId));
+            var res = await fetch('/api/video-reviews/detail?' + apiParam);
             var json = await res.json();
             if (!json.success) throw new Error(json.error || 'Failed to load video');
 
@@ -508,7 +513,9 @@
     // ===================== INIT =====================
     async function init() {
         var params = new URLSearchParams(window.location.search);
-        var videoId = params.get('id');
+        // Support both id and slug parameters (prefer slug for SEO)
+        var videoId = params.get('slug') || params.get('id');
+        var isSlug = params.has('slug');
 
         if (!videoId) {
             videoTitle.textContent = 'Thiếu ID video';
@@ -517,8 +524,10 @@
 
         currentVideoId = videoId;
 
-        // Load video data from API
-        var video = await loadVideoData(videoId);
+        // Load video data from API (support both id and slug)
+        var apiParam = isSlug ? ('slug=' + encodeURIComponent(videoId)) : ('id=' + encodeURIComponent(videoId));
+        // Update loadVideoData to use the correct parameter
+        var video = await loadVideoData(isSlug ? 'SLUG_MODE:' + videoId : videoId);
         if (!video) return;
 
         // Get YouTube video ID
