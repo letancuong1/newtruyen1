@@ -23,13 +23,13 @@ app.use((req, res, next) => {
 });
 
 // ===================== DYNAMIC SITEMAP SYSTEM (SEO-Optimized) =====================
-// Sitemap Index + 5 sub-sitemaps: pages, categories, books, chapters, videos
-// Auto-paginates chapters when > 10,000 records
+// Sitemap Index + 4 sub-sitemaps: pages, categories, books, videos
+// NO chapter sitemap (Google Bot crawls chapters from internal links in book detail)
 const sitemapGenerator = require('./services/sitemap-generator');
 
-// Cache sitemap results in-memory for 1 hour to reduce DB load
+// Cache sitemap results in-memory for 2 hours to reduce DB load
 let sitemapCache = {};
-const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours
 
 function getCached(key, generatorFn) {
   const now = Date.now();
@@ -94,33 +94,7 @@ app.get(['/sitemap-books.xml', '/api/sitemap-books.xml'], async (req, res) => {
   }
 });
 
-// 5. SITEMAP CHAPTERS (single + paginated) - `/sitemap-chapters.xml`, `/sitemap-chapters-{page}.xml`
-app.get(['/sitemap-chapters.xml', '/api/sitemap-chapters.xml'], async (req, res) => {
-  try {
-    const xml = await getCached('chapters-1', () => sitemapGenerator.generateSitemapChapters(1));
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
-    res.send(xml);
-  } catch (err) {
-    console.error('[SITEMAP CHAPTERS ERROR]', err.message);
-    res.status(500).type('text').send('Sitemap chapters generation failed');
-  }
-});
-
-app.get(['/sitemap-chapters-:page.xml', '/api/sitemap-chapters-:page.xml'], async (req, res) => {
-  try {
-    const page = parseInt(req.params.page) || 1;
-    const xml = await getCached(`chapters-${page}`, () => sitemapGenerator.generateSitemapChapters(page));
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
-    res.send(xml);
-  } catch (err) {
-    console.error('[SITEMAP CHAPTERS PAGE ERROR]', err.message);
-    res.status(500).type('text').send('Sitemap chapters page generation failed');
-  }
-});
-
-// 6. SITEMAP VIDEOS - `/sitemap-videos.xml`
+// 5. SITEMAP VIDEOS - `/sitemap-videos.xml`
 app.get(['/sitemap-videos.xml', '/api/sitemap-videos.xml'], async (req, res) => {
   try {
     const xml = await getCached('videos', () => sitemapGenerator.generateSitemapVideos());

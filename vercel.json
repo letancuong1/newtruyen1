@@ -6,10 +6,6 @@
       "use": "@vercel/node"
     },
     {
-      "src": "api/sitemap.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "public/**/*.html",
       "use": "@vercel/static"
     },
@@ -57,14 +53,6 @@
     },
     {
       "source": "/sitemap-books.xml",
-      "destination": "api/index.js"
-    },
-    {
-      "source": "/sitemap-chapters.xml",
-      "destination": "api/index.js"
-    },
-    {
-      "source": "/sitemap-chapters-:page.xml",
       "destination": "api/index.js"
     },
     {
