@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 // ===================== DYNAMIC SITEMAP SYSTEM (SEO-Optimized) =====================
-// Sitemap Index + 4 sub-sitemaps: pages, categories, books, videos
+// Sitemap Index + 5 sub-sitemaps: pages, categories, books, video-categories, videos
 // NO chapter sitemap (Google Bot crawls chapters from internal links in book detail)
 const sitemapGenerator = require('./services/sitemap-generator');
 
@@ -94,7 +94,20 @@ app.get(['/sitemap-books.xml', '/api/sitemap-books.xml'], async (req, res) => {
   }
 });
 
-// 5. SITEMAP VIDEOS - `/sitemap-videos.xml`
+// 5. SITEMAP VIDEO CATEGORIES - `/sitemap-video-categories.xml`
+app.get(['/sitemap-video-categories.xml', '/api/sitemap-video-categories.xml'], async (req, res) => {
+  try {
+    const xml = await getCached('video-categories', () => sitemapGenerator.generateSitemapVideoCategories());
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+    res.send(xml);
+  } catch (err) {
+    console.error('[SITEMAP VIDEO CATEGORIES ERROR]', err.message);
+    res.status(500).type('text').send('Sitemap video categories generation failed');
+  }
+});
+
+// 6. SITEMAP VIDEOS - `/sitemap-videos.xml`
 app.get(['/sitemap-videos.xml', '/api/sitemap-videos.xml'], async (req, res) => {
   try {
     const xml = await getCached('videos', () => sitemapGenerator.generateSitemapVideos());

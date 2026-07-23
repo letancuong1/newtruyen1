@@ -93,6 +93,13 @@ async function generateSitemapIndex() {
     xml += '    <loc>' + BASE_URL + '/sitemap-books.xml</loc>\n';
     xml += '    <lastmod>' + booksLastmod + '</lastmod>\n';
     xml += '  </sitemap>\n';
+    // Video categories sitemap (genres, styles, sub-genres)
+    xml += '\n';
+    xml += '  <sitemap>\n';
+    xml += '    <loc>' + BASE_URL + '/sitemap-video-categories.xml</loc>\n';
+    xml += '    <lastmod>' + todayStr() + '</lastmod>\n';
+    xml += '  </sitemap>\n';
+
     xml += '\n';
     xml += '  <sitemap>\n';
     xml += '    <loc>' + BASE_URL + '/sitemap-videos.xml</loc>\n';
@@ -110,6 +117,7 @@ async function generateSitemapIndex() {
     fallback += '  <sitemap><loc>' + BASE_URL + '/sitemap-pages.xml</loc><lastmod>' + todayStr() + '</lastmod></sitemap>\n';
     fallback += '  <sitemap><loc>' + BASE_URL + '/sitemap-categories.xml</loc><lastmod>' + todayStr() + '</lastmod></sitemap>\n';
     fallback += '  <sitemap><loc>' + BASE_URL + '/sitemap-books.xml</loc><lastmod>' + todayStr() + '</lastmod></sitemap>\n';
+    fallback += '  <sitemap><loc>' + BASE_URL + '/sitemap-video-categories.xml</loc><lastmod>' + todayStr() + '</lastmod></sitemap>\n';
     fallback += '  <sitemap><loc>' + BASE_URL + '/sitemap-videos.xml</loc><lastmod>' + todayStr() + '</lastmod></sitemap>\n';
     fallback += '</sitemapindex>';
     return fallback;
@@ -238,6 +246,82 @@ async function generateSitemapBooks() {
 }
 
 // ========================================================================
+// SITEMAP - VIDEO CATEGORIES (genres, styles, sub-genres)
+// ========================================================================
+
+/**
+ * Generate sitemap-video-categories.xml from youtube_truyen categories
+ * Queries distinct genres (the_loai_goc), styles (phong_cach_review), and sub-genres (luu_phai_chi_tiet)
+ * URL: /video-reviews.html?genre={slug}
+ */
+async function generateSitemapVideoCategories() {
+  try {
+    // Get distinct genres from the_loai_goc array
+    const genresResult = await pool.query(
+      "SELECT DISTINCT unnest(the_loai_goc) AS name FROM youtube_truyen WHERE the_loai_goc IS NOT NULL ORDER BY 1"
+    );
+    // Get distinct review styles
+    const stylesResult = await pool.query(
+      "SELECT DISTINCT phong_cach_review AS name FROM youtube_truyen WHERE phong_cach_review IS NOT NULL AND phong_cach_review != '' ORDER BY 1"
+    );
+    // Get distinct sub-genres
+    const subGenresResult = await pool.query(
+      "SELECT DISTINCT unnest(luu_phai_chi_tiet) AS name FROM youtube_truyen WHERE luu_phai_chi_tiet IS NOT NULL ORDER BY 1"
+    );
+
+    var today = todayStr();
+
+    var xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+    // Add genre categories
+    for (var i = 0; i < genresResult.rows.length; i++) {
+      var name = genresResult.rows[i].name;
+      if (!name) continue;
+      var catUrl = BASE_URL + '/video-reviews.html?genre=' + encodeURIComponent(name);
+      xml += '  <url>\n';
+      xml += '    <loc>' + catUrl + '</loc>\n';
+      xml += '    <lastmod>' + today + '</lastmod>\n';
+      xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.6</priority>\n';
+      xml += '  </url>\n';
+    }
+
+    // Add review styles
+    for (var j = 0; j < stylesResult.rows.length; j++) {
+      var style = stylesResult.rows[j].name;
+      if (!style) continue;
+      var styleUrl = BASE_URL + '/video-reviews.html?style=' + encodeURIComponent(style);
+      xml += '  <url>\n';
+      xml += '    <loc>' + styleUrl + '</loc>\n';
+      xml += '    <lastmod>' + today + '</lastmod>\n';
+      xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.5</priority>\n';
+      xml += '  </url>\n';
+    }
+
+    // Add sub-genres
+    for (var k = 0; k < subGenresResult.rows.length; k++) {
+      var sub = subGenresResult.rows[k].name;
+      if (!sub) continue;
+      var subUrl = BASE_URL + '/video-reviews.html?sub_genre=' + encodeURIComponent(sub);
+      xml += '  <url>\n';
+      xml += '    <loc>' + subUrl + '</loc>\n';
+      xml += '    <lastmod>' + today + '</lastmod>\n';
+      xml += '    <changefreq>weekly</changefreq>\n';
+      xml += '    <priority>0.5</priority>\n';
+      xml += '  </url>\n';
+    }
+
+    xml += '</urlset>';
+    return xml;
+  } catch (err) {
+    console.error('[SITEMAP VIDEO CATEGORIES ERROR]', err.message);
+    throw err;
+  }
+}
+
+// ========================================================================
 // SITEMAP - VIDEOS (using slug from youtube_truyen)
 // ========================================================================
 
@@ -301,6 +385,7 @@ module.exports = {
   generateSitemapPages: generateSitemapPages,
   generateSitemapCategories: generateSitemapCategories,
   generateSitemapBooks: generateSitemapBooks,
+  generateSitemapVideoCategories: generateSitemapVideoCategories,
   generateSitemapVideos: generateSitemapVideos,
   BASE_URL: BASE_URL
 };
