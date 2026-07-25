@@ -319,16 +319,11 @@
         // ===================== PRIVATE HELPERS =====================
 
         /**
-         * Lấy URL gốc không chứa query parameters (cho canonical)
+         * Lấy URL đầy đủ bao gồm query parameters (cho canonical & og:url)
+         * Phải giữ nguyên ?slug=xxx để Facebook/Google bot đọc đúng URL
          */
         _getCleanUrl: function() {
-            var url = window.location.href;
-            var baseUrl = url.split('?')[0].split('#')[0];
-            // Remove trailing slash except for root
-            if (baseUrl !== SEO.SITE_URL && baseUrl.endsWith('/')) {
-                baseUrl = baseUrl.slice(0, -1);
-            }
-            return baseUrl;
+            return window.location.href;
         },
 
         /**
