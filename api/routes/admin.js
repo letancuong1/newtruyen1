@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
 const pool = require('../../db');
+const { requestBookIndexing, requestChapterIndexing } = require('../services/google-indexer');
 
 // ===================== DASHBOARD STATS =====================
 router.get('/admin/stats', async (req, res) => {
@@ -243,11 +244,22 @@ router.put('/admin/books/:id', async (req, res) => {
         const r = await pool.query(`UPDATE books SET ${sets.join(', ')} WHERE id = $${idx} RETURNING id, ten_truyen, tac_gia, anh_bia, slug, trang_thai`, params);
         if (r.rows.length === 0) return res.status(404).json({ success: false, error: 'Không tìm thấy!' });
         res.json({ success: true, message: '✅ Cập nhật thành công!', book: r.rows[0] });
+        // Google Indexing: Gửi URL truyện đã cập nhật lên Google
+        try {
+            const updatedSlug = r.rows[0]?.slug || slug;
+            if (updatedSlug) requestBookIndexing(updatedSlug);
+        } catch (idxErr) { console.error('[Google Indexing] book update error:', idxErr.message); }
     } catch (error) { res.status(500).json({ success: false, error: error.message }); }
 });
 router.post('/admin/books/update-status', async (req, res) => {
     try { const { book_id, status } = req.body; if (!book_id || !status) return res.status(400).json({ success: false, error: 'Thiếu thông tin!' }); await pool.query('UPDATE books SET trang_thai=$1, updated_at=NOW() WHERE id=$2', [status, book_id]); res.json({ success: true, message: `✅ Cập nhật "${status}"!` }); }
     catch (e) { res.status(500).json({ success: false, error: e.message }); }
+    // Google Indexing: Gửi URL truyện lên Google khi cập nhật trạng thái
+    try {
+        const { book_id } = req.body;
+        const bookSlug = (await pool.query('SELECT slug FROM books WHERE id=$1', [book_id])).rows[0]?.slug;
+        if (bookSlug) requestBookIndexing(bookSlug);
+    } catch (idxErr) { console.error('[Google Indexing] update-status error:', idxErr.message); }
 });
 router.post('/admin/books/toggle-vip', async (req, res) => {
     try { const { book_id, is_vip } = req.body; if (!book_id || typeof is_vip !== 'boolean') return res.status(400).json({ success: false, error: 'Thiếu thông tin!' }); await pool.query('UPDATE books SET is_vip=$1, updated_at=NOW() WHERE id=$2', [is_vip, book_id]); res.json({ success: true, message: is_vip ? '✅ Bật VIP!' : '✅ Tắt VIP!', is_vip }); }
@@ -274,6 +286,13 @@ router.post('/admin/books/delete', async (req, res) => {
 router.post('/admin/approve_book', async (req, res) => {
     try { const { book_id, action } = req.body; if (!book_id) return res.status(400).json({ success: false, error: 'Thiếu ID!' }); const ns = action === 'approve' ? 'Đã duyệt' : 'Đã từ chối'; await pool.query('UPDATE books SET trang_thai=$1 WHERE id=$2', [ns, book_id]); res.json({ success: true, message: `✅ ${ns}!` }); }
     catch (e) { res.status(500).json({ success: false, error: e.message }); }
+    // Google Indexing: Gửi URL truyện lên Google nếu được duyệt
+    try {
+        if (req.body.action === 'approve') {
+            const bookSlug = (await pool.query('SELECT slug FROM books WHERE id=$1', [req.body.book_id])).rows[0]?.slug;
+            if (bookSlug) requestBookIndexing(bookSlug);
+        }
+    } catch (idxErr) { console.error('[Google Indexing] approve_book error:', idxErr.message); }
 });
 
 // ===================== ADMIN CHAPTERS =====================
@@ -313,6 +332,11 @@ router.post('/admin/chapters', async (req, res) => {
             res.json({ success: true, message: '✅ Thêm chương thành công!', chapter_id: ins.rows[0].id });
         } catch (err) { await client.query('ROLLBACK'); throw err; }
         finally { client.release(); }
+        // Google Indexing: Gửi URL chương mới lên Google
+        try {
+            const bookSlug = (await pool.query('SELECT slug FROM books WHERE id=$1', [book_id])).rows[0]?.slug;
+            if (bookSlug) requestChapterIndexing(bookSlug, chapter_number);
+        } catch (idxErr) { console.error('[Google Indexing] chapter create error:', idxErr.message); }
     } catch (error) { res.status(500).json({ success: false, error: error.message }); }
 });
 router.put('/admin/chapters/:id', async (req, res) => {

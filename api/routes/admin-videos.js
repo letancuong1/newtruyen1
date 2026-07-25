@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const https = require('https');
 const pool = require('../../db');
+const { requestVideoIndexing } = require('../services/google-indexer');
 
 // ===================== LIST/SEARCH VIDEOS =====================
 // GET /api/admin/video-reviews?page=1&limit=20&keyword=...
@@ -97,6 +98,11 @@ router.post('/admin/video-reviews', async (req, res) => {
         );
 
         res.json({ success: true, message: '✅ Thêm video thành công!', video: result.rows[0] });
+        // Google Indexing: Gửi URL video mới lên Google
+        try {
+            const slug = result.rows[0]?.slug || result.rows[0]?.id_video;
+            if (slug) requestVideoIndexing(slug);
+        } catch (idxErr) { console.error('[Google Indexing] video add error:', idxErr.message); }
     } catch (error) {
         console.error('[admin-videos] Add error:', error.message);
         res.status(500).json({ success: false, error: error.message });
@@ -142,6 +148,11 @@ router.put('/admin/video-reviews/:id', async (req, res) => {
         }
 
         res.json({ success: true, message: '✅ Cập nhật thành công!', video: result.rows[0] });
+        // Google Indexing: Gửi URL video đã cập nhật lên Google
+        try {
+            const slug = result.rows[0]?.slug || result.rows[0]?.id_video;
+            if (slug) requestVideoIndexing(slug);
+        } catch (idxErr) { console.error('[Google Indexing] video update error:', idxErr.message); }
     } catch (error) {
         console.error('[admin-videos] Update error:', error.message);
         res.status(500).json({ success: false, error: error.message });

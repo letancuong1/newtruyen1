@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const pool = require('../../db');
+const { requestBookIndexing, requestChapterIndexing } = require('./google-indexer');
 
 // ===================== CẤU HÌNH =====================
 const BASE_URL = 'https://metruyenchuvn.com';
@@ -577,6 +578,22 @@ async function crawlSingleBook(bookLink, logFn) {
         await client.query('COMMIT');
 
         logFn(`  ✅ Đã lưu ${totalInserted} chương vào database.`);
+
+        // Google Indexing: Gửi URL truyện và các chương lên Google
+        try {
+            const bookSlug = slug || finalBookId;
+            if (bookSlug) {
+                requestBookIndexing(bookSlug);
+                // Chỉ gửi indexing cho chương đầu và chương cuối để tránh rate limit
+                if (totalInserted > 0) {
+                    requestChapterIndexing(bookSlug, 1);
+                    if (totalInserted > 1) {
+                        requestChapterIndexing(bookSlug, totalInserted);
+                    }
+                }
+            }
+        } catch (idxErr) { logFn(`  [Google Indexing] Lỗi: ${idxErr.message}`); }
+
         return { id: finalBookId, totalChapters: totalInserted, tenTruyen: existCheck.rows[0]?.ten_truyen || 'Truyện mới' };
 
     } catch (err) {
