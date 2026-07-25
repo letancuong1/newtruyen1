@@ -121,12 +121,15 @@ app.get(['/sitemap-videos.xml', '/api/sitemap-videos.xml'], async (req, res) => 
   }
 });
 
-// ===================== SERVER-SIDE SEO MIDDLEWARE =====================
+// ===================== SERVER-SIDE SEO INJECTION =====================
 // MUST be placed BEFORE express.static to intercept HTML requests
-// Reads HTML file from disk, injects dynamic meta tags (title, description,
-// canonical URL with slug, OG tags, Twitter cards) directly into <head>
-// Facebook/Google/Zalo bots see these tags because they're in the raw HTML
-app.use(seoMiddleware);
+// Reads HTML file from disk, queries DB, injects meta tags DIRECTLY into HTML
+// Facebook/Google/Zalo bots see tags in view-source (NO JavaScript needed)
+app.get(['/', '/index.html'], (req, res, next) => seoMiddleware.handleStaticPage(req, res, next, 'index.html', '/'));
+app.get('/video-reviews.html', (req, res, next) => seoMiddleware.handleStaticPage(req, res, next, 'video-reviews.html'));
+app.get('/danh-sach.html', (req, res, next) => seoMiddleware.handleStaticPage(req, res, next, 'danh-sach.html'));
+app.get('/chi-tiet-truyen.html', seoMiddleware.handleBookDetail);
+app.get('/xem-review.html', seoMiddleware.handleVideoDetail);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/admin', express.static(path.join(__dirname, '..', 'public', 'admin')));
