@@ -377,8 +377,7 @@ async function generateSitemapVideoCategories() {
 
 /**
  * Generate sitemap-videos.xml from youtube_truyen table
- * URL: /xem-review.html?slug={slug} - using youtube_truyen.slug 
- * OR /video-review/{slug} if route exists
+ * URL: /xem-review.html?slug={slug} - using youtube_truyen.slug
  * Priority: 0.7
  */
 async function generateSitemapVideos() {
@@ -408,7 +407,7 @@ async function generateSitemapVideos() {
 
       // Use slug for clean URL, fallback to id_video
       var identifier = video.slug || video.id_video;
-      var videoUrl = BASE_URL + '/video-review/' + escapeXml(identifier);
+      var videoUrl = BASE_URL + '/xem-review.html?slug=' + escapeXml(identifier);
 
       xml += '  <url>\n';
       xml += '    <loc>' + videoUrl + '</loc>\n';
