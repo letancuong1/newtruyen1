@@ -26,6 +26,7 @@ app.use((req, res, next) => {
 // Sitemap Index + 5 sub-sitemaps: pages, categories, books, video-categories, videos
 // NO chapter sitemap (Google Bot crawls chapters from internal links in book detail)
 const sitemapGenerator = require('./services/sitemap-generator');
+const seoMiddleware = require('./services/seo-middleware');
 
 // Cache sitemap results in-memory for 2 hours to reduce DB load
 let sitemapCache = {};
@@ -124,6 +125,40 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/admin', express.static(path.join(__dirname, '..', 'public', 'admin')));
 app.use('/js', express.static(path.join(__dirname, '..', 'public', 'js')));
 app.use('/css', express.static(path.join(__dirname, '..', 'public', 'css')));
+
+// ===================== SERVER-SIDE SEO MIDDLEWARE =====================
+// Intercepts HTML responses to inject dynamic meta tags for social media bots
+// Facebook, Google, Zalo, Twitter bots cannot execute JavaScript
+app.use(async (req, res, next) => {
+    // Only process HTML page requests, not API calls or static files
+    const htmlPages = ['/', '/index.html', '/chi-tiet-truyen.html', '/video-reviews.html', '/xem-review.html', '/danh-sach.html'];
+    const normalizedPath = req.path.endsWith('/') && req.path !== '/' ? req.path.slice(0, -1) : req.path;
+    
+    if (!htmlPages.includes(normalizedPath) && !htmlPages.includes(req.path)) {
+        return next();
+    }
+    
+    // Store original send
+    const originalSend = res.send.bind(res);
+    
+    res.send = function(body) {
+        // Only process HTML responses
+        if (typeof body === 'string' && body.trim().startsWith('<!DOCTYPE html')) {
+            seoMiddleware.handleSeoInjection(req, res, body)
+                .then(injectedHtml => {
+                    originalSend(injectedHtml);
+                })
+                .catch(err => {
+                    console.error('[SEO-Middleware] Injection error:', err.message);
+                    originalSend(body); // Fallback to original
+                });
+        } else {
+            originalSend(body);
+        }
+    };
+    
+    next();
+});
 
 // ===================== COMPATIBILITY MIDDLEWARE =====================
 app.use((req, res, next) => {
