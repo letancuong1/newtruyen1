@@ -1,289 +1,254 @@
 /**
- * ALOTRUYEN PRO - Server-Side SEO Middleware
- * ============================================
- * Inject meta tags dynamically into static HTML for social media bots
- * Facebook, Google, Zalo, Twitter, etc. (bots don't execute JS)
+ * ALOTRUYEN PRO - Server-Side SEO Middleware v2
+ * ===============================================
  * 
- * Intercepts HTML responses and replaces placeholder meta tags
- * with actual book/video data from the database.
+ * VẤN ĐỀ: Facebook/Google bot KHÔNG chạy JavaScript, chỉ đọc HTML tĩnh.
+ * express.static gửi file gốc trực tiếp, middleware cũ KHÔNG hoạt động.
+ * 
+ * GIẢI PHÁP:
+ * 1. Chặn request HTML page TRƯỚC khi đến express.static
+ * 2. Đọc file HTML gốc từ disk
+ * 3. Inject meta tags động (tên truyện, mô tả, ảnh bìa) vào <head>
+ * 4. Gửi HTML đã modified về bot
  */
+const fs = require('fs');
+const path = require('path');
 const pool = require('../../db');
 
 const SITE_URL = 'https://alotruyen.pro';
 const SITE_NAME = 'AloTruyen';
 const DEFAULT_IMAGE = 'https://alotruyen.pro/icon-192x192.png';
-const DEFAULT_DESC = 'Nền tảng đọc truyện chữ online chất lượng cao và xem video review truyện Tiên Hiệp, Huyền Huyễn, Manhua, Donghua 3D hấp dẫn.';
 
-// Thông tin cố định cho từng trang
+// ===================== PAGE DEFAULT META =====================
 const PAGE_META = {
+  '/': {
+    title: 'AloTruyen - Đọc Truyện Chữ Online & Xem Video Review Truyện Hay',
+    description: 'Nền tảng đọc truyện chữ online chất lượng cao và xem video review truyện Tiên Hiệp, Huyền Huyễn, Manhua, Donghua 3D hấp dẫn. Cập nhật chương mới mỗi ngày tại AloTruyen.',
+    image: DEFAULT_IMAGE, iw: 192, ih: 192, type: 'website'
+  },
   '/index.html': {
     title: 'AloTruyen - Đọc Truyện Chữ Online & Xem Video Review Truyện Hay',
-    description: DEFAULT_DESC,
-    h1: 'AloTruyen - Đọc Truyện Chữ & Xem Video Review Truyện Mới Nhất',
-    image: DEFAULT_IMAGE,
-    imageWidth: 192,
-    imageHeight: 192,
-    type: 'website'
+    description: 'Nền tảng đọc truyện chữ online chất lượng cao và xem video review truyện Tiên Hiệp, Huyền Huyễn, Manhua, Donghua 3D hấp dẫn. Cập nhật chương mới mỗi ngày tại AloTruyen.',
+    image: DEFAULT_IMAGE, iw: 192, ih: 192, type: 'website'
   },
   '/video-reviews.html': {
     title: 'Video Review Truyện Hay - Review Truyện Tranh, 2D, 3D Donghua | AloTruyen',
     description: 'Tổng hợp video review truyện hay, tóm tắt truyện Tiên Hiệp, Cẩu Đạo, Dị Thú, Manhua, Donghua 3D cuốn nhất. Xem video review truyện chuẩn full bộ tại AloTruyen.',
-    h1: 'Video Review Truyện - Tóm Tắt Truyện Tranh & Donghua 3D',
-    image: DEFAULT_IMAGE,
-    imageWidth: 192,
-    imageHeight: 192,
-    type: 'website'
+    image: DEFAULT_IMAGE, iw: 192, ih: 192, type: 'website'
   },
   '/danh-sach.html': {
     title: 'Danh Sách Truyện - Truyện Hot, Truyện Tu Tiên, Huyền Huyễn | AloTruyen',
     description: 'Danh sách truyện hot, truyện tu tiên, huyền huyễn, ngôn tình mới nhất tại AloTruyen. Đọc truyện chữ online miễn phí.',
-    h1: 'Danh Sách Truyện - Kho Tàng Truyện Chữ Online',
-    image: DEFAULT_IMAGE,
-    imageWidth: 192,
-    imageHeight: 192,
-    type: 'website'
-  },
-  '/xem-review.html': {
-    title: 'Xem Video Review Truyện Hay | AloTruyen',
-    description: 'Xem video review truyện hay, tóm tắt truyện Tiên Hiệp, Huyền Huyễn, Manhua, Donghua 3D cuốn nhất tại AloTruyen.',
-    h1: 'Video Review Truyện',
-    image: DEFAULT_IMAGE,
-    imageWidth: 1280,
-    imageHeight: 720,
-    type: 'video.other'
+    image: DEFAULT_IMAGE, iw: 192, ih: 192, type: 'website'
   },
   '/chi-tiet-truyen.html': {
-    title: 'Chi Tiết Truyện - Đọc Truyện Online | AloTruyen',
-    description: 'Đọc truyện online tại AloTruyen. Xem chi tiết truyện: tác giả, thể loại, số chương, đánh giá và bình luận.',
-    h1: 'Chi Tiết Truyện',
-    image: DEFAULT_IMAGE,
-    imageWidth: 400,
-    imageHeight: 600,
-    type: 'book'
+    title_default: 'Chi Tiết Truyện - Đọc Truyện Online | AloTruyen',
+    desc_default: 'Đọc truyện online tại AloTruyen. Xem chi tiết truyện: tác giả, thể loại, số chương, đánh giá và bình luận.',
+    image: DEFAULT_IMAGE, iw: 1200, ih: 630, type: 'book'
+  },
+  '/xem-review.html': {
+    title_default: 'Xem Video Review Truyện Hay | AloTruyen',
+    desc_default: 'Xem video review truyện hay, tóm tắt truyện Tiên Hiệp, Huyền Huyễn, Manhua, Donghua 3D cuốn nhất tại AloTruyen.',
+    image: DEFAULT_IMAGE, iw: 1280, ih: 720, type: 'video.other'
   }
 };
 
-/**
- * Làm sạch excerpt
- */
-function makeExcerpt(text, maxLen) {
+// ===================== UTILITY =====================
+function cleanExcerpt(text, maxLen) {
   if (!text) return '';
   maxLen = maxLen || 150;
-  let clean = String(text)
-    .replace(/<[^>]*>/g, '')
-    .replace(/&[^;]+;/g, ' ')
-    .replace(/[\r\n\t]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (clean.length <= maxLen) return clean;
-  var cutPos = maxLen;
-  var sentenceEnd = clean.lastIndexOf('.', maxLen);
-  if (sentenceEnd >= 80) cutPos = sentenceEnd + 1;
-  else {
-    var spacePos = clean.lastIndexOf(' ', maxLen);
-    if (spacePos >= 80) cutPos = spacePos;
-  }
-  return clean.substring(0, cutPos).trim() + '...';
+  var clean = String(text)
+    .replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ')
+    .replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (clean.length <= maxLen) return clean.replace(/"/g, '"').replace(/'/g, '&#39;');
+  var cut = maxLen;
+  var dot = clean.lastIndexOf('.', maxLen);
+  if (dot >= 80) cut = dot + 1; else { var sp = clean.lastIndexOf(' ', maxLen); if (sp >= 80) cut = sp; }
+  return clean.substring(0, cut).trim().replace(/"/g, '"').replace(/'/g, '&#39;') + '...';
 }
 
-/**
- * Làm sạch tên
- */
 function cleanName(str) {
   if (!str) return '';
-  return String(str).replace(/^[\s\[\]{}"'()]+|[\s\[\]{}"'()]+$/g, '').replace(/[\{\}\[\]"]/g, '').trim();
+  return String(str).replace(/^[\s\[\]{}"'()]+|[\s\[\]{}"'()]+$/g, '').replace(/["']/g, '').trim();
 }
 
-/**
- * Tạo HTML meta tags
- */
-function buildMetaTags(meta) {
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&').replace(/"/g, '"').replace(/'/g, '&#39;').replace(/</g, '<').replace(/>/g, '>');
+}
+
+// ===================== BUILD META HTML =====================
+function buildMetaHtml(meta) {
+  if (!meta) return '';
+  var title = escapeAttr(meta.title || '');
+  var desc = escapeAttr(meta.description || '');
+  var url = escapeAttr(meta.url || SITE_URL);
+  var img = escapeAttr(meta.image || DEFAULT_IMAGE);
+  var iw = meta.imageWidth || 192;
+  var ih = meta.imageHeight || 192;
+  var type = meta.type || 'website';
+  
   return [
-    `<title>${meta.title || PAGE_META['/index.html'].title}</title>`,
-    `<meta name="description" content="${meta.description || ''}">`,
-    `<link rel="canonical" href="${meta.url || SITE_URL}">`,
-    `<meta property="og:type" content="${meta.type || 'website'}">`,
-    `<meta property="og:url" content="${meta.url || SITE_URL}">`,
-    `<meta property="og:title" content="${meta.title || ''}">`,
-    `<meta property="og:description" content="${meta.description || ''}">`,
-    `<meta property="og:image" content="${meta.image || DEFAULT_IMAGE}">`,
-    `<meta property="og:image:width" content="${meta.imageWidth || 192}">`,
-    `<meta property="og:image:height" content="${meta.imageHeight || 192}">`,
-    `<meta property="og:site_name" content="${SITE_NAME}">`,
-    `<meta property="og:locale" content="vi_VN">`,
-    `<meta name="twitter:card" content="summary_large_image">`,
-    `<meta name="twitter:title" content="${meta.title || ''}">`,
-    `<meta name="twitter:description" content="${meta.description || ''}">`,
-    `<meta name="twitter:image" content="${meta.image || DEFAULT_IMAGE}">`,
-  ].join('\n    ');
+    '<!-- SEO SERVER-SIDE INJECTED -->',
+    '<title>' + title + '</title>',
+    '<meta name="description" content="' + desc + '">',
+    '<link rel="canonical" href="' + url + '">',
+    '<meta property="og:type" content="' + type + '">',
+    '<meta property="og:url" content="' + url + '">',
+    '<meta property="og:title" content="' + title + '">',
+    '<meta property="og:description" content="' + desc + '">',
+    '<meta property="og:image" content="' + img + '">',
+    '<meta property="og:image:width" content="' + iw + '">',
+    '<meta property="og:image:height" content="' + ih + '">',
+    '<meta property="og:site_name" content="' + SITE_NAME + '">',
+    '<meta property="og:locale" content="vi_VN">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    '<meta name="twitter:title" content="' + title + '">',
+    '<meta name="twitter:description" content="' + desc + '">',
+    '<meta name="twitter:image" content="' + img + '">'
+  ].join('\n');
 }
 
-/**
- * Kiểm tra có phải bot không
- */
-function isBot(userAgent) {
-  if (!userAgent) return false;
-  const botPattern = /bot|crawler|spider|facebook|twitter|whatsapp|telegram|slack|discord|linkedin|pinterest|slack|google|bing|yahoo|duckduck|baidu|yandex|facebookexternalhit|facebot|Twitterbot|Slackbot|TelegramBot/i;
-  return botPattern.test(userAgent);
-}
-
-/**
- * Fetch book data from DB by slug or id
- */
-async function getBookData(param) {
+// ===================== DATABASE QUERIES =====================
+async function getBookBySlug(slug) {
   try {
-    const { rows } = await pool.query(
-      `SELECT b.*, 
-        COALESCE(c.avg,0)::float AS rating_avg, 
-        COALESCE(c.count,0)::int AS rating_count
-      FROM books b 
-      LEFT JOIN LATERAL (
-        SELECT AVG(rating_stars) AS avg, COUNT(*) AS count FROM comments WHERE book_id = b.id
-      ) c ON true 
-      WHERE (b.slug = $1 OR b.id = $1) 
-        AND (b.trang_thai IS NULL OR b.trang_thai NOT ILIKE '%đã xóa%')
-      LIMIT 1`,
-      [param]
-    );
-    return rows[0] || null;
-  } catch (e) {
-    console.error('[SEO-Middleware] DB error:', e.message);
-    return null;
-  }
+    var r = await pool.query('SELECT id, ten_truyen, anh_bia, gioi_thieu, tac_gia, the_loai, slug FROM books WHERE (slug = $1 OR id = $1) AND (trang_thai IS NULL OR trang_thai NOT ILIKE \'%đã xóa%\') LIMIT 1', [slug]);
+    return r.rows[0] || null;
+  } catch (e) { console.error('[SEO-DB] Book error:', e.message); return null; }
 }
 
-/**
- * Fetch video data from DB by id_video or slug
- */
-async function getVideoData(param) {
+async function getVideoById(id) {
   try {
-    const { rows } = await pool.query(
-      `SELECT * FROM youtube_truyen WHERE id_video = $1 OR slug = $1 LIMIT 1`,
-      [param]
-    );
-    return rows[0] || null;
-  } catch (e) {
-    console.error('[SEO-Middleware] DB video error:', e.message);
-    return null;
-  }
+    var r = await pool.query('SELECT id_video, ten_truyen_sach, anh_thumbnail, mo_ta, gioi_thieu, link_video FROM youtube_truyen WHERE id_video = $1 OR slug = $1 LIMIT 1', [id]);
+    return r.rows[0] || null;
+  } catch (e) { console.error('[SEO-DB] Video error:', e.message); return null; }
 }
 
-/**
- * Main middleware handler
- */
-async function handleSeoInjection(req, res, html) {
-  const urlPath = req.path || '/';
-  const queryString = req.url.split('?')[1] || '';
-  const fullUrl = SITE_URL + req.url;
-  const userAgent = req.headers['user-agent'] || '';
-  const isBotRequest = isBot(userAgent);
+// ===================== BOT DETECTION =====================
+function isBot(ua) {
+  if (!ua) return false;
+  return /bot|crawler|spider|facebook|twitter|whatsapp|telegram|slack|discord|linkedin|pinterest|google|bing|yahoo|baidu|yandex|facebookexternalhit|facebot|Twitterbot|Slackbot|TelegramBot|curl|wget|python-requests|url|scrape|scraper/i.test(ua);
+}
 
-  // Default meta = page default based on path
-  let metaTags = '';
-  let pageKey = urlPath;
+// ===================== MAIN HANDLER =====================
+async function seoMiddleware(req, res, next) {
+  var pathname = req.path;
+  var ua = req.headers['user-agent'] || '';
   
-  // Nếu là / thì map sang /index.html
-  if (pageKey === '/' || pageKey === '') pageKey = '/index.html';
-  
-  // Get page defaults
-  let defaultMeta = PAGE_META[pageKey];
-  if (!defaultMeta) {
-    // Try to infer from extension
-    if (pageKey.endsWith('.html')) {
-      defaultMeta = PAGE_META[pageKey] || null;
-    } else {
-      defaultMeta = null;
-    }
+  // Chỉ xử lý cho HTML pages
+  var htmlPages = ['/', '/index.html', '/chi-tiet-truyen.html', '/xem-review.html', '/video-reviews.html', '/danh-sach.html'];
+  if (!htmlPages.includes(pathname)) {
+    return next();
   }
-
-  // ===== DYNAMIC DATA: Chi tiết truyện =====
-  if (pageKey === '/chi-tiet-truyen.html') {
-    const slug = req.query.slug || req.query.id || '';
-    if (slug) {
-      const book = await getBookData(slug);
+  
+  // Luôn inject SEO cho MỌI request (không chỉ bot)
+  // vì cần đảm bảo canonical URL luôn đúng
+  try {
+    // Map path to file
+    var filePath = pathname === '/' ? '/index.html' : pathname;
+    var fullPath = path.join(__dirname, '..', '..', 'public', filePath);
+    
+    // Read HTML file
+    var html = fs.readFileSync(fullPath, 'utf-8');
+    
+    // Build full URL with query string
+    var queryStr = req.url.includes('?') ? req.url.substring(req.url.indexOf('?')) : '';
+    var fullUrl = SITE_URL + filePath + queryStr;
+    
+    // Get dynamic data for specific pages
+    var meta = null;
+    var slug = req.query.slug || req.query.id || '';
+    
+    if (pathname === '/chi-tiet-truyen.html' && slug) {
+      var book = await getBookBySlug(slug);
       if (book) {
-        const title = cleanName(book.ten_truyen || '');
-        const excerpt = makeExcerpt(book.gioi_thieu || '', 150);
-        const cover = book.anh_bia || DEFAULT_IMAGE;
-        // Absolute URL for og:image
-        const absoluteCover = cover.startsWith('http') ? cover : SITE_URL + (cover.startsWith('/') ? '' : '/') + cover;
-        const bookUrl = fullUrl; // already has ?slug=xxx
-        const categories = book.the_loai || [];
-        const catsStr = Array.isArray(categories) ? categories.join(', ') : categories;
+        var name = cleanName(book.ten_truyen) || 'Chi Tiết Truyện';
+        var excerpt = cleanExcerpt(book.gioi_thieu, 150);
+        var cover = (book.anh_bia || '').startsWith('http') ? book.anh_bia : SITE_URL + '/' + (book.anh_bia || '').replace(/^\/+/, '');
+        var cats = book.the_loai;
+        var catsStr = Array.isArray(cats) ? cats.join(', ') : (typeof cats === 'string' ? cats : '');
         
-        metaTags = buildMetaTags({
-          title: `${title} - Đọc/Xem Online Mới Nhất | AloTruyen`,
-          description: excerpt || `Đọc truyện ${title} online, cập nhật chương mới nhất. Thể loại: ${catsStr || 'Truyện chữ'}.`,
-          url: bookUrl,
-          image: absoluteCover,
+        meta = {
+          title: name + ' - Đọc/Xem Online Mới Nhất | AloTruyen',
+          description: excerpt || ('Đọc truyện ' + name + ' online, cập nhật chương mới nhất.' + (catsStr ? ' Thể loại: ' + catsStr + '.' : '')),
+          url: fullUrl,
+          image: cover || DEFAULT_IMAGE,
           imageWidth: 1200,
           imageHeight: 630,
           type: 'book'
-        });
+        };
       }
-    }
-  }
-
-  // ===== DYNAMIC DATA: Video Review =====
-  else if (pageKey === '/xem-review.html') {
-    const videoId = req.query.slug || req.query.id || '';
-    if (videoId) {
-      const video = await getVideoData(videoId);
+    } else if (pathname === '/xem-review.html' && slug) {
+      var video = await getVideoById(slug);
       if (video) {
-        const title = cleanName(video.ten_truyen_sach || '');
-        const excerpt = makeExcerpt(video.mo_ta || video.gioi_thieu || '', 150);
-        const thumb = video.anh_thumbnail || DEFAULT_IMAGE;
-        const absoluteThumb = thumb.startsWith('http') ? thumb : SITE_URL + (thumb.startsWith('/') ? '' : '/') + thumb;
-        const videoUrl = fullUrl;
+        var vname = cleanName(video.ten_truyen_sach) || 'Video Review';
+        var vdesc = cleanExcerpt(video.mo_ta || video.gioi_thieu, 150);
+        var vthumb = (video.anh_thumbnail || '').startsWith('http') ? video.anh_thumbnail : SITE_URL + '/' + (video.anh_thumbnail || '').replace(/^\/+/, '');
         
-        metaTags = buildMetaTags({
-          title: `${title} - Xem Online Mới Nhất | AloTruyen`,
-          description: excerpt || `Xem video review ${title} tại AloTruyen.`,
-          url: videoUrl,
-          image: absoluteThumb,
+        meta = {
+          title: vname + ' - Xem Online Mới Nhất | AloTruyen',
+          description: vdesc || ('Xem video review ' + vname + ' tại AloTruyen.'),
+          url: fullUrl,
+          image: vthumb || DEFAULT_IMAGE,
           imageWidth: 1280,
           imageHeight: 720,
           type: 'video.other'
-        });
+        };
       }
     }
-  }
-
-  // ===== STATIC PAGES (home, video list, etc) =====
-  if (!metaTags && defaultMeta) {
-    metaTags = buildMetaTags({
-      title: defaultMeta.title,
-      description: defaultMeta.description,
-      url: fullUrl,
-      image: defaultMeta.image,
-      imageWidth: defaultMeta.imageWidth,
-      imageHeight: defaultMeta.imageHeight,
-      type: defaultMeta.type
-    });
-  }
-
-  // Fallback
-  if (!metaTags) {
-    metaTags = buildMetaTags({
-      title: PAGE_META['/index.html'].title,
-      description: PAGE_META['/index.html'].description,
-      url: fullUrl,
-      type: 'website'
-    });
-  }
-
-  // Inject meta tags into HTML: replace </head> with our meta + </head>
-  if (html) {
-    html = html.replace('</head>', `\n    <!-- SEO Dynamic Injected -->\n    ${metaTags}\n    </head>`);
     
-    // Update H1 if available
-    if (defaultMeta && defaultMeta.h1 && html.includes('</h1>')) {
-      // Replace first h1 content with proper SEO H1
-      // Only do this for bot requests to avoid messing up user's dynamic content
+    // If no dynamic data, use page defaults
+    if (!meta) {
+      var pageDef = PAGE_META[pathname === '/' ? '/' : filePath];
+      if (pageDef) {
+        meta = {
+          title: pageDef.title || pageDef.title_default || SITE_NAME,
+          description: pageDef.description || pageDef.desc_default || '',
+          url: fullUrl,
+          image: pageDef.image || DEFAULT_IMAGE,
+          imageWidth: pageDef.iw || 192,
+          imageHeight: pageDef.ih || 192,
+          type: pageDef.type || 'website'
+        };
+      }
     }
+    
+    // Final fallback
+    if (!meta) {
+      meta = {
+        title: SITE_NAME + ' - Đọc Truyện Chữ Online',
+        description: 'Đọc truyện chữ online miễn phí tại ' + SITE_NAME,
+        url: fullUrl,
+        image: DEFAULT_IMAGE,
+        imageWidth: 192,
+        imageHeight: 192,
+        type: 'website'
+      };
+    }
+    
+    // === INJECT INTO HTML ===
+    var metaHtml = buildMetaHtml(meta);
+    
+    // Remove existing <title>, <meta name="description">, <link canonical>, og/twitter meta tags
+    // Then inject new ones right before </head>
+    html = html.replace(/<title>.*?<\/title>/i, '');
+    html = html.replace(/<meta\s+name="description"[^>]*>/gi, '');
+    html = html.replace(/<link\s+rel="canonical"[^>]*>/gi, '');
+    html = html.replace(/<meta\s+property="og:[^"]*"[^>]*>/gi, '');
+    html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/gi, '');
+    html = html.replace('</head>', '\n' + metaHtml + '\n</head>');
+    
+    // Update og:image in the existing meta (in case user already has some)
+    // Also update the SEO Engine script reference order
+    
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=60'); // Short cache for dynamic content
+    return res.send(html);
+    
+  } catch (err) {
+    console.error('[SEO-Middleware] Error:', err.message);
+    next(); // Fallback to normal static file serving
   }
-
-  return html;
 }
 
-module.exports = { handleSeoInjection, isBot, PAGE_META };
+module.exports = seoMiddleware;
