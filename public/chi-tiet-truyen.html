@@ -44,6 +44,9 @@
     }
     </script>
     
+    <!-- SEO Engine -->
+    <script src="/js/seo-engine.js"></script>
+    
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -402,7 +405,35 @@
         currentBookId = bookData.id;
         
         const cleanTitle = cleanTrashChars(bookData.ten_truyen || bookData.title);
-        document.title = `${cleanTitle} - Thiên Đạo Truyện`;
+        const excerpt = typeof SEO !== 'undefined' ? SEO.makeExcerpt(bookData.gioi_thieu || bookData.description || '', 150, 100) : '';
+        
+        // === SEO ENGINE: Update meta tags dynamically ===
+        if (typeof SEO !== 'undefined') {
+            var seoDesc = excerpt || `Đọc truyện ${cleanTitle} online, cập nhật chương mới nhất. Thể loại: ${Array.isArray(bookData.the_loai) ? bookData.the_loai.join(', ') : bookData.the_loai || 'Truyện chữ'}.`;
+            SEO.updateMeta({
+                title: `${cleanTitle} - Đọc/Xem Online Mới Nhất | AloTruyen`,
+                description: seoDesc,
+                url: 'https://alotruyen.pro/chi-tiet-truyen.html' + (bookData.slug ? '?slug=' + bookData.slug : '?id=' + bookData.id),
+                image: bookData.anh_bia || bookData.cover_url || SEO.DEFAULT_IMAGE,
+                imageWidth: 400,
+                imageHeight: 600,
+                type: 'book'
+            });
+            // Book + AggregateRating Schema
+            SEO.addBookSchema(bookData);
+            // Update breadcrumb
+            var catName = Array.isArray(bookData.the_loai) && bookData.the_loai.length > 0 ? bookData.the_loai[0] : 'Thể Loại';
+            SEO.addBreadcrumbSchema([
+                { name: 'Trang Chủ', url: 'https://alotruyen.pro/' },
+                { name: catName, url: 'https://alotruyen.pro/danh-sach.html?category=' + encodeURIComponent(catName) },
+                { name: cleanTitle, url: 'https://alotruyen.pro/chi-tiet-truyen.html?slug=' + (bookData.slug || bookData.id) }
+            ]);
+            // Ensure unique H1
+            SEO.ensureSingleH1(cleanTitle);
+        }
+        
+        // === Fallback title ===
+        document.title = `${cleanTitle} - Đọc Truyện Online | AloTruyen`;
         safe.text('bc-title', cleanTitle);
         safe.text('detail-title', cleanTitle);
         

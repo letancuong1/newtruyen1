@@ -207,6 +207,34 @@
             var video = json.video;
             var siblings = json.siblings || [];
 
+            // === SEO ENGINE: Update meta tags for video page ===
+            if (typeof SEO !== 'undefined' && video) {
+                var videoName = video.ten_truyen_sach || 'Video Review';
+                var videoExcerpt = SEO.makeExcerpt(video.mo_ta || video.description || video.gioi_thieu || '', 150, 100);
+                var seoDesc = videoExcerpt || videoName + ' - Xem video review truyện online mới nhất tại AloTruyen.';
+                var videoIdParam = isSlugMode ? 'slug=' + encodeURIComponent(actualId) : 'id=' + encodeURIComponent(actualId);
+                
+                SEO.updateMeta({
+                    title: videoName + ' - Xem Online Mới Nhất | AloTruyen',
+                    description: seoDesc,
+                    url: 'https://alotruyen.pro/xem-review.html?' + videoIdParam,
+                    image: video.anh_thumbnail || video.thumbnail || SEO.DEFAULT_IMAGE,
+                    imageWidth: 1280,
+                    imageHeight: 720,
+                    type: 'video.other'
+                });
+                // VideoObject Schema
+                SEO.addVideoSchema(video);
+                // Breadcrumb
+                SEO.addBreadcrumbSchema([
+                    { name: 'Trang Chủ', url: 'https://alotruyen.pro/' },
+                    { name: 'Video Reviews', url: 'https://alotruyen.pro/video-reviews.html' },
+                    { name: videoName, url: 'https://alotruyen.pro/xem-review.html?' + videoIdParam }
+                ]);
+                // Ensure unique H1
+                SEO.ensureSingleH1(videoName);
+            }
+
             // Render recommendations từ data đã có (không fetch lại API)
             if (json.videoRecommendations) renderVideoRecommendations(json.videoRecommendations);
             if (json.textRecommendations) renderTextRecommendations(json.textRecommendations);
