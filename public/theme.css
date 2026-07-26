@@ -22,22 +22,20 @@
 /* ============================================= */
 html.theme-thien-co body,
 body.theme-thien-co {
-    --bg-primary: #070A11 !important;
-    --bg-glass: rgba(17,24,46,0.85) !important;
-    --border-glass: rgba(0,194,255,0.15) !important;
-    --text-primary: #F8FAFC !important;
-    --text-secondary: #94A3B8 !important;
-    --text-secondary-light: #CBD5E1 !important;
-    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.6) !important;
+    --bg-primary: #000000 !important;
+    --bg-glass: rgba(10,10,15,0.92) !important;
+    --border-glass: rgba(0,194,255,0.12) !important;
+    --text-primary: #FFFFFF !important;
+    --text-secondary: #E2E8F0 !important;
+    --text-secondary-light: #F1F5F9 !important;
+    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.8) !important;
     --accent-cyan: #00C2FF !important;
     --accent-purple: #A855F7 !important;
     --accent-orange: #ff7e5f !important;
     --accent-pink: #ff3366 !important;
     --accent-gold: #f59e0b !important;
-    background-color: #070A11 !important;
-    background-image: 
-        radial-gradient(at 10% 10%, rgba(0,194,255,0.08) 0px, transparent 50%),
-        radial-gradient(at 90% 80%, rgba(168,85,247,0.08) 0px, transparent 50%) !important;
+    background-color: #000000 !important;
+    background-image: none !important;
     background-attachment: fixed !important;
     color: var(--text-primary) !important;
     font-family: 'Inter', sans-serif !important;
@@ -45,7 +43,7 @@ body.theme-thien-co {
 /* ===== HEADER ===== */
 html.theme-thien-co header,
 body.theme-thien-co header {
-    background: rgba(15,23,42,0.92) !important;
+    background: rgba(0,0,0,0.92) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border-color: rgba(0,194,255,0.12) !important;
@@ -53,7 +51,7 @@ body.theme-thien-co header {
 /* ===== CARD / GLASS ===== */
 html.theme-thien-co .glass-card,
 body.theme-thien-co .glass-card {
-    background: rgba(17,27,46,0.85) !important;
+    background: rgba(5,5,10,0.9) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 1px solid rgba(0,194,255,0.15) !important;
@@ -63,7 +61,7 @@ body.theme-thien-co .glass-card {
 /* ===== FOOTER ===== */
 html.theme-thien-co footer,
 body.theme-thien-co footer {
-    background: rgba(17,27,46,0.7) !important;
+    background: rgba(0,0,0,0.7) !important;
     border-color: rgba(0,194,255,0.1) !important;
 }
 /* ===== TEXT COLORS ===== */
@@ -81,7 +79,7 @@ html.theme-thien-co .text-slate-600,
 body.theme-thien-co .text-slate-400,
 body.theme-thien-co .text-slate-500,
 body.theme-thien-co .text-slate-600 {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary-light) !important;
 }
 html.theme-thien-co .text-gray-400,
 html.theme-thien-co .text-gray-500,
@@ -89,7 +87,7 @@ html.theme-thien-co .text-gray-600,
 body.theme-thien-co .text-gray-400,
 body.theme-thien-co .text-gray-500,
 body.theme-thien-co .text-gray-600 {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary-light) !important;
 }
 html.theme-thien-co .text-gray-700,
 html.theme-thien-co .text-gray-800,
@@ -103,7 +101,7 @@ body.theme-thien-co .text-gray-900 {
 html.theme-thien-co .text-brandCyan,
 body.theme-thien-co .text-brandCyan { color: var(--accent-cyan) !important; }
 html.theme-thien-co .text-brandPurple,
-body.theme-thien-co .text-brandPurple { color: var(--accent-purple) !important; }
+body.theme-thien-co .text-brandPurple { color: var(--text-primary) !important; }
 html.theme-thien-co .text-brandOrange,
 body.theme-thien-co .text-brandOrange { color: var(--accent-orange) !important; }
 html.theme-thien-co .text-brandPink,
@@ -119,7 +117,7 @@ html.theme-thien-co .text-purple-500,
 html.theme-thien-co .text-purple-600,
 body.theme-thien-co .text-purple-400,
 body.theme-thien-co .text-purple-500,
-body.theme-thien-co .text-purple-600 { color: var(--accent-purple) !important; }
+body.theme-thien-co .text-purple-600 { color: var(--text-primary) !important; }
 html.theme-thien-co .text-amber-400,
 html.theme-thien-co .text-amber-500,
 html.theme-thien-co .text-amber-600,
@@ -153,7 +151,7 @@ body.theme-thien-co .bg-white\/70,
 body.theme-thien-co .bg-white\/80,
 body.theme-thien-co .bg-white\/90,
 body.theme-thien-co .bg-white\/95 {
-    background: rgba(17,27,46,0.7) !important;
+    background: rgba(5,5,10,0.85) !important;
 }
 html.theme-thien-co .bg-gray-50,
 html.theme-thien-co .bg-gray-100,
@@ -219,7 +217,7 @@ body.theme-thien-co .bg-gradient-to-r.from-cyan-50,
 body.theme-thien-co .bg-gradient-to-r.from-purple-50,
 body.theme-thien-co .bg-gradient-to-r.from-cyan-100,
 body.theme-thien-co .bg-gradient-to-r.from-purple-100 {
-    background: rgba(17,27,46,0.5) !important;
+    background: rgba(0,0,0,0.5) !important;
 }
 /* ===== CARD TRUYỆN ===== */
 html.theme-thien-co .genre-card,
@@ -246,7 +244,7 @@ body.theme-thien-co #leaderboard-books > div,
 body.theme-thien-co #leaderboard-users > div,
 body.theme-thien-co .recent-comment-card,
 body.theme-thien-co #comments-list-container > div {
-    background: rgba(17,27,46,0.65) !important;
+    background: rgba(7,7,14,0.8) !important;
     border-color: rgba(0,194,255,0.12) !important;
 }
 html.theme-thien-co .genre-card:hover,
@@ -272,7 +270,7 @@ html.theme-thien-co .intro-box,
 body.theme-thien-co #genre-books-list p.text-slate-600,
 body.theme-thien-co #filtered-books-grid p.text-slate-600,
 body.theme-thien-co .intro-box {
-    background: rgba(20,30,55,0.5) !important;
+    background: rgba(0,0,0,0.4) !important;
     border-color: rgba(0,194,255,0.08) !important;
     color: var(--text-secondary-light) !important;
 }
@@ -369,14 +367,14 @@ body.theme-thien-co ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,24
 /* ===== MOBILE MENU ===== */
 html.theme-thien-co #mobile-menu-panel,
 body.theme-thien-co #mobile-menu-panel {
-    background: rgba(15,23,42,0.98) !important;
+    background: rgba(0,0,0,0.98) !important;
     border-color: rgba(0,194,255,0.15) !important;
 }
 /* ===== LOGIN/REGISTER CARDS ===== */
 html.theme-thien-co .w-full.max-w-md.bg-white,
 body.theme-thien-co .w-full.max-w-md.bg-white {
-    background: rgba(17,27,46,0.9) !important;
-    border-color: rgba(0,194,255,0.15) !important;
+    background: rgba(0,0,0,0.85) !important;
+    border-color: rgba(0,194,255,0.12) !important;
 }
 /* ===== BOOK CARD ITEMS ===== */
 html.theme-thien-co #list-top-read .text-slate-500,
@@ -410,7 +408,7 @@ html.theme-thien-co #leaderboard-books .text-slate-500,
 html.theme-thien-co #leaderboard-users .text-slate-500,
 body.theme-thien-co #leaderboard-books .text-slate-500,
 body.theme-thien-co #leaderboard-users .text-slate-500 {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary-light) !important;
 }
 /* ===== SIDEBAR SECTION HEADERS ===== */
 html.theme-thien-co .border-b.border-gray-200\/60,
