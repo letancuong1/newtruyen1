@@ -20,41 +20,220 @@
 /* ============================================= */
 /* THEME 1: THIÊN CƠ (Luyện Khí)                */
 /* ============================================= */
+html.theme-thien-co body,
 body.theme-thien-co {
-    --bg-primary: #020212 !important;
-    --bg-glass: rgba(10,14,45,0.7) !important;
-    --border-glass: rgba(245,158,11,0.25) !important;
-    --text-primary: #e2d5f5 !important;
-    --text-secondary: #94a3b8 !important;
-    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.5) !important;
-    --accent-cyan: #00d2ff !important;
-    --accent-purple: #8a2be2 !important;
+    --bg-primary: #070A11 !important;
+    --bg-glass: rgba(17,24,46,0.85) !important;
+    --border-glass: rgba(0,194,255,0.15) !important;
+    --text-primary: #F8FAFC !important;
+    --text-secondary: #94A3B8 !important;
+    --text-secondary-light: #CBD5E1 !important;
+    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.6) !important;
+    --accent-cyan: #00C2FF !important;
+    --accent-purple: #A855F7 !important;
     --accent-orange: #ff7e5f !important;
     --accent-pink: #ff3366 !important;
     --accent-gold: #f59e0b !important;
-    background-color: #020212 !important;
-    background-image: radial-gradient(at 10% 10%, rgba(138,43,226,0.15) 0px, transparent 40%), radial-gradient(at 90% 10%, rgba(0,210,255,0.15) 0px, transparent 40%), radial-gradient(at 50% 80%, rgba(245,158,11,0.08) 0px, transparent 50%) !important;
+    background-color: #070A11 !important;
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(0,194,255,0.08) 0px, transparent 50%),
+        radial-gradient(at 90% 80%, rgba(168,85,247,0.08) 0px, transparent 50%) !important;
     background-attachment: fixed !important;
     color: var(--text-primary) !important;
     font-family: 'Inter', sans-serif !important;
 }
-body.theme-thien-co .glass-card { background: var(--bg-glass) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid var(--border-glass) !important; border-radius: 12px !important; box-shadow: var(--card-shadow), inset 0 0 15px rgba(0,210,255,0.05) !important; }
-body.theme-thien-co header { background: rgba(3,4,18,0.85) !important; backdrop-filter: blur(12px) !important; border-color: rgba(245,158,11,0.2) !important; }
-body.theme-thien-co footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
-body.theme-thien-co .text-slate-700, body.theme-thien-co .text-slate-800 { color: var(--text-primary) !important; }
-body.theme-thien-co .text-slate-400, body.theme-thien-co .text-slate-500, body.theme-thien-co .text-slate-600 { color: var(--text-secondary) !important; }
+/* ===== HEADER ===== */
+html.theme-thien-co header,
+body.theme-thien-co header {
+    background: rgba(15,23,42,0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(0,194,255,0.12) !important;
+}
+/* ===== CARD / GLASS ===== */
+html.theme-thien-co .glass-card,
+body.theme-thien-co .glass-card {
+    background: rgba(17,27,46,0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(0,194,255,0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,194,255,0.05) !important;
+}
+/* ===== FOOTER ===== */
+html.theme-thien-co footer,
+body.theme-thien-co footer {
+    background: rgba(17,27,46,0.7) !important;
+    border-color: rgba(0,194,255,0.1) !important;
+}
+/* ===== TEXT COLORS ===== */
+html.theme-thien-co .text-slate-700,
+html.theme-thien-co .text-slate-800,
+html.theme-thien-co .text-slate-900,
+body.theme-thien-co .text-slate-700,
+body.theme-thien-co .text-slate-800,
+body.theme-thien-co .text-slate-900 {
+    color: var(--text-primary) !important;
+}
+html.theme-thien-co .text-slate-400,
+html.theme-thien-co .text-slate-500,
+html.theme-thien-co .text-slate-600,
+body.theme-thien-co .text-slate-400,
+body.theme-thien-co .text-slate-500,
+body.theme-thien-co .text-slate-600 {
+    color: var(--text-secondary) !important;
+}
+html.theme-thien-co .text-gray-400,
+html.theme-thien-co .text-gray-500,
+html.theme-thien-co .text-gray-600,
+body.theme-thien-co .text-gray-400,
+body.theme-thien-co .text-gray-500,
+body.theme-thien-co .text-gray-600 {
+    color: var(--text-secondary) !important;
+}
+html.theme-thien-co .text-gray-700,
+html.theme-thien-co .text-gray-800,
+html.theme-thien-co .text-gray-900,
+body.theme-thien-co .text-gray-700,
+body.theme-thien-co .text-gray-800,
+body.theme-thien-co .text-gray-900 {
+    color: var(--text-primary) !important;
+}
+/* ===== ACCENT COLORS ===== */
+html.theme-thien-co .text-brandCyan,
 body.theme-thien-co .text-brandCyan { color: var(--accent-cyan) !important; }
+html.theme-thien-co .text-brandPurple,
 body.theme-thien-co .text-brandPurple { color: var(--accent-purple) !important; }
+html.theme-thien-co .text-brandOrange,
 body.theme-thien-co .text-brandOrange { color: var(--accent-orange) !important; }
+html.theme-thien-co .text-brandPink,
 body.theme-thien-co .text-brandPink { color: var(--accent-pink) !important; }
+html.theme-thien-co .text-cyan-400,
+html.theme-thien-co .text-cyan-500,
+html.theme-thien-co .text-cyan-600,
+body.theme-thien-co .text-cyan-400,
+body.theme-thien-co .text-cyan-500,
+body.theme-thien-co .text-cyan-600 { color: var(--accent-cyan) !important; }
+html.theme-thien-co .text-purple-400,
+html.theme-thien-co .text-purple-500,
+html.theme-thien-co .text-purple-600,
+body.theme-thien-co .text-purple-400,
+body.theme-thien-co .text-purple-500,
+body.theme-thien-co .text-purple-600 { color: var(--accent-purple) !important; }
+html.theme-thien-co .text-amber-400,
+html.theme-thien-co .text-amber-500,
+html.theme-thien-co .text-amber-600,
+body.theme-thien-co .text-amber-400,
+body.theme-thien-co .text-amber-500,
+body.theme-thien-co .text-amber-600 { color: var(--accent-gold) !important; }
+html.theme-thien-co .text-emerald-500,
+html.theme-thien-co .text-emerald-600,
+body.theme-thien-co .text-emerald-500,
 body.theme-thien-co .text-emerald-600 { color: #22c55e !important; }
-body.theme-thien-co .bg-gray-200 { background: rgba(255,255,255,0.08) !important; }
-body.theme-thien-co .bg-amber-50 { background: rgba(245,158,11,0.12) !important; }
-body.theme-thien-co .bg-cyan-50 { background: rgba(0,210,255,0.12) !important; }
-body.theme-thien-co .bg-white\/50, body.theme-thien-co .bg-white\/60, body.theme-thien-co .bg-white\/70, body.theme-thien-co .bg-white\/80, body.theme-thien-co .bg-white\/90 { background: rgba(10,14,45,0.5) !important; }
-body.theme-thien-co .border-gray-100, body.theme-thien-co .border-gray-200, body.theme-thien-co .border-gray-300 { border-color: rgba(245,158,11,0.15) !important; }
-body.theme-thien-co .bg-gradient-to-r.from-cyan-50, body.theme-thien-co .bg-gradient-to-r.from-purple-50 { background: rgba(10,14,45,0.4) !important; }
-/* Card truyện dark mode - Thiên Cơ */
+html.theme-thien-co .text-red-400,
+html.theme-thien-co .text-red-500,
+body.theme-thien-co .text-red-400,
+body.theme-thien-co .text-red-500 { color: #ef4444 !important; }
+html.theme-thien-co .text-blue-500,
+html.theme-thien-co .text-blue-600,
+body.theme-thien-co .text-blue-500,
+body.theme-thien-co .text-blue-600 { color: #3b82f6 !important; }
+/* ===== BACKGROUND OVERRIDES ===== */
+html.theme-thien-co .bg-white,
+html.theme-thien-co .bg-white\/50,
+html.theme-thien-co .bg-white\/60,
+html.theme-thien-co .bg-white\/70,
+html.theme-thien-co .bg-white\/80,
+html.theme-thien-co .bg-white\/90,
+html.theme-thien-co .bg-white\/95,
+body.theme-thien-co .bg-white,
+body.theme-thien-co .bg-white\/50,
+body.theme-thien-co .bg-white\/60,
+body.theme-thien-co .bg-white\/70,
+body.theme-thien-co .bg-white\/80,
+body.theme-thien-co .bg-white\/90,
+body.theme-thien-co .bg-white\/95 {
+    background: rgba(17,27,46,0.7) !important;
+}
+html.theme-thien-co .bg-gray-50,
+html.theme-thien-co .bg-gray-100,
+html.theme-thien-co .bg-gray-200,
+html.theme-thien-co .bg-slate-50,
+html.theme-thien-co .bg-slate-100,
+html.theme-thien-co .bg-slate-200,
+body.theme-thien-co .bg-gray-50,
+body.theme-thien-co .bg-gray-100,
+body.theme-thien-co .bg-gray-200,
+body.theme-thien-co .bg-slate-50,
+body.theme-thien-co .bg-slate-100,
+body.theme-thien-co .bg-slate-200 {
+    background: rgba(255,255,255,0.06) !important;
+}
+html.theme-thien-co .bg-amber-50,
+body.theme-thien-co .bg-amber-50 { background: rgba(245,158,11,0.12) !important; border-color: rgba(245,158,11,0.2) !important; }
+html.theme-thien-co .bg-cyan-50,
+body.theme-thien-co .bg-cyan-50 { background: rgba(0,194,255,0.12) !important; border-color: rgba(0,194,255,0.2) !important; }
+html.theme-thien-co .bg-purple-50,
+body.theme-thien-co .bg-purple-50 { background: rgba(168,85,247,0.12) !important; border-color: rgba(168,85,247,0.2) !important; }
+html.theme-thien-co .bg-red-50,
+body.theme-thien-co .bg-red-50 { background: rgba(239,68,68,0.12) !important; border-color: rgba(239,68,68,0.2) !important; }
+html.theme-thien-co .bg-green-50,
+body.theme-thien-co .bg-green-50 { background: rgba(34,197,94,0.12) !important; border-color: rgba(34,197,94,0.2) !important; }
+html.theme-thien-co .bg-emerald-50,
+body.theme-thien-co .bg-emerald-50 { background: rgba(16,185,129,0.12) !important; border-color: rgba(16,185,129,0.2) !important; }
+/* ===== BORDER OVERRIDES ===== */
+html.theme-thien-co .border-gray-100,
+html.theme-thien-co .border-gray-200,
+html.theme-thien-co .border-gray-300,
+html.theme-thien-co .border-slate-100,
+html.theme-thien-co .border-slate-200,
+html.theme-thien-co .border-slate-300,
+body.theme-thien-co .border-gray-100,
+body.theme-thien-co .border-gray-200,
+body.theme-thien-co .border-gray-300,
+body.theme-thien-co .border-slate-100,
+body.theme-thien-co .border-slate-200,
+body.theme-thien-co .border-slate-300 {
+    border-color: rgba(0,194,255,0.12) !important;
+}
+html.theme-thien-co .border-white,
+html.theme-thien-co .border-white\/5,
+html.theme-thien-co .border-white\/10,
+html.theme-thien-co .border-white\/20,
+html.theme-thien-co .border-white\/60,
+html.theme-thien-co .border-white\/80,
+body.theme-thien-co .border-white,
+body.theme-thien-co .border-white\/5,
+body.theme-thien-co .border-white\/10,
+body.theme-thien-co .border-white\/20,
+body.theme-thien-co .border-white\/60,
+body.theme-thien-co .border-white\/80 {
+    border-color: rgba(0,194,255,0.1) !important;
+}
+/* ===== GRADIENT OVERRIDES ===== */
+html.theme-thien-co .bg-gradient-to-r.from-cyan-50,
+html.theme-thien-co .bg-gradient-to-r.from-purple-50,
+html.theme-thien-co .bg-gradient-to-r.from-cyan-100,
+html.theme-thien-co .bg-gradient-to-r.from-purple-100,
+body.theme-thien-co .bg-gradient-to-r.from-cyan-50,
+body.theme-thien-co .bg-gradient-to-r.from-purple-50,
+body.theme-thien-co .bg-gradient-to-r.from-cyan-100,
+body.theme-thien-co .bg-gradient-to-r.from-purple-100 {
+    background: rgba(17,27,46,0.5) !important;
+}
+/* ===== CARD TRUYỆN ===== */
+html.theme-thien-co .genre-card,
+html.theme-thien-co .skeleton-card,
+html.theme-thien-co #genre-books-list > div:not(.col-span-full),
+html.theme-thien-co #filtered-books-grid > div,
+html.theme-thien-co #list-top-read > div,
+html.theme-thien-co #list-top-rated > div,
+html.theme-thien-co #list-completed > div,
+html.theme-thien-co #list-vip > div,
+html.theme-thien-co #leaderboard-books > div,
+html.theme-thien-co #leaderboard-users > div,
+html.theme-thien-co .recent-comment-card,
+html.theme-thien-co #comments-list-container > div,
 body.theme-thien-co .genre-card,
 body.theme-thien-co .skeleton-card,
 body.theme-thien-co #genre-books-list > div:not(.col-span-full),
@@ -65,10 +244,18 @@ body.theme-thien-co #list-completed > div,
 body.theme-thien-co #list-vip > div,
 body.theme-thien-co #leaderboard-books > div,
 body.theme-thien-co #leaderboard-users > div,
-body.theme-thien-co .recent-comment-card {
-    background: rgba(10,14,45,0.65) !important;
-    border-color: rgba(245,158,11,0.15) !important;
+body.theme-thien-co .recent-comment-card,
+body.theme-thien-co #comments-list-container > div {
+    background: rgba(17,27,46,0.65) !important;
+    border-color: rgba(0,194,255,0.12) !important;
 }
+html.theme-thien-co .genre-card:hover,
+html.theme-thien-co #genre-books-list > div:not(.col-span-full):hover,
+html.theme-thien-co #filtered-books-grid > div:hover,
+html.theme-thien-co #list-top-read > div:hover,
+html.theme-thien-co #list-top-rated > div:hover,
+html.theme-thien-co #list-completed > div:hover,
+html.theme-thien-co #list-vip > div:hover,
 body.theme-thien-co .genre-card:hover,
 body.theme-thien-co #genre-books-list > div:not(.col-span-full):hover,
 body.theme-thien-co #filtered-books-grid > div:hover,
@@ -78,46 +265,167 @@ body.theme-thien-co #list-completed > div:hover,
 body.theme-thien-co #list-vip > div:hover {
     border-color: var(--accent-cyan) !important;
 }
-/* Description box */
+/* ===== GIỚI THIỆU TRUYỆN (mô tả) ===== */
+html.theme-thien-co #genre-books-list p.text-slate-600,
+html.theme-thien-co #filtered-books-grid p.text-slate-600,
+html.theme-thien-co .intro-box,
 body.theme-thien-co #genre-books-list p.text-slate-600,
-body.theme-thien-co #filtered-books-grid p.text-slate-600 {
-    background: rgba(20,24,55,0.5) !important;
-    border-color: rgba(245,158,11,0.1) !important;
-    color: #a78bfa !important;
+body.theme-thien-co #filtered-books-grid p.text-slate-600,
+body.theme-thien-co .intro-box {
+    background: rgba(20,30,55,0.5) !important;
+    border-color: rgba(0,194,255,0.08) !important;
+    color: var(--text-secondary-light) !important;
 }
-/* Detail text in sidebar cards */
+/* ===== CATEGORY TAGS ===== */
+html.theme-thien-co #genre-books-list span.text-brandCyan,
+html.theme-thien-co #filtered-books-grid span.text-brandCyan,
+body.theme-thien-co #genre-books-list span.text-brandCyan,
+body.theme-thien-co #filtered-books-grid span.text-brandCyan {
+    background: rgba(168,85,247,0.2) !important;
+    border-color: rgba(168,85,247,0.3) !important;
+    color: #c4b5fd !important;
+}
+/* ===== BUTTONS ===== */
+html.theme-thien-co button.bg-white,
+body.theme-thien-co button.bg-white {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(0,194,255,0.15) !important;
+    color: var(--text-primary) !important;
+}
+html.theme-thien-co button.bg-white:hover,
+body.theme-thien-co button.bg-white:hover {
+    border-color: var(--accent-cyan) !important;
+}
+/* ===== INPUT FIELDS ===== */
+html.theme-thien-co input,
+html.theme-thien-co select,
+html.theme-thien-co textarea,
+body.theme-thien-co input,
+body.theme-thien-co select,
+body.theme-thien-co textarea {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(0,194,255,0.15) !important;
+    color: var(--text-primary) !important;
+}
+html.theme-thien-co input:focus,
+html.theme-thien-co select:focus,
+html.theme-thien-co textarea:focus,
+body.theme-thien-co input:focus,
+body.theme-thien-co select:focus,
+body.theme-thien-co textarea:focus {
+    border-color: var(--accent-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(0,194,255,0.15) !important;
+}
+html.theme-thien-co input::placeholder,
+body.theme-thien-co input::placeholder { color: #64748b !important; }
+/* ===== PAGINATION ===== */
+html.theme-thien-co .pagination-btn,
+body.theme-thien-co .pagination-btn {
+    background: rgba(255,255,255,0.06) !important;
+    color: var(--text-secondary) !important;
+    border-color: rgba(0,194,255,0.12) !important;
+}
+html.theme-thien-co .pagination-btn.active,
+body.theme-thien-co .pagination-btn.active {
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple)) !important;
+    color: white !important;
+}
+/* ===== FILTER DROPDOWN ===== */
+html.theme-thien-co .filter-select,
+body.theme-thien-co .filter-select {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(0,194,255,0.15) !important;
+    color: var(--text-primary) !important;
+}
+/* ===== TAB BUTTONS ===== */
+html.theme-thien-co .tab-btn,
+body.theme-thien-co .tab-btn {
+    color: var(--text-secondary) !important;
+    border-color: rgba(0,194,255,0.12) !important;
+}
+html.theme-thien-co .tab-btn.active,
+body.theme-thien-co .tab-btn.active {
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple)) !important;
+    color: white !important;
+}
+/* ===== CHAPTER LIST ===== */
+html.theme-thien-co .chapter-item,
+body.theme-thien-co .chapter-item {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(0,194,255,0.08) !important;
+    color: var(--text-primary) !important;
+}
+html.theme-thien-co .chapter-item:hover,
+body.theme-thien-co .chapter-item:hover {
+    border-color: var(--accent-cyan) !important;
+}
+/* ===== SCROLLBAR ===== */
+html.theme-thien-co ::-webkit-scrollbar-track,
+body.theme-thien-co ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03) !important; }
+html.theme-thien-co ::-webkit-scrollbar-thumb,
+body.theme-thien-co ::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.3) !important; }
+html.theme-thien-co ::-webkit-scrollbar-thumb:hover,
+body.theme-thien-co ::-webkit-scrollbar-thumb:hover { background: rgba(168,85,247,0.5) !important; }
+/* ===== MOBILE MENU ===== */
+html.theme-thien-co #mobile-menu-panel,
+body.theme-thien-co #mobile-menu-panel {
+    background: rgba(15,23,42,0.98) !important;
+    border-color: rgba(0,194,255,0.15) !important;
+}
+/* ===== LOGIN/REGISTER CARDS ===== */
+html.theme-thien-co .w-full.max-w-md.bg-white,
+body.theme-thien-co .w-full.max-w-md.bg-white {
+    background: rgba(17,27,46,0.9) !important;
+    border-color: rgba(0,194,255,0.15) !important;
+}
+/* ===== BOOK CARD ITEMS ===== */
+html.theme-thien-co #list-top-read .text-slate-500,
+html.theme-thien-co #list-top-rated .text-slate-500,
+html.theme-thien-co #list-completed .text-slate-500,
+html.theme-thien-co #list-vip .text-slate-500,
 body.theme-thien-co #list-top-read .text-slate-500,
 body.theme-thien-co #list-top-rated .text-slate-500,
 body.theme-thien-co #list-completed .text-slate-500,
 body.theme-thien-co #list-vip .text-slate-500 {
-    color: #94a3b8 !important;
+    color: var(--text-secondary) !important;
 }
+html.theme-thien-co #list-top-read .text-slate-700,
+html.theme-thien-co #list-top-rated .text-slate-700,
+html.theme-thien-co #list-completed .text-slate-700,
+html.theme-thien-co #list-vip .text-slate-700,
 body.theme-thien-co #list-top-read .text-slate-700,
 body.theme-thien-co #list-top-rated .text-slate-700,
 body.theme-thien-co #list-completed .text-slate-700,
 body.theme-thien-co #list-vip .text-slate-700 {
-    color: #e2d5f5 !important;
+    color: var(--text-primary) !important;
 }
-/* Category tags */
-body.theme-thien-co #genre-books-list span.text-brandCyan,
-body.theme-thien-co #filtered-books-grid span.text-brandCyan {
-    background: rgba(139,92,246,0.25) !important;
-    border-color: rgba(139,92,246,0.3) !important;
-    color: #c4b5fd !important;
-}
-/* BXH items */
-body.theme-thien-co #leaderboard-books > div,
-body.theme-thien-co #leaderboard-users > div {
-    background: rgba(10,14,45,0.6) !important;
-    border-color: rgba(245,158,11,0.12) !important;
-}
+/* ===== BXH ITEMS ===== */
+html.theme-thien-co #leaderboard-books .text-slate-700,
+html.theme-thien-co #leaderboard-users .text-slate-700,
 body.theme-thien-co #leaderboard-books .text-slate-700,
 body.theme-thien-co #leaderboard-users .text-slate-700 {
-    color: #e2d5f5 !important;
+    color: var(--text-primary) !important;
 }
+html.theme-thien-co #leaderboard-books .text-slate-500,
+html.theme-thien-co #leaderboard-users .text-slate-500,
 body.theme-thien-co #leaderboard-books .text-slate-500,
 body.theme-thien-co #leaderboard-users .text-slate-500 {
-    color: #94a3b8 !important;
+    color: var(--text-secondary) !important;
+}
+/* ===== SIDEBAR SECTION HEADERS ===== */
+html.theme-thien-co .border-b.border-gray-200\/60,
+body.theme-thien-co .border-b.border-gray-200\/60 {
+    border-color: rgba(0,194,255,0.1) !important;
+}
+/* ===== STARS RATING ===== */
+html.theme-thien-co .fa-star.text-gray-300,
+body.theme-thien-co .fa-star.text-gray-300 {
+    color: #475569 !important;
+}
+/* ===== BADGE/SMOKE TEXT ===== */
+html.theme-thien-co .text-xs.text-slate-400.italic,
+body.theme-thien-co .text-xs.text-slate-400.italic {
+    color: var(--text-secondary) !important;
 }
 
 /* ============================================= */
