@@ -46,12 +46,20 @@
     }
     </script>
     
-    <!-- SEO Engine -->
-    <script src="/js/seo-engine.js"></script>
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+    
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="theme.css">
     <script>
         tailwind.config = {
@@ -227,5 +235,6 @@
         });
     </script>
     <script src="/js/danh-sach.js"></script>
+    <script src="/js/seo-engine.js" defer></script>
 </body>
 </html>

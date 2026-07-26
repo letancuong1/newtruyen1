@@ -46,19 +46,25 @@
     }
     </script>
     
-    <!-- SEO Engine -->
-    <script src="/js/seo-engine.js"></script>
-    
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
+    
+    <!-- Tailwind CSS CDN - defer -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    
+    <!-- Google Fonts: Inter - preload + onload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- FontAwesome Icons - defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="theme.css">
     
     <script>
@@ -143,7 +149,7 @@
 
                 <div class="relative w-40 md:w-52 flex-shrink-0 z-10 group">
                     <div class="w-full aspect-[2/3] rounded-xl overflow-hidden border border-gray-200 shadow-md bg-white">
-                        <img id="detail-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img id="detail-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop" alt="Bìa truyện" width="208" height="312" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div id="detail-vip-badge" class="absolute -top-3 -right-3 hidden">
                         <span class="bg-red-500 text-white px-2.5 py-0.5 rounded-full text-[10px] font-bold shadow-md">VIP</span>
@@ -1014,6 +1020,8 @@
         });
     });
     </script>
-    <script src="/js/rpg-system.js"></script>\n</body>
+    <script src="/js/rpg-system.js"></script>
+    <script src="/js/seo-engine.js" defer></script>
+</body>
 </html>
 

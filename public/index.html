@@ -72,10 +72,6 @@
     }
     </script>
     
-    <!-- SEO Engine -->
-    <script src="/js/seo-engine.js"></script>
-</head>
-    
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,15 +82,18 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
     <link rel="preload" href="/logo.svg" as="image">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN - defer để không block render -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
     
-    <!-- Google Fonts: Inter cho nét chữ hiện đại -->
+    <!-- Google Fonts: Inter cho nét chữ hiện đại - dùng preload + onload -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.rel='stylesheet'">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
     
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Icons - defer với media="print" trick -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Theme CSS -->
     <link rel="stylesheet" href="theme.css">
 
     <script>
@@ -186,11 +185,11 @@
                 <div class="w-full md:w-5/12 flex justify-center shrink-0">
                     <div class="relative cursor-pointer group">
                         <div class="absolute inset-0 bg-gradient-to-r from-brandCyan to-brandPurple blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="logo.svg" alt="AloTruyen Cover" class="relative w-full max-w-[240px] rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.1)] border border-white/80 transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 object-cover" onerror="this.src='https://placehold.co/400x500/00d2ff/ffffff?text=AloTruyen';">
+                        <img src="logo.svg" alt="AloTruyen Cover - Đọc Truyện Online" width="240" height="240" class="relative w-full max-w-[240px] rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.1)] border border-white/80 transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 object-cover" onerror="this.src='https://placehold.co/400x500/00d2ff/ffffff?text=AloTruyen';">
                     </div>
                 </div>
                 <div class="space-y-4 text-center md:text-left z-10 md:w-7/12">
-                    <span class="inline-block px-4 py-1.5 bg-gradient-to-r from-cyan-100 to-purple-100 border border-cyan-200 text-brandPurple text-[10px] font-black tracking-widest uppercase rounded-full shadow-sm">
+                    <span class="inline-block px-4 py-1.5 bg-gradient-to-r from-cyan-100 to-purple-100 border border-cyan-200 text-purple-700 text-[10px] font-black tracking-widest uppercase rounded-full shadow-sm">
                         Trải Nghiệm Mới
                     </span>
                     <h2 class="text-3xl md:text-4xl font-black text-slate-800 leading-tight tracking-tight">
@@ -207,26 +206,26 @@
             <div class="glass-card relative z-30 p-4 rounded-2xl flex flex-col lg:flex-row gap-3 items-center justify-between text-xs">
                 <div class="flex items-center gap-2 w-full lg:w-auto">
                     <span class="text-slate-600 font-bold whitespace-nowrap"><i class="fa-solid fa-magnifying-glass text-brandCyan mr-1"></i> Tìm:</span>
-                    <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Tên truyện hoặc tác giả..." class="w-full lg:w-48 px-3 py-2 rounded-xl bg-white border border-gray-200 text-slate-700 text-xs focus:outline-none focus:border-brandCyan transition-all">
+                    <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Tên truyện hoặc tác giả..." class="w-full lg:w-48 px-3 py-2 rounded-xl bg-white border border-gray-200 text-slate-700 text-xs focus:outline-none focus:border-brandCyan transition-all" aria-label="Tìm kiếm truyện">
                 </div>
                 <div class="flex items-center gap-2 w-full lg:w-auto">
                     <span class="text-slate-600 font-bold whitespace-nowrap"><i class="fa-solid fa-filter text-brandCyan mr-1"></i> Thể Loại:</span>
                     <div class="relative w-full lg:w-40">
-                        <div id="category-dropdown-trigger" class="px-3 py-2 rounded-xl bg-white border border-gray-200 text-slate-600 text-xs cursor-pointer flex justify-between items-center select-none w-full" onclick="event.stopPropagation(); toggleCategoryDropdown()">
+                        <div id="category-dropdown-trigger" class="px-3 py-2 rounded-xl bg-white border border-gray-200 text-slate-600 text-xs cursor-pointer flex justify-between items-center select-none w-full" onclick="event.stopPropagation(); toggleCategoryDropdown()" role="button" tabindex="0" aria-label="Chọn thể loại" aria-expanded="false">
                             <span id="selected-category-text">Tất Cả</span>
                             <i class="fa-solid fa-chevron-down text-[10px] text-brandCyan"></i>
                         </div>
-                        <div id="filter-category-menu" class="absolute left-0 top-full pt-1 w-full bg-white/95 backdrop-blur-xl border border-gray-200 rounded-xl shadow-lg hidden max-h-48 overflow-y-auto z-50 p-1"></div>
+                        <div id="filter-category-menu" class="absolute left-0 top-full pt-1 w-full bg-white/95 backdrop-blur-xl border border-gray-200 rounded-xl shadow-lg hidden max-h-48 overflow-y-auto z-50 p-1" role="listbox"></div>
                     </div>
                     <input type="hidden" id="filter-category" value="all">
                 </div>
                 <div class="flex items-center gap-2 w-full lg:w-auto">
                     <span class="text-slate-600 font-bold whitespace-nowrap"><i class="fa-solid fa-list-ol text-brandCyan mr-1"></i> Chương:</span>
-                    <div class="flex bg-white rounded-xl p-1 border border-gray-200 w-full lg:w-auto">
-                        <button onclick="setChapterFilter('all')" id="btn-chap-all" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white transition-all">Tất Cả</button>
-                        <button onclick="setChapterFilter('small')" id="btn-chap-small" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all">< 100</button>
-                        <button onclick="setChapterFilter('medium')" id="btn-chap-medium" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all">100-500</button>
-                        <button onclick="setChapterFilter('large')" id="btn-chap-large" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all">500+</button>
+                    <div class="flex bg-white rounded-xl p-1 border border-gray-200 w-full lg:w-auto" role="group" aria-label="Lọc theo số chương">
+                        <button onclick="setChapterFilter('all')" id="btn-chap-all" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg bg-gradient-to-r from-brandCyan to-brandPurple text-white transition-all" aria-label="Tất cả chương">Tất Cả</button>
+                        <button onclick="setChapterFilter('small')" id="btn-chap-small" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all" aria-label="Dưới 100 chương">< 100</button>
+                        <button onclick="setChapterFilter('medium')" id="btn-chap-medium" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all" aria-label="100 đến 500 chương">100-500</button>
+                        <button onclick="setChapterFilter('large')" id="btn-chap-large" class="chap-filter-btn px-3 py-1 text-[10px] font-bold rounded-lg text-slate-500 hover:text-brandCyan transition-all" aria-label="Trên 500 chương">500+</button>
                     </div>
                 </div>
             </div>
@@ -539,7 +538,10 @@
 
         function toggleCategoryDropdown() {
             const menu = document.getElementById("filter-category-menu");
+            const trigger = document.getElementById("category-dropdown-trigger");
+            const isHidden = menu.classList.contains("hidden");
             menu.classList.toggle("hidden");
+            if (trigger) trigger.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
         }
 
         document.addEventListener('click', function(e) {
@@ -547,6 +549,7 @@
             const trigger = document.getElementById("category-dropdown-trigger");
             if (menu && !menu.classList.contains('hidden') && !trigger.contains(e.target) && !menu.contains(e.target)) {
                 menu.classList.add('hidden');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -554,6 +557,8 @@
             document.getElementById("filter-category").value = cat;
             document.getElementById("selected-category-text").innerText = cat === 'all' ? 'Tất Cả' : cat;
             document.getElementById("filter-category-menu").classList.add('hidden');
+            const trigger = document.getElementById("category-dropdown-trigger");
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
             currentPage = 1;
             applyFilters();
         }
@@ -628,10 +633,10 @@
                 } catch (e) { /* ignore preload failures */ }
 
                 const vip = b.isVip ? '<span class="text-[9px] bg-red-100 text-red-500 border border-red-200 px-1.5 py-0.5 rounded font-bold">VIP</span>' : '';
-                const cats = b.categories.slice(0,3).map(c => `<span class="text-[9px] text-brandCyan border border-cyan-200 bg-cyan-50 px-1.5 py-0.5 rounded">${cleanTrashChars(c)}</span>`).join('');
+                const cats = b.categories.slice(0,3).map(c => `<span class="text-[9px] text-cyan-600 border border-cyan-200 bg-cyan-50 px-1.5 py-0.5 rounded">${cleanTrashChars(c)}</span>`).join('');
                 grid.innerHTML += `<div class="bg-white/70 backdrop-blur-sm border border-gray-200 hover:border-brandCyan p-4 rounded-2xl flex gap-4 transition-all hover:-translate-y-1 hover:shadow-glassHover group cursor-pointer" onclick="openReadingPage('${b.id}',1)">
                     <div class="w-24 h-36 rounded-xl overflow-hidden flex-shrink-0 shadow-md border border-white/80 bg-gray-100">
-                        <img src="${b.cover}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop'">
+                        <img src="${b.cover}" alt="${cleanTrashChars(b.title)}" width="96" height="144" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop'">
                     </div>
                     <div class="flex flex-col justify-between flex-1 min-w-0">
                         <div>
@@ -665,19 +670,19 @@
             let html = '';
 
             if (currentPage > 1) {
-                html += `<button onclick="goToPage(${currentPage - 1})" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm"><i class="fa-solid fa-chevron-left"></i></button>`;
+                html += `<button onclick="goToPage(${currentPage - 1})" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm" aria-label="Trang trước"><i class="fa-solid fa-chevron-left"></i></button>`;
             }
 
             for (let p = 1; p <= totalPages; p++) {
                 if (p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1) {
-                    html += `<button onclick="goToPage(${p})" class="pagination-btn w-9 h-9 rounded-xl text-xs font-bold transition-all shadow-sm ${p === currentPage ? 'bg-gradient-to-r from-brandCyan to-brandPurple text-white shadow-md' : 'bg-white text-slate-600 border border-gray-200 hover:border-brandCyan'}">${p}</button>`;
+                    html += `<button onclick="goToPage(${p})" class="pagination-btn w-9 h-9 rounded-xl text-xs font-bold transition-all shadow-sm ${p === currentPage ? 'bg-gradient-to-r from-brandCyan to-brandPurple text-white shadow-md' : 'bg-white text-slate-600 border border-gray-200 hover:border-brandCyan'}" aria-label="Trang ${p}" ${p === currentPage ? 'aria-current="page"' : ''}>${p}</button>`;
                 } else if (Math.abs(p - currentPage) === 2) {
-                    html += `<span class="text-slate-400 text-[10px]">...</span>`;
+                    html += `<span class="text-slate-400 text-[10px]" aria-hidden="true">...</span>`;
                 }
             }
 
             if (currentPage < totalPages) {
-                html += `<button onclick="goToPage(${currentPage + 1})" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm"><i class="fa-solid fa-chevron-right"></i></button>`;
+                html += `<button onclick="goToPage(${currentPage + 1})" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm" aria-label="Trang sau"><i class="fa-solid fa-chevron-right"></i></button>`;
             }
 
             container.innerHTML = html;
@@ -691,6 +696,8 @@
 
         function openReadingPage(bookId, chapNum) {
             if (!bookId) return;
+            var targetSlug = '';
+            var preSlug = '';
             try {
                 // Try to find the book object in the loaded list and store a compact payload for fast hydration
                 const bookObj = ALL_BOOKS.find(b => String(b.id) === String(bookId));
@@ -709,10 +716,10 @@
                         slug: bookObj.slug || ''
                     };
                     sessionStorage.setItem('preload_book', JSON.stringify(compact));
-                    var targetSlug = bookObj.slug || bookId;
+                    targetSlug = bookObj.slug || bookId;
                 } else if (window.PRELOAD_MAP && window.PRELOAD_MAP[String(bookId)]) {
                     sessionStorage.setItem('preload_book', JSON.stringify(window.PRELOAD_MAP[String(bookId)]));
-                    var preSlug = (window.PRELOAD_MAP[String(bookId)].slug || bookId);
+                    preSlug = (window.PRELOAD_MAP[String(bookId)].slug || bookId);
                 }
             } catch (e) { /* ignore */ }
             var finalSlug = targetSlug || preSlug || bookId;
@@ -732,7 +739,7 @@
                 const vip = b.isVip ? '<span class="text-[8px] bg-red-100 text-red-500 border border-red-200 px-1.5 py-0.5 rounded font-bold">VIP</span>' : '';
                 return `<div class="flex gap-4 bg-white/60 p-3 rounded-xl border border-gray-100 hover:border-brandCyan/50 hover:shadow-md transition-all cursor-pointer group shadow-sm" onclick="openReadingPage('${b.id}',1)">
                     <div class="w-20 h-28 rounded-xl overflow-hidden flex-shrink-0 shadow-md border border-white/80 bg-gray-100">
-                        <img src="${b.cover}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop'">
+                        <img src="${b.cover}" alt="${cleanTrashChars(b.title)}" width="80" height="112" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=250&auto=format&fit=crop'">
                     </div>
                     <div class="flex-1 min-w-0 flex flex-col justify-between">
                         <div>
@@ -741,8 +748,8 @@
                             <p class="text-[11px] text-slate-600 line-clamp-2 italic leading-relaxed">${cleanTrashChars(b.intro)}</p>
                         </div>
                         <div class="flex items-center justify-between gap-2 text-[10px] pt-2 border-t border-gray-100 mt-2">
-                            <span class="text-brandCyan bg-cyan-50 border border-cyan-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-eye"></i>${b.viewsNum.toLocaleString('vi-VN')}</span>
-                            <span class="text-brandPurple bg-purple-50 border border-purple-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-scroll"></i>${b.chaptersCount}C</span>
+                            <span class="text-cyan-600 bg-cyan-50 border border-cyan-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-eye"></i>${b.viewsNum.toLocaleString('vi-VN')}</span>
+                            <span class="text-purple-700 bg-purple-50 border border-purple-100 px-1.5 rounded flex items-center gap-0.5"><i class="fa-solid fa-scroll"></i>${b.chaptersCount}C</span>
                             <div>${generateStarsHtml(b.ratingAvg,b.ratingCount)}</div>
                         </div>
                     </div>
@@ -779,7 +786,7 @@
                             <p class="text-xs text-slate-600 line-clamp-2 italic mb-2">"${cleanTrashChars(cmt.content)}"</p>
                         </div>
                         <div class="text-[10px] border-t border-gray-100 pt-1.5 flex justify-between items-center text-slate-400">
-                            <span class="truncate">Tại: <a onclick="openReadingPage('${bId}',1)" class="text-brandCyan hover:underline cursor-pointer">${bName}</a></span>
+                            <span class="truncate">Tại: <a href="chi-tiet-truyen.html?slug=${bId}" class="text-brandCyan hover:underline cursor-pointer">${bName}</a></span>
                             <span class="text-[9px] text-slate-400">${tStr}</span>
                         </div>
                     </div>`;
@@ -886,5 +893,7 @@
             setTimeout(() => loadMissionsByTab('daily'), 2000);
         });
     </script>
+    <!-- SEO Engine - defer để không block render -->
+    <script src="/js/seo-engine.js" defer></script>
 </body>
 </html>

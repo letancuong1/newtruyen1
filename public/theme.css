@@ -11,10 +11,12 @@
     --bg-gradient-3: radial-gradient(at 100% 100%, rgba(255,126,95,0.12) 0px, transparent 50%);
     --bg-gradient-4: radial-gradient(at 0% 100%, rgba(0,210,255,0.12) 0px, transparent 50%);
     --accent-cyan: #00d2ff;
+    --accent-cyan-dark: #0099c4;
     --accent-purple: #8a2be2;
     --accent-orange: #ff7e5f;
     --accent-pink: #ff3366;
     --accent-gold: #f59e0b;
+    --accent-gold-dark: #b45309;
 }
 
 /* ============================================= */
