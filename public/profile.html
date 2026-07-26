@@ -1755,8 +1755,38 @@
             animate();
         }
 
-        // ===== MOBILE MENU (inline) =====
-        (function(){var _tm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;var x=!o.classList.contains('hidden');if(x){p.style.transform='translateX(100%)';b.style.opacity='0';if(n)n.style.pointerEvents='none';setTimeout(function(){o.classList.add('hidden');if(n){n.style.pointerEvents='';n.style.opacity=''}},400)}else{o.classList.remove('hidden');void p.offsetWidth;p.style.transform='translateX(0)';b.style.opacity='1';if(n)n.style.opacity='0.6'}};var _cm=function(){var o=document.getElementById('mobile-menu-overlay'),p=document.getElementById('mobile-menu-panel'),b=document.getElementById('mobile-menu-bg'),n=document.getElementById('mobile-menu-btn');if(!o||!p||!b)return;p.style.transform='translateX(100%)';b.style.opacity='0';if(n){n.style.pointerEvents='none';n.style.opacity=''}setTimeout(function(){o.classList.add('hidden');if(n)n.style.pointerEvents=''},400)};window.toggleMobileMenu=_tm;window.closeMobileMenu=_cm;document.addEventListener('click',function(e){var t=e.target.closest?e.target.closest('[data-header-action]'):null;if(t){var a=t.getAttribute('data-header-action');if(a==='toggle-menu')_tm();else if(a==='close-menu')_cm()}else{var ov=document.getElementById('mobile-menu-overlay');if(ov&&!ov.classList.contains('hidden')){var pn=document.getElementById('mobile-menu-panel');if(pn&&!pn.contains(e.target)&&!e.target.closest('#mobile-menu-btn'))_cm()}}})})();
+        // ===== MOBILE MENU FUNCTIONS (global, defined before header loads) =====
+        window.toggleMobileMenu = function() {
+            var overlay = document.getElementById('mobile-menu-overlay');
+            var panel = document.getElementById('mobile-menu-panel');
+            var bg = document.getElementById('mobile-menu-bg');
+            var btn = document.getElementById('mobile-menu-btn');
+            if (!overlay || !panel || !bg) return;
+            var isOpen = !overlay.classList.contains('hidden');
+            if (isOpen) {
+                panel.style.transform = 'translateX(100%)';
+                bg.style.opacity = '0';
+                if (btn) btn.style.pointerEvents = 'none';
+                setTimeout(function() { overlay.classList.add('hidden'); if (btn) { btn.style.pointerEvents = ''; btn.style.opacity = ''; } }, 400);
+            } else {
+                overlay.classList.remove('hidden');
+                void panel.offsetWidth;
+                panel.style.transform = 'translateX(0)';
+                bg.style.opacity = '1';
+                if (btn) btn.style.opacity = '0.6';
+            }
+        };
+        window.closeMobileMenu = function() {
+            var overlay = document.getElementById('mobile-menu-overlay');
+            var panel = document.getElementById('mobile-menu-panel');
+            var bg = document.getElementById('mobile-menu-bg');
+            var btn = document.getElementById('mobile-menu-btn');
+            if (!overlay || !panel || !bg) return;
+            panel.style.transform = 'translateX(100%)';
+            bg.style.opacity = '0';
+            if (btn) { btn.style.pointerEvents = 'none'; btn.style.opacity = ''; }
+            setTimeout(function() { overlay.classList.add('hidden'); if (btn) btn.style.pointerEvents = ''; }, 400);
+        };
 
         // ===== TỰ ĐỘNG NẠP HEADER DÙNG CHUNG =====
         document.addEventListener("DOMContentLoaded", function() {
