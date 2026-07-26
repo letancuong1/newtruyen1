@@ -67,22 +67,26 @@
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --bg-gradient-1: radial-gradient(at 0% 0%, rgba(0,210,255,0.12) 0px, transparent 50%);
+            --bg-gradient-2: radial-gradient(at 100% 0%, rgba(138,43,226,0.12) 0px, transparent 50%);
+            --bg-gradient-3: radial-gradient(at 100% 100%, rgba(255,126,95,0.12) 0px, transparent 50%);
+            --bg-gradient-4: radial-gradient(at 0% 100%, rgba(0,210,255,0.12) 0px, transparent 50%);
         }
         body {
-            background-color: #0a0a1a;
-            background-image: radial-gradient(at 0% 0%, rgba(0,210,255,0.08) 0px, transparent 50%),
-                              radial-gradient(at 100% 100%, rgba(138,43,226,0.08) 0px, transparent 50%);
+            background-color: var(--bg-primary);
+            background-image: var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3), var(--bg-gradient-4);
             background-attachment: fixed;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
         .glass-card {
-            background: rgba(15,15,35,0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0,210,255,0.15);
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.5);
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--card-shadow);
+            transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
         }
 
         /* ===== VIDEO PLAYER WRAPPER ===== */
@@ -115,9 +119,9 @@
             margin-top: 12px;
         }
         .skip-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.8);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 11px;
@@ -165,9 +169,9 @@
             border-radius: 10px;
             font-size: 11px;
             font-weight: 700;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.55);
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.25s ease;
             font-family: 'Inter', sans-serif;
@@ -363,8 +367,8 @@
 
             <!-- Video Info -->
             <div id="video-info-section" class="space-y-3">
-                <h1 class="text-lg md:text-xl font-bold text-white" id="video-title">Đang tải...</h1>
-                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-400" id="video-meta">
+                <h1 class="text-lg md:text-xl font-bold text-slate-800" id="video-title">Đang tải...</h1>
+                <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500" id="video-meta">
                     <span><i class="fa-regular fa-eye mr-1 text-brandCyan"></i> <span id="meta-views">0</span></span>
                     <span><i class="fa-regular fa-heart mr-1 text-brandPink"></i> <span id="meta-likes">0</span></span>
                     <span><i class="fa-regular fa-clock mr-1 text-brandPurple"></i> <span id="meta-duration">00:00</span></span>
@@ -374,31 +378,31 @@
             </div>
 
             <!-- Story Parts / Siblings -->
-            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
-                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-list mr-2 text-brandCyan"></i> Các phần khác</h3>
+            <div class="video-extra-section border-t border-gray-200 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-slate-700"><i class="fa-solid fa-list mr-2 text-brandCyan"></i> Các phần khác</h3>
                 <div class="flex flex-wrap gap-2" id="siblings-container">
                     <span class="text-xs text-slate-500">Đang tải...</span>
                 </div>
             </div>
 
             <!-- Video Recommendations -->
-            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
-                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-video mr-2 text-brandCyan"></i> Video Review Liên Quan</h3>
+            <div class="video-extra-section border-t border-gray-200 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-slate-700"><i class="fa-solid fa-video mr-2 text-brandCyan"></i> Video Review Liên Quan</h3>
                 <div id="video-recommendations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="col-span-full text-center text-xs text-slate-500 py-4">Đang tải đề xuất video...</div>
                 </div>
             </div>
 
             <!-- Text Story Recommendations -->
-            <div class="video-extra-section border-t border-gray-700/40 pt-4 space-y-3">
-                <h3 class="text-sm font-bold text-white/80"><i class="fa-solid fa-book mr-2 text-purple-400"></i> Đọc Bản Truyện Chữ Tại AloTruyen</h3>
+            <div class="video-extra-section border-t border-gray-200 pt-4 space-y-3">
+                <h3 class="text-sm font-bold text-slate-700"><i class="fa-solid fa-book mr-2 text-brandPurple"></i> Đọc Bản Truyện Chữ Tại AloTruyen</h3>
                 <div id="text-recommendations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="col-span-full text-center text-xs text-slate-500 py-4">Đang tải truyện chữ...</div>
                 </div>
             </div>
 
             <div class="pt-2">
-                <a href="video-reviews.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 text-xs font-bold hover:bg-white/10 hover:text-white transition-all">
+                <a href="video-reviews.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 text-slate-600 text-xs font-bold hover:border-brandCyan hover:text-brandCyan transition-all">
                     <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
                 </a>
             </div>
@@ -418,9 +422,9 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black/40 backdrop-blur-md border-t border-white/5 py-6 text-center text-xs space-y-2 mt-8">
-        <p class="font-bold text-gray-400">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p>
-        <p class="text-[10px] text-gray-600">Trình phát video được tối ưu hóa trải nghiệm xem review truyện.</p>
+    <footer class="bg-white/40 backdrop-blur-md border-t border-gray-200 py-6 text-center text-xs space-y-2 mt-8">
+        <p class="font-bold text-slate-700">© AloTruyen - Hệ Thống Đọc Truyện Đỉnh Cao</p>
+        <p class="text-[10px] text-slate-500">Trình phát video được tối ưu hóa trải nghiệm xem review truyện.</p>
     </footer>
 
     <script>
