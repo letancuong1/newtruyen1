@@ -430,35 +430,37 @@ body.theme-thien-co .text-xs.text-slate-400.italic {
 /* THEME 2: TIÊN LINH (Trúc Cơ)                 */
 /* ============================================= */
 body.theme-tien-linh {
-    --bg-primary: #01140f !important;
-    --bg-glass: rgba(1,26,20,0.75) !important;
-    --border-glass: rgba(0,255,204,0.25) !important;
-    --text-primary: #e6fff7 !important;
-    --text-secondary: #00ffcc !important;
-    --card-shadow: 0 10px 45px 0 rgba(0,0,0,0.7) !important;
+    --bg-primary: #000000 !important;
+    --bg-glass: rgba(0,0,0,0.92) !important;
+    --border-glass: rgba(0,255,204,0.15) !important;
+    --text-primary: #FFFFFF !important;
+    --text-secondary: #E2E8F0 !important;
+    --text-secondary-light: #F1F5F9 !important;
+    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.8) !important;
     --accent-cyan: #00ffcc !important;
     --accent-purple: #10b981 !important;
     --accent-orange: #f59e0b !important;
     --accent-pink: #059669 !important;
     --accent-gold: #ffd700 !important;
-    background-color: #01140f !important;
-    background-image: radial-gradient(at 10% 10%, rgba(0,255,204,0.18) 0px, transparent 40%), radial-gradient(at 90% 10%, rgba(16,185,129,0.2) 0px, transparent 40%), radial-gradient(at 50% 80%, rgba(255,215,0,0.1) 0px, transparent 50%) !important;
+    background-color: #000000 !important;
+    background-image: none !important;
     background-attachment: fixed !important;
     color: var(--text-primary) !important;
 }
-body.theme-tien-linh .glass-card { background: var(--bg-glass) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; border: 1px solid var(--border-glass) !important; border-radius: 18px !important; box-shadow: var(--card-shadow), inset 0 0 25px rgba(0,255,204,0.08) !important; }
-body.theme-tien-linh header { background: rgba(1,22,17,0.9) !important; backdrop-filter: blur(15px) !important; border-color: rgba(16,185,129,0.4) !important; }
-body.theme-tien-linh footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
+body.theme-tien-linh .glass-card { background: rgba(5,5,10,0.9) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1px solid var(--border-glass) !important; border-radius: 16px !important; box-shadow: var(--card-shadow) !important; }
+body.theme-tien-linh header { background: rgba(0,0,0,0.92) !important; backdrop-filter: blur(16px) !important; border-color: var(--border-glass) !important; }
+body.theme-tien-linh footer { background: rgba(0,0,0,0.7) !important; border-color: var(--border-glass) !important; }
 body.theme-tien-linh .text-slate-700, body.theme-tien-linh .text-slate-800 { color: var(--text-primary) !important; }
-body.theme-tien-linh .text-slate-400, body.theme-tien-linh .text-slate-500, body.theme-tien-linh .text-slate-600 { color: var(--text-secondary) !important; }
+body.theme-tien-linh .text-slate-400, body.theme-tien-linh .text-slate-500, body.theme-tien-linh .text-slate-600 { color: var(--text-secondary-light) !important; }
 body.theme-tien-linh .text-brandCyan { color: var(--accent-cyan) !important; }
-body.theme-tien-linh .text-brandPurple { color: var(--accent-purple) !important; }
+body.theme-tien-linh .text-brandPurple { color: var(--text-primary) !important; }
 body.theme-tien-linh .text-brandOrange { color: var(--accent-orange) !important; }
 body.theme-tien-linh .text-brandPink { color: var(--accent-pink) !important; }
 body.theme-tien-linh .text-amber-600 { color: var(--accent-gold) !important; }
 body.theme-tien-linh .text-emerald-600 { color: #22c55e !important; }
-body.theme-tien-linh .bg-white\/50, body.theme-tien-linh .bg-white\/60, body.theme-tien-linh .bg-white\/70, body.theme-tien-linh .bg-white\/80, body.theme-tien-linh .bg-white\/90 { background: rgba(1,26,20,0.5) !important; }
-body.theme-tien-linh .border-gray-100, body.theme-tien-linh .border-gray-200 { border-color: rgba(0,255,204,0.15) !important; }
+body.theme-tien-linh .bg-white\/50, body.theme-tien-linh .bg-white\/60, body.theme-tien-linh .bg-white\/70, body.theme-tien-linh .bg-white\/80, body.theme-tien-linh .bg-white\/90 { background: rgba(5,5,10,0.85) !important; }
+body.theme-tien-linh .border-gray-100, body.theme-tien-linh .border-gray-200 { border-color: var(--border-glass) !important; }
+body.theme-tien-linh .bg-gradient-to-r.from-cyan-50, body.theme-tien-linh .bg-gradient-to-r.from-purple-50 { background: rgba(0,0,0,0.5) !important; }
 /* Card truyện dark mode - Tiên Linh */
 body.theme-tien-linh .genre-card,
 body.theme-tien-linh .skeleton-card,
@@ -471,8 +473,8 @@ body.theme-tien-linh #list-vip > div,
 body.theme-tien-linh #leaderboard-books > div,
 body.theme-tien-linh #leaderboard-users > div,
 body.theme-tien-linh .recent-comment-card {
-    background: rgba(1,26,20,0.65) !important;
-    border-color: rgba(0,255,204,0.15) !important;
+    background: rgba(7,7,14,0.8) !important;
+    border-color: var(--border-glass) !important;
 }
 body.theme-tien-linh .genre-card:hover,
 body.theme-tien-linh #genre-books-list > div:not(.col-span-full):hover,
@@ -486,22 +488,22 @@ body.theme-tien-linh #list-vip > div:hover {
 /* Description box */
 body.theme-tien-linh #genre-books-list p.text-slate-600,
 body.theme-tien-linh #filtered-books-grid p.text-slate-600 {
-    background: rgba(1,22,20,0.5) !important;
-    border-color: rgba(0,255,204,0.1) !important;
-    color: #5eead4 !important;
+    background: rgba(0,0,0,0.4) !important;
+    border-color: var(--border-glass) !important;
+    color: var(--text-secondary-light) !important;
 }
 /* Detail text in sidebar cards */
 body.theme-tien-linh #list-top-read .text-slate-500,
 body.theme-tien-linh #list-top-rated .text-slate-500,
 body.theme-tien-linh #list-completed .text-slate-500,
 body.theme-tien-linh #list-vip .text-slate-500 {
-    color: #00ffcc !important;
+    color: var(--text-secondary-light) !important;
 }
 body.theme-tien-linh #list-top-read .text-slate-700,
 body.theme-tien-linh #list-top-rated .text-slate-700,
 body.theme-tien-linh #list-completed .text-slate-700,
 body.theme-tien-linh #list-vip .text-slate-700 {
-    color: #e6fff7 !important;
+    color: var(--text-primary) !important;
 }
 /* Category tags */
 body.theme-tien-linh #genre-books-list span.text-brandCyan,
@@ -511,59 +513,51 @@ body.theme-tien-linh #filtered-books-grid span.text-brandCyan {
     color: #00ffcc !important;
 }
 /* BXH items */
-body.theme-tien-linh #leaderboard-books > div,
-body.theme-tien-linh #leaderboard-users > div {
-    background: rgba(1,26,20,0.6) !important;
-    border-color: rgba(0,255,204,0.12) !important;
-}
 body.theme-tien-linh #leaderboard-books .text-slate-700,
-body.theme-tien-linh #leaderboard-users .text-slate-700 {
-    color: #e6fff7 !important;
-}
+body.theme-tien-linh #leaderboard-users .text-slate-700 { color: var(--text-primary) !important; }
 body.theme-tien-linh #leaderboard-books .text-slate-500,
-body.theme-tien-linh #leaderboard-users .text-slate-500 {
-    color: #00ffcc !important;
-}
+body.theme-tien-linh #leaderboard-users .text-slate-500 { color: var(--text-secondary-light) !important; }
 
 /* ============================================= */
 /* THEME 3: THẦN THOẠI (Nguyên Anh)             */
 /* ============================================= */
 body.theme-than-thoai {
-    --bg-primary: #02010c !important;
-    --bg-glass: rgba(6,3,23,0.94) !important;
-    --border-glass: rgba(139,92,246,0.45) !important;
+    --bg-primary: #000000 !important;
+    --bg-glass: rgba(0,0,0,0.94) !important;
+    --border-glass: rgba(139,92,246,0.3) !important;
     --text-primary: #ffffff !important;
-    --text-secondary: #e9d5ff !important;
-    --card-shadow: 0 30px 80px 0 rgba(0,0,0,0.98) !important;
+    --text-secondary: #E2E8F0 !important;
+    --text-secondary-light: #F1F5F9 !important;
+    --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.8) !important;
     --accent-cyan: #8b5cf6 !important;
     --accent-purple: #a855f7 !important;
     --accent-orange: #f59e0b !important;
     --accent-pink: #ec4899 !important;
     --accent-gold: #fbbf24 !important;
-    background-color: #02010c !important;
-    background-image: radial-gradient(at 10% 10%, rgba(139,92,246,0.22) 0px, transparent 55%), radial-gradient(at 90% 10%, rgba(76,29,149,0.25) 0px, transparent 55%), radial-gradient(at 50% 90%, rgba(168,85,247,0.15) 0px, transparent 65%) !important;
+    background-color: #000000 !important;
+    background-image: none !important;
     background-attachment: fixed !important;
     color: var(--text-primary) !important;
 }
-body.theme-than-thoai .glass-card { background: var(--bg-glass) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 1.5px solid var(--border-glass) !important; border-radius: 20px !important; box-shadow: var(--card-shadow), inset 0 0 45px rgba(168,85,247,0.12) !important; }
-body.theme-than-thoai header { background: rgba(6,3,23,0.92) !important; backdrop-filter: blur(15px) !important; border-color: rgba(139,92,246,0.4) !important; }
-body.theme-than-thoai footer { background: var(--bg-glass) !important; border-color: var(--border-glass) !important; }
-body.theme-than-thoai .text-slate-700, body.theme-than-thoai .text-slate-800 { color: #d8b4fe !important; }
-body.theme-than-thoai .text-slate-500, body.theme-than-thoai .text-slate-600 { color: #a78bfa !important; }
-body.theme-than-thoai .text-slate-400 { color: #8b5cf6 !important; }
-body.theme-than-thoai .text-slate-300 { color: #a855f7 !important; }
+body.theme-than-thoai .glass-card { background: rgba(5,5,10,0.9) !important; backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; border: 1.5px solid var(--border-glass) !important; border-radius: 16px !important; box-shadow: var(--card-shadow) !important; }
+body.theme-than-thoai header { background: rgba(0,0,0,0.92) !important; backdrop-filter: blur(16px) !important; border-color: var(--border-glass) !important; }
+body.theme-than-thoai footer { background: rgba(0,0,0,0.7) !important; border-color: var(--border-glass) !important; }
+body.theme-than-thoai .text-slate-700, body.theme-than-thoai .text-slate-800 { color: var(--text-primary) !important; }
+body.theme-than-thoai .text-slate-500, body.theme-than-thoai .text-slate-600 { color: var(--text-secondary-light) !important; }
+body.theme-than-thoai .text-slate-400 { color: var(--text-secondary-light) !important; }
+body.theme-than-thoai .text-slate-300 { color: var(--text-secondary-light) !important; }
 body.theme-than-thoai .text-brandCyan { color: var(--accent-cyan) !important; }
-body.theme-than-thoai .text-brandPurple { color: var(--accent-purple) !important; }
+body.theme-than-thoai .text-brandPurple { color: var(--text-primary) !important; }
 body.theme-than-thoai .text-brandOrange { color: var(--accent-orange) !important; }
 body.theme-than-thoai .text-brandPink { color: var(--accent-pink) !important; }
-body.theme-than-thoai .text-amber-600 { color: #fbbf24 !important; }
-body.theme-than-thoai .text-cyan-600 { color: #8b5cf6 !important; }
-body.theme-than-thoai .text-cyan-700 { color: #a855f7 !important; }
+body.theme-than-thoai .text-amber-600 { color: var(--accent-gold) !important; }
+body.theme-than-thoai .text-cyan-600 { color: var(--accent-cyan) !important; }
+body.theme-than-thoai .text-cyan-700 { color: var(--accent-purple) !important; }
 body.theme-than-thoai .bg-amber-50 { background: rgba(251,191,36,0.12) !important; border-color: rgba(251,191,36,0.2) !important; }
 body.theme-than-thoai .bg-cyan-50 { background: rgba(139,92,246,0.12) !important; border-color: rgba(139,92,246,0.2) !important; }
-body.theme-than-thoai .bg-white\/50, body.theme-than-thoai .bg-white\/60, body.theme-than-thoai .bg-white\/70, body.theme-than-thoai .bg-white\/80, body.theme-than-thoai .bg-white\/90 { background: rgba(6,3,23,0.5) !important; }
-body.theme-than-thoai .border-gray-100, body.theme-than-thoai .border-gray-200 { border-color: rgba(139,92,246,0.2) !important; }
-body.theme-than-thoai .bg-gradient-to-r.from-cyan-50, body.theme-than-thoai .bg-gradient-to-r.from-purple-50 { background: rgba(6,3,23,0.4) !important; }
+body.theme-than-thoai .bg-white\/50, body.theme-than-thoai .bg-white\/60, body.theme-than-thoai .bg-white\/70, body.theme-than-thoai .bg-white\/80, body.theme-than-thoai .bg-white\/90 { background: rgba(5,5,10,0.85) !important; }
+body.theme-than-thoai .border-gray-100, body.theme-than-thoai .border-gray-200 { border-color: var(--border-glass) !important; }
+body.theme-than-thoai .bg-gradient-to-r.from-cyan-50, body.theme-than-thoai .bg-gradient-to-r.from-purple-50 { background: rgba(0,0,0,0.5) !important; }
 /* Card truyện dark mode - Thần Thoại */
 body.theme-than-thoai .genre-card,
 body.theme-than-thoai .skeleton-card,
@@ -576,8 +570,8 @@ body.theme-than-thoai #list-vip > div,
 body.theme-than-thoai #leaderboard-books > div,
 body.theme-than-thoai #leaderboard-users > div,
 body.theme-than-thoai .recent-comment-card {
-    background: rgba(6,3,23,0.7) !important;
-    border-color: rgba(139,92,246,0.25) !important;
+    background: rgba(7,7,14,0.8) !important;
+    border-color: var(--border-glass) !important;
 }
 body.theme-than-thoai .genre-card:hover,
 body.theme-than-thoai #genre-books-list > div:not(.col-span-full):hover,
@@ -591,22 +585,22 @@ body.theme-than-thoai #list-vip > div:hover {
 /* Description box */
 body.theme-than-thoai #genre-books-list p.text-slate-600,
 body.theme-than-thoai #filtered-books-grid p.text-slate-600 {
-    background: rgba(15,10,35,0.5) !important;
-    border-color: rgba(139,92,246,0.15) !important;
-    color: #c4b5fd !important;
+    background: rgba(0,0,0,0.4) !important;
+    border-color: var(--border-glass) !important;
+    color: var(--text-secondary-light) !important;
 }
 /* Detail text in sidebar cards */
 body.theme-than-thoai #list-top-read .text-slate-500,
 body.theme-than-thoai #list-top-rated .text-slate-500,
 body.theme-than-thoai #list-completed .text-slate-500,
 body.theme-than-thoai #list-vip .text-slate-500 {
-    color: #a78bfa !important;
+    color: var(--text-secondary-light) !important;
 }
 body.theme-than-thoai #list-top-read .text-slate-700,
 body.theme-than-thoai #list-top-rated .text-slate-700,
 body.theme-than-thoai #list-completed .text-slate-700,
 body.theme-than-thoai #list-vip .text-slate-700 {
-    color: #d8b4fe !important;
+    color: var(--text-primary) !important;
 }
 /* Category tags */
 body.theme-than-thoai #genre-books-list span.text-brandCyan,
@@ -616,19 +610,10 @@ body.theme-than-thoai #filtered-books-grid span.text-brandCyan {
     color: #c4b5fd !important;
 }
 /* BXH items */
-body.theme-than-thoai #leaderboard-books > div,
-body.theme-than-thoai #leaderboard-users > div {
-    background: rgba(6,3,23,0.6) !important;
-    border-color: rgba(139,92,246,0.2) !important;
-}
 body.theme-than-thoai #leaderboard-books .text-slate-700,
-body.theme-than-thoai #leaderboard-users .text-slate-700 {
-    color: #d8b4fe !important;
-}
+body.theme-than-thoai #leaderboard-users .text-slate-700 { color: var(--text-primary) !important; }
 body.theme-than-thoai #leaderboard-books .text-slate-500,
-body.theme-than-thoai #leaderboard-users .text-slate-500 {
-    color: #a78bfa !important;
-}
+body.theme-than-thoai #leaderboard-users .text-slate-500 { color: var(--text-secondary-light) !important; }
 
 /* ===== THẦN THOẠI SHOP FIX ===== */
 body.theme-thien-co #shop-modal .text-slate-800, body.theme-thien-co #shop-modal .text-slate-700, body.theme-thien-co .shop-item-name { color: #1e293b !important; }
