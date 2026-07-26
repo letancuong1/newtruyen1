@@ -334,16 +334,16 @@
 
         /* Mobile responsiveness */
         @media (max-width: 640px) {
-            #reader-text { font-size: 16px; }
+            #reader-text { font-size: 18px; }
             #accessibility-panel { width: 260px; right: 8px !important; }
             .max-w-6xl { padding-left: 4px !important; padding-right: 4px !important; }
             #reader-container { padding: 8px !important; border-radius: 12px !important; }
         }
         @media (min-width: 641px) {
-            #reader-text { font-size: 19px; }
+            #reader-text { font-size: 18px; }
         }
         .reading-content {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lora', serif;
         }
     </style>
     <script>
@@ -482,7 +482,7 @@
         <!-- Font Size Adjustment -->
         <div class="mb-3">
             <label class="text-[11px] text-slate-500 font-medium flex items-center gap-1 mb-1.5">
-                <i class="fa-solid fa-text-height text-purple-500"></i> Cỡ chữ: <span id="font-size-label" class="font-bold text-purple-600">22px</span>
+                <i class="fa-solid fa-text-height text-purple-500"></i> Cỡ chữ: <span id="font-size-label" class="font-bold text-purple-600">18px</span>
             </label>
             <div class="flex gap-2">
                 <button onclick="adjustFontSize(-2)" class="flex-1 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-bold text-slate-500 hover:border-purple-400 hover:text-purple-600 transition-all">– A</button>
@@ -497,8 +497,8 @@
             </label>
             <div class="flex gap-1 flex-wrap" id="font-family-buttons">
                 <button class="font-btn" data-font="'Be Vietnam Pro', sans-serif" style="font-family:'Be Vietnam Pro',sans-serif;">Vietnam Pro</button>
-                <button class="font-btn" data-font="'Lora', serif" style="font-family:'Lora',serif;">Cổ điển</button>
-                <button class="font-btn active" data-font="'Literata', serif" style="font-family:'Literata',serif;">Đọc sách</button>
+                <button class="font-btn active" data-font="'Lora', serif" style="font-family:'Lora',serif;">Cổ điển</button>
+                <button class="font-btn" data-font="'Literata', serif" style="font-family:'Literata',serif;">Đọc sách</button>
                 <button class="font-btn" data-font="'Inter', sans-serif" style="font-family:'Inter',sans-serif;">Hiện đại</button>
                 <button class="font-btn" data-font="'Nunito', sans-serif" style="font-family:'Nunito',sans-serif;">Thân thiện</button>
             </div>
@@ -627,7 +627,7 @@
         let currentReadingBookId = "";
         let activeChapterNumber = 1;
         let serverChaptersList = [];
-        let readerFontSize = 22;
+        let readerFontSize = 18;
 
         let accessibilityEnabled = false;
         let autoScrollEnabled = false;
