@@ -6,7 +6,6 @@
     <title>Đọc Truyện Online - AloTruyen - Truyện Chữ, Truyện Tu Tiên, Huyền Huyễn</title>
     <meta name="description" content="Đọc truyện chữ online mượt mà tại AloTruyen. Trải nghiệm đọc truyện tu tiên, huyền huyễn, ngôn tình với giao diện đẹp, nhiều chế độ đọc.">
     <meta name="robots" content="index, follow">
-    <!-- <link rel="canonical" href="https://alotruyen.pro/doc-truyen.html"> -->
     
     <!-- Favicon - Google Search Required Sizes -->
     <link rel="icon" href="/favicon.ico" sizes="48x48" type="image/x-icon">
@@ -40,7 +39,8 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts: 5 fonts for reading -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:wght@400;500;600;700&family=Literata:opsz,wght@7..72,300;7..72,400;7..72,500;7..72,600;7..72,700&family=Inter:wght@300;400;500;600;700;800;900&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="theme.css">
     
@@ -50,18 +50,8 @@
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Trang Chủ",
-                "item": "https://alotruyen.com/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Đọc Truyện",
-                "item": "https://alotruyen.com/doc-truyen.html"
-            }
+            { "@type": "ListItem", "position": 1, "name": "Trang Chủ", "item": "https://alotruyen.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Đọc Truyện", "item": "https://alotruyen.com/doc-truyen.html" }
         ]
     }
     </script>
@@ -69,7 +59,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], reader: ['Inter', 'sans-serif'] },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], reader: ['Literata', 'serif'] },
                     colors: {
                         brandCyan: '#00d2ff',
                         brandPurple: '#8a2be2',
@@ -96,7 +86,6 @@
             --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
             --primary-glow: #8a2be2;
             --secondary-glow: #00d2ff;
-            --card-bg: rgba(26, 26, 46, 0.9);
         }
         body {
             background-color: var(--bg-primary);
@@ -127,17 +116,16 @@
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
         #reading-progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow)); z-index: 9999; transition: width 0.1s; }
 
-        /* ===== Floating Nav Buttons - Luôn trên cùng ===== */
+        /* ===== Floating Nav Buttons ===== */
         .floating-nav-btn {
             position: fixed;
             z-index: 10001 !important;
-            width: 44px;
-            height: 44px;
+            width: 44px; height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--card-bg);
+            background: rgba(26, 26, 46, 0.9);
             border: 1px solid rgba(255,255,255,0.1);
             cursor: pointer;
             transition: all 0.2s;
@@ -145,8 +133,7 @@
         }
         .floating-nav-btn:hover { border-color: var(--secondary-glow); transform: scale(1.1); }
 
-        /* ===== Mini TOC Clustered ===== */
-        /* ===== Mini TOC - Brighter ===== */
+        /* ===== Mini TOC ===== */
         #mini-toc {
             position: fixed;
             z-index: 100;
@@ -163,185 +150,165 @@
         #mini-toc::-webkit-scrollbar { width: 4px; }
         #mini-toc::-webkit-scrollbar-thumb { background: #00d2ff; border-radius: 10px; }
         .toc-cluster-header {
-            cursor: pointer;
-            padding: 8px 10px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #00d2ff;
-            background: rgba(0,210,255,0.08);
-            border-radius: 8px;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s;
-            border: 1px solid rgba(0,210,255,0.1);
+            cursor: pointer; padding: 8px 10px; font-size: 11px; font-weight: bold;
+            color: #00d2ff; background: rgba(0,210,255,0.08); border-radius: 8px;
+            margin-bottom: 3px; display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.2s; border: 1px solid rgba(0,210,255,0.1);
         }
         .toc-cluster-header:hover { background: rgba(0,210,255,0.15); border-color: rgba(0,210,255,0.3); }
         .toc-cluster-items { padding-left: 8px; }
         .toc-chapter-btn {
-            width: 100%;
-            text-align: left;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-family: monospace;
-            transition: all 0.15s;
-            border: none;
-            background: transparent;
-            color: #d1d5db;
-            cursor: pointer;
+            width: 100%; text-align: left; padding: 5px 10px; border-radius: 6px;
+            font-size: 11px; font-family: monospace; transition: all 0.15s;
+            border: none; background: transparent; color: #d1d5db; cursor: pointer;
         }
         .toc-chapter-btn:hover { color: white; background: rgba(0,210,255,0.1); }
         .toc-chapter-btn.active { color: #00d2ff; background: rgba(0,210,255,0.15); border-left: 2px solid #00d2ff; font-weight: bold; }
         #toc-jump-input {
-            width: 100%;
-            padding: 8px 10px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(0,210,255,0.2);
-            border-radius: 8px;
-            color: white;
-            font-size: 12px;
-            outline: none;
-            transition: border-color 0.2s;
+            width: 100%; padding: 8px 10px; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,210,255,0.2); border-radius: 8px; color: white;
+            font-size: 12px; outline: none; transition: border-color 0.2s;
         }
         #toc-jump-input:focus { border-color: #00d2ff; box-shadow: 0 0 10px rgba(0,210,255,0.25); }
         #toc-jump-input::placeholder { color: #6b7280; }
 
-        /* ===== Accessibility Panel Drag ===== */
+        /* ===== Accessibility Panel - LIGHT THEME ===== */
         #accessibility-panel {
             position: fixed;
             z-index: 9999;
-            width: 280px;
-            background: #1a1a2e;
+            width: 290px;
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 243, 255, 0.25);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 30px rgba(0,210,255,0.15);
-            padding: 14px;
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+            padding: 16px;
             user-select: none;
             touch-action: none;
         }
         #accessibility-panel .panel-drag-handle {
-            cursor: grab;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            color: rgba(255,255,255,0.4);
-            font-size: 10px;
+            cursor: grab; padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            margin-bottom: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            color: rgba(100,116,139,0.6); font-size: 10px;
             transition: color 0.2s;
             background: rgba(0,210,255,0.04);
-            border-radius: 8px;
+            border-radius: 10px;
         }
         #accessibility-panel .panel-drag-handle:active { cursor: grabbing; }
         #accessibility-panel .panel-drag-handle:hover { color: #00d2ff; background: rgba(0,210,255,0.08); }
         #accessibility-panel .panel-drag-handle i { font-size: 12px; }
-        /* Toggle switch styles - clearer ON/OFF */
+
+        /* Toggle switch - Light theme */
         .acc-toggle {
-            width: 44px;
-            height: 22px;
+            width: 44px; height: 22px;
             border-radius: 11px;
             position: relative;
             transition: all 0.3s;
             flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(148,163,184,0.3);
+            background: #e2e8f0;
+            cursor: pointer;
         }
         .acc-toggle .knob {
             position: absolute;
-            top: 2px;
-            width: 16px;
-            height: 16px;
+            top: 2px; left: 2px;
+            width: 16px; height: 16px;
             border-radius: 50%;
+            background: #94a3b8;
             transition: all 0.3s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
         }
-        .acc-toggle.on { background: rgba(0,210,255,0.25); border-color: rgba(0,210,255,0.4); }
-        .acc-toggle.on .knob { background: #00d2ff; right: 2px; left: auto; box-shadow: 0 0 8px rgba(0,210,255,0.5); }
-        .acc-toggle.off { background: rgba(75,85,99,0.4); border-color: rgba(75,85,99,0.5); }
-        .acc-toggle.off .knob { background: #9ca3af; left: 2px; right: auto; }
-        /* Row styling */
+        .acc-toggle.on { background: #8b5cf6; border-color: #7c3aed; }
+        .acc-toggle.on .knob { background: #ffffff; left: auto; right: 2px; box-shadow: 0 0 6px rgba(139,92,246,0.4); }
+        .acc-toggle.off { background: #e2e8f0; border-color: rgba(148,163,184,0.3); }
+        .acc-toggle.off .knob { background: #94a3b8; left: 2px; right: auto; }
+
         .acc-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 6px;
-            border-radius: 10px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 6px 8px; border-radius: 10px;
             transition: background 0.2s;
         }
-        .acc-row:hover { background: rgba(255,255,255,0.04); }
+        .acc-row:hover { background: rgba(99,102,241,0.04); }
         .acc-row .label {
-            font-size: 11px;
-            color: #d1d5db;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 12px; color: #334155; font-weight: 500;
+            display: flex; align-items: center; gap: 8px;
         }
-        .acc-row .label i { width: 16px; text-align: center; font-size: 12px; }
-        /* Sub-controls panel */
+        .acc-row .label i { width: 18px; text-align: center; font-size: 13px; }
+
         .acc-sub {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 10px;
-            padding: 8px;
-            margin-top: 2px;
+            background: rgba(241,245,249,0.8);
+            border: 1px solid rgba(148,163,184,0.15);
+            border-radius: 10px; padding: 8px; margin-top: 2px;
         }
         .acc-sub select, .acc-sub input[type="range"] {
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
-            color: #e5e7eb;
-            font-size: 10px;
-            padding: 4px 6px;
-            outline: none;
+            background: #ffffff;
+            border: 1px solid rgba(148,163,184,0.3);
+            border-radius: 6px; color: #1e293b;
+            font-size: 10px; padding: 4px 6px; outline: none;
         }
-        .acc-sub select:focus { border-color: rgba(0,210,255,0.5); }
-        .acc-sub input[type="range"] { height: 4px; accent-color: #00d2ff; }
-        .acc-sub label { color: #9ca3af; font-size: 10px; }
+        .acc-sub select:focus { border-color: #8b5cf6; }
+        .acc-sub input[type="range"] { height: 4px; accent-color: #8b5cf6; }
+        .acc-sub label { color: #64748b; font-size: 10px; }
 
-        /* Toggle button color states (replaces missing Tailwind classes) */
-        .toggle-bg-neonGreen\/30 { background: rgba(34, 197, 94, 0.3); }
-        .toggle-bg-neonGreen { background: #22c55e; }
-        .toggle-bg-neonCyan\/30 { background: rgba(0, 210, 255, 0.3); }
-        .toggle-bg-neonCyan { background: #00d2ff; }
-        .toggle-bg-neonPurple\/30 { background: rgba(138, 43, 226, 0.3); }
-        .toggle-bg-neonPurple { background: #8a2be2; }
-        .toggle-bg-neonGold\/30 { background: rgba(245, 158, 11, 0.3); }
-        .toggle-bg-neonGold { background: #f59e0b; }
-        .toggle-bg-cyan-500\/30 { background: rgba(6, 182, 212, 0.3); }
-        .toggle-bg-cyan-400 { background: #22d3ee; }
+        /* Font selection buttons */
+        .font-btn {
+            padding: 5px 8px; border-radius: 8px; font-size: 10px; font-weight: 600;
+            border: 1px solid rgba(148,163,184,0.3); background: #ffffff;
+            color: #475569; cursor: pointer; transition: all 0.2s;
+            text-align: center; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .font-btn:hover { border-color: #8b5cf6; color: #7c3aed; background: rgba(139,92,246,0.05); }
+        .font-btn.active { border-color: #8b5cf6; background: #8b5cf6; color: #ffffff; box-shadow: 0 2px 8px rgba(139,92,246,0.3); }
 
-        .auto-scroll-indicator { position: fixed; z-index: 100; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(8px); }
-        #floating-accessibility-btn { position: fixed; z-index: 9999; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: grab; border: 2px solid #00d2ff; box-shadow: 0 0 25px rgba(0,210,255,0.5); transition: opacity 0.5s ease, transform 0.1s; user-select: none; touch-action: none; will-change: transform; background: rgba(26,26,46,0.9); }
+        .auto-scroll-indicator {
+            position: fixed; z-index: 100; padding: 8px 16px; border-radius: 20px;
+            font-size: 11px; font-weight: bold; display: flex; align-items: center;
+            gap: 8px; backdrop-filter: blur(8px); background: rgba(255,255,255,0.95);
+            border: 1px solid #8b5cf6; color: #7c3aed; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        #floating-accessibility-btn {
+            position: fixed; z-index: 9999; width: 52px; height: 52px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: grab; border: 2px solid #8b5cf6;
+            box-shadow: 0 0 25px rgba(139,92,246,0.4);
+            transition: opacity 0.5s ease, transform 0.1s;
+            user-select: none; touch-action: none; will-change: transform;
+            background: rgba(255,255,255,0.95);
+        }
         #floating-accessibility-btn:active { cursor: grabbing; transform: scale(0.92); }
-        #floating-accessibility-btn .pulse-ring { position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #00d2ff; animation: pulse-ring 2s infinite; }
+        #floating-accessibility-btn .pulse-ring {
+            position: absolute; inset: -4px; border-radius: 50%;
+            border: 2px solid #8b5cf6; animation: pulse-ring 2s infinite;
+        }
         @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.3); opacity: 0; } }
-        /* Stats panel brighter */
-        #stats-panel { background: #1a1a2e !important; border-color: rgba(0,210,255,0.3) !important; }
-        #stats-panel .stat-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        #stats-panel .stat-label { color: #9ca3af; }
-        #stats-panel .stat-value { color: #00d2ff; font-weight: bold; }
+
+        /* Stats panel */
+        #stats-panel {
+            background: rgba(255,255,255,0.97) !important;
+            backdrop-filter: blur(16px) !important;
+            border-color: rgba(139,92,246,0.3) !important;
+        }
+        #stats-panel .stat-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        #stats-panel .stat-label { color: #64748b; font-size: 10px; }
+        #stats-panel .stat-value { color: #7c3aed; font-weight: bold; font-size: 10px; }
+
         /* Bottom pagination */
         .bottom-pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
         .bottom-pagination button { padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: bold; border: 1px solid rgba(0,210,255,0.2); background: rgba(255,255,255,0.6); color: #475569; transition: all 0.2s; cursor: pointer; }
         .bottom-pagination button:hover { border-color: #00d2ff; background: rgba(0,210,255,0.1); color: #00d2ff; }
         .bottom-pagination button.active { background: #00d2ff; color: white; border-color: #00d2ff; }
         .bottom-pagination .page-info { font-size: 10px; color: #64748b; padding: 0 8px; }
-        /* Tối ưu hiệu năng */
+
         .tts-highlight {
             background: linear-gradient(120deg, rgba(188,19,254,0.25) 0%, rgba(0,243,255,0.15) 100%);
-            border-radius: 4px;
-            padding: 2px 4px;
-            box-shadow: 0 0 8px rgba(0,243,255,0.2);
-            transition: background 0.3s ease;
+            border-radius: 4px; padding: 2px 4px;
+            box-shadow: 0 0 8px rgba(0,243,255,0.2); transition: background 0.3s ease;
         }
-        .tts-sentence {
-            transition: all 0.2s ease;
-            border-radius: 4px;
-        }
+        .tts-sentence { transition: all 0.2s ease; border-radius: 4px; }
         body.scrolling * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
         #floating-nav-prev, #floating-nav-next, .floating-nav-btn { will-change: transform; }
         #reading-progress-bar { will-change: width; }
@@ -350,13 +317,25 @@
         body { -webkit-overflow-scrolling: touch; }
         #reader-chapter-list { content-visibility: auto; contain-intrinsic-size: 300px; }
         header, footer, main > div { content-visibility: auto; contain-intrinsic-size: 100px; }
+
+        /* Mobile responsiveness */
+        @media (max-width: 640px) {
+            #reader-text { font-size: 16px !important; }
+            #accessibility-panel { width: 260px; right: 8px !important; }
+            .container-padding { padding-left: 8px; padding-right: 8px; }
+        }
+        @media (min-width: 641px) {
+            #reader-text { font-size: 19px !important; }
+        }
+        .reading-content {
+            font-family: 'Literata', serif;
+        }
     </style>
     <script>
-        // Apply saved theme on load (runs before DOMContentLoaded)
         (function(){try{var t=localStorage.getItem('tdt_theme');if(t&&t!=='default')document.body.classList.add('theme-'+t);}catch(e){}})();
     </script>
 </head>
-<body class="text-gray-200 font-sans min-h-screen relative overflow-x-hidden custom-scrollbar">
+<body class="text-slate-800 font-sans min-h-screen relative overflow-x-hidden custom-scrollbar">
 
     <!-- Reading Progress Bar -->
     <div id="reading-progress-bar" style="width:0%"></div>
@@ -384,12 +363,12 @@
     </div>
     <div id="chat-overlay" onclick="toggleChat()" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90] hidden transition-opacity opacity-0"></div>
 
-    <div class="max-w-[1440px] mx-auto p-4 md:p-6 relative z-10">
+    <div class="max-w-6xl mx-auto p-3 md:p-6 relative z-10">
         <!-- HEADER TỰ ĐỘNG NẠP TỪ SERVER -->
         <div id="app-header"></div>
 
-        <main class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="lg:col-span-3 space-y-6">
+        <main class="space-y-6">
+            <!-- Chapter Navigation Bar -->
             <div class="glass-card p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4 shadow-sm">
                 <button onclick="changeChapter(-1)" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm"><i class="fa-solid fa-arrow-left mr-1"></i> Chương Trước</button>
                 <div class="text-center">
@@ -400,6 +379,7 @@
                 <button onclick="changeChapter(1)" class="px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm">Chương Sau <i class="fa-solid fa-arrow-right ml-1"></i></button>
             </div>
 
+            <!-- Book Title & Meta -->
             <div class="glass-card p-5 rounded-2xl shadow-sm">
                 <div class="flex items-center gap-3 mb-4 border-b border-gray-200/60 pb-3">
                     <i class="fa-solid fa-book-open text-2xl text-brandCyan"></i>
@@ -408,55 +388,30 @@
                         <p id="book-meta-header" class="text-[10px] text-slate-500 mt-0.5">---</p>
                     </div>
                 </div>
-                <div id="reader-container" class="p-6 md:p-8 rounded-2xl bg-white border border-gray-200 shadow-glass relative min-h-[450px]">
-                    <div id="reader-text" class="text-xl leading-relaxed text-slate-800 tracking-wide text-justify space-y-6 select-text">
+
+                <!-- Reader Container - Full width -->
+                <div id="reader-container" class="p-4 md:p-10 rounded-2xl bg-white border border-gray-200 shadow-glass relative min-h-[450px]">
+                    <div id="reader-text" class="reading-content text-lg leading-relaxed text-slate-800 tracking-wide text-justify space-y-6 select-text">
                         Nội dung đang được tải...
                     </div>
                 </div>
             </div>
 
-                <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-4 shadow-sm">
-                    <p class="text-xs text-slate-500">Đã đọc xong chương này?</p>
-                    <button onclick="completeCurrentChapter()" class="px-8 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-brandCyan to-brandPurple text-white uppercase tracking-wider shadow-md hover:shadow-lg hover:scale-105 transition-all"><i class="fa-solid fa-circle-check mr-2"></i> Hoàn Thành Chương</button>
-                    <p id="reader-quest-status" class="text-[10px] text-brandCyan font-bold">Chưa hoàn thành (0/1)</p>
-                </div>
-
-                <!-- Bottom Pagination with page numbers + input -->
-                <div class="bottom-pagination" id="bottom-pagination">
-                    <button onclick="changeChapter(-1)" class="ch-prev"><i class="fa-solid fa-chevron-left"></i></button>
-                    <div id="page-numbers" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;"></div>
-                    <button onclick="changeChapter(1)" class="ch-next"><i class="fa-solid fa-chevron-right"></i></button>
-                    <div style="display:flex;gap:3px;align-items:center;margin-left:4px;">
-                        <input type="number" id="page-jump-input" min="1" style="width:50px;padding:4px 6px;border-radius:6px;border:1px solid rgba(0,210,255,0.2);background:rgba(255,255,255,0.6);font-size:10px;color:#475569;outline:none;" placeholder="..." onkeypress="if(event.key==='Enter') jumpToPageFromInput()">
-                        <button onclick="jumpToPageFromInput()" style="padding:4px 8px;border-radius:6px;font-size:10px;font-weight:bold;border:1px solid rgba(0,210,255,0.2);background:rgba(0,210,255,0.1);color:#00d2ff;cursor:pointer;"><i class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                </div>
+            <!-- Complete Chapter Button -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center gap-4 shadow-sm">
+                <p class="text-xs text-slate-500">Đã đọc xong chương này?</p>
+                <button onclick="completeCurrentChapter()" class="px-8 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-brandCyan to-brandPurple text-white uppercase tracking-wider shadow-md hover:shadow-lg hover:scale-105 transition-all"><i class="fa-solid fa-circle-check mr-2"></i> Hoàn Thành Chương</button>
+                <p id="reader-quest-status" class="text-[10px] text-brandCyan font-bold">Chưa hoàn thành (0/1)</p>
             </div>
 
-            <div class="space-y-6">
-                <div class="glass-card p-5 rounded-2xl space-y-4 shadow-sm">
-                    <h4 class="font-bold text-sm text-slate-700 border-b border-gray-200 pb-2"><i class="fa-solid fa-sliders text-brandCyan mr-2"></i> Thiết Lập Đọc</h4>
-                    <div class="space-y-2">
-                        <label class="text-xs text-slate-500 flex justify-between"><span>Cỡ chữ:</span> <span id="font-size-label" class="text-brandCyan font-bold">22px</span></label>
-                        <div class="flex gap-2">
-                            <button onclick="adjustFontSize(-2)" class="flex-1 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-slate-500 hover:border-brandCyan transition-all shadow-sm">- A</button>
-                            <button onclick="adjustFontSize(2)" class="flex-1 py-1.5 rounded-xl bg-white border border-gray-200 text-xs font-bold text-brandCyan hover:border-brandCyan transition-all shadow-sm">+ A</button>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs text-slate-500">Sắc thái nền:</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="changeReaderTheme('light')" class="py-1.5 rounded-xl text-xs font-bold bg-white text-slate-700 border border-gray-200 shadow-sm">Sáng</button>
-                            <button onclick="changeReaderTheme('dark')" class="py-1.5 rounded-xl text-xs font-bold bg-[#0e0a26] text-cyan-400 border border-gray-200 shadow-sm">Tối</button>
-                            <button onclick="changeReaderTheme('cream')" class="py-1.5 rounded-xl text-xs font-bold bg-[#f4ebd0] text-amber-950 border border-gray-200 shadow-sm">Vàng Nhạt</button>
-                            <button onclick="changeReaderTheme('parchment')" class="py-1.5 rounded-xl text-xs font-bold bg-[#292215] text-amber-500 border border-gray-200 shadow-sm">Cổ Thư</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-5 rounded-2xl flex flex-col h-[350px] shadow-sm">
-                    <h4 class="font-bold text-sm text-slate-700 border-b border-gray-200 pb-2 mb-3"><i class="fa-solid fa-list mr-2 text-brandCyan"></i> Mục Lục</h4>
-                    <div id="reader-chapter-list" class="flex-1 overflow-y-auto pr-1 custom-scrollbar space-y-2"></div>
+            <!-- Bottom Pagination -->
+            <div class="bottom-pagination" id="bottom-pagination">
+                <button onclick="changeChapter(-1)" class="ch-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <div id="page-numbers" style="display:flex;gap:3px;flex-wrap:wrap;align-items:center;"></div>
+                <button onclick="changeChapter(1)" class="ch-next"><i class="fa-solid fa-chevron-right"></i></button>
+                <div style="display:flex;gap:3px;align-items:center;margin-left:4px;">
+                    <input type="number" id="page-jump-input" min="1" style="width:50px;padding:4px 6px;border-radius:6px;border:1px solid rgba(0,210,255,0.2);background:rgba(255,255,255,0.6);font-size:10px;color:#475569;outline:none;" placeholder="..." onkeypress="if(event.key==='Enter') jumpToPageFromInput()">
+                    <button onclick="jumpToPageFromInput()" style="padding:4px 8px;border-radius:6px;font-size:10px;font-weight:bold;border:1px solid rgba(0,210,255,0.2);background:rgba(0,210,255,0.1);color:#00d2ff;cursor:pointer;"><i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
         </main>
@@ -467,10 +422,10 @@
         </footer>
     </div>
 
-    <!-- Floating Accessibility Button (như iPhone AssistiveTouch) -->
-    <div id="floating-accessibility-btn" style="bottom:20px;right:20px;background:var(--card-bg);opacity:1;" title="Trợ năng đọc">
+    <!-- Floating Accessibility Button -->
+    <div id="floating-accessibility-btn" style="bottom:20px;right:20px;opacity:1;" title="Trợ năng đọc">
         <div class="pulse-ring"></div>
-        <i class="fa-solid fa-universal-access text-lg" style="color:var(--primary-glow);"></i>
+        <i class="fa-solid fa-universal-access text-lg text-purple-600"></i>
     </div>
 
     <!-- Floating Navigation -->
@@ -481,10 +436,9 @@
         <i class="fa-solid fa-chevron-right text-neonCyan"></i>
     </div>
 
-    <!-- Mini TOC Floating - Phân cụm 50 chương -->
+    <!-- Mini TOC Floating -->
     <div id="mini-toc" class="hidden" style="left:12px;top:100px;padding:12px;">
         <div class="text-[11px] font-bold text-neonCyan mb-2 flex items-center gap-1"><i class="fa-solid fa-list"></i> Mục Lục Phân Cụm</div>
-        <!-- Ô nhập số chương -->
         <div class="flex gap-1 mb-2">
             <input id="toc-jump-input" type="number" min="1" placeholder="Nhập số chương..." onkeypress="if(event.key==='Enter') jumpToChapterFromInput()">
             <button onclick="jumpToChapterFromInput()" class="px-2 py-1 bg-neonCyan/20 text-neonCyan text-xs rounded border border-neonCyan/30 hover:bg-neonCyan/30 transition whitespace-nowrap">
@@ -495,116 +449,135 @@
     </div>
 
     <!-- Auto Scroll Indicator -->
-    <div id="auto-scroll-indicator" class="auto-scroll-indicator hidden" style="bottom:80px;left:50%;transform:translateX(-50%);background:var(--card-bg);border:1px solid var(--secondary-glow);color:var(--secondary-glow);">
+    <div id="auto-scroll-indicator" class="auto-scroll-indicator hidden" style="bottom:80px;left:50%;transform:translateX(-50%);">
         <i class="fa-solid fa-arrows-up-down animate-bounce"></i> Auto cuộn <span id="auto-scroll-status">đang chạy</span>
     </div>
 
-    <!-- Accessibility Panel - Có thể kéo thả tự do -->
+    <!-- Accessibility Panel - LIGHT THEME -->
     <div id="accessibility-panel" class="hidden" style="bottom:80px;right:20px;">
-        <!-- Vùng kéo thả -->
+        <!-- Drag Handle -->
         <div class="panel-drag-handle" id="panel-drag-handle">
             <i class="fa-solid fa-grip-lines"></i> Kéo để di chuyển <i class="fa-solid fa-grip-lines"></i>
         </div>
-        <h4 class="font-bold text-sm" style="color:#00d2ff;"><i class="fa-solid fa-universal-access mr-2"></i> Trợ Năng Đọc</h4>
-        
-        <!-- Auto cuộn -->
-        <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-arrows-up-down" style="color:#22c55e;"></i> Auto cuộn</span>
-            <button onclick="toggleAutoScroll()" id="btn-auto-scroll" class="acc-toggle off"><span id="knob-auto-scroll" class="knob"></span></button>
+
+        <h4 class="font-bold text-sm text-slate-800 mb-3 flex items-center gap-2 border-b border-slate-200 pb-2">
+            <i class="fa-solid fa-universal-access text-purple-600"></i> Trợ Năng Đọc
+        </h4>
+
+        <!-- Font Size Adjustment -->
+        <div class="mb-3">
+            <label class="text-[11px] text-slate-500 font-medium flex items-center gap-1 mb-1.5">
+                <i class="fa-solid fa-text-height text-purple-500"></i> Cỡ chữ: <span id="font-size-label" class="font-bold text-purple-600">22px</span>
+            </label>
+            <div class="flex gap-2">
+                <button onclick="adjustFontSize(-2)" class="flex-1 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-bold text-slate-500 hover:border-purple-400 hover:text-purple-600 transition-all">– A</button>
+                <button onclick="adjustFontSize(2)" class="flex-1 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-xs font-bold text-purple-600 hover:border-purple-400 transition-all">+ A</button>
+            </div>
         </div>
-        <!-- Bookmark toggle + save button -->
-        <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-bookmark" style="color:#f59e0b;"></i> Tự lưu vị trí</span>
-            <button onclick="toggleSavePosition()" id="btn-save-pos" class="acc-toggle on"><span id="knob-save-pos" class="knob"></span></button>
+
+        <!-- Font Family Selection -->
+        <div class="mb-3">
+            <label class="text-[11px] text-slate-500 font-medium flex items-center gap-1 mb-1.5">
+                <i class="fa-solid fa-font text-purple-500"></i> Font chữ
+            </label>
+            <div class="flex gap-1 flex-wrap" id="font-family-buttons">
+                <button class="font-btn" data-font="'Be Vietnam Pro', sans-serif" style="font-family:'Be Vietnam Pro',sans-serif;">Vietnam Pro</button>
+                <button class="font-btn" data-font="'Lora', serif" style="font-family:'Lora',serif;">Cổ điển</button>
+                <button class="font-btn active" data-font="'Literata', serif" style="font-family:'Literata',serif;">Đọc sách</button>
+                <button class="font-btn" data-font="'Inter', sans-serif" style="font-family:'Inter',sans-serif;">Hiện đại</button>
+                <button class="font-btn" data-font="'Nunito', sans-serif" style="font-family:'Nunito',sans-serif;">Thân thiện</button>
+            </div>
         </div>
-        <div class="acc-row" style="padding-top:2px;">
-            <button onclick="saveBookmark()" style="flex:1;padding:6px;border-radius:8px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:#fbbf24;font-size:10px;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;">
-                <i class="fa-solid fa-bookmark"></i> Lưu Bookmark vào DB
+
+        <!-- Toggles -->
+        <div class="acc-row">
+            <span class="label"><i class="fa-solid fa-arrows-up-down text-emerald-500"></i> Auto cuộn</span>
+            <label class="acc-toggle off" id="btn-auto-scroll" onclick="toggleAutoScroll()">
+                <span class="knob"></span>
+            </label>
+        </div>
+
+        <div class="acc-row">
+            <span class="label"><i class="fa-solid fa-bookmark text-amber-500"></i> Tự lưu vị trí</span>
+            <label class="acc-toggle on" id="btn-save-pos" onclick="toggleSavePosition()">
+                <span class="knob"></span>
+            </label>
+        </div>
+
+        <!-- Bookmark save button -->
+        <div class="px-2 mb-1">
+            <button onclick="saveBookmark()" class="w-full py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold flex items-center justify-center gap-1.5 hover:bg-amber-100 transition cursor-pointer">
+                <i class="fa-solid fa-bookmark text-amber-500"></i> Lưu Bookmark vào DB
             </button>
         </div>
-        <!-- Mục lục nổi -->
+
         <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-list-ul" style="color:#8a2be2;"></i> Mục lục nổi</span>
-            <button onclick="toggleMiniTOC()" id="btn-mini-toc" class="acc-toggle off"><span id="knob-mini-toc" class="knob"></span></button>
-        </div>
-        <!-- Thống kê -->
-        <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-chart-simple" style="color:#00d2ff;"></i> Thống kê</span>
-            <button onclick="toggleStats()" id="btn-stats" class="acc-toggle off"><span id="knob-stats" class="knob"></span></button>
+            <span class="label"><i class="fa-solid fa-list-ul text-purple-500"></i> Mục lục nổi</span>
+            <label class="acc-toggle off" id="btn-mini-toc" onclick="toggleMiniTOC()">
+                <span class="knob"></span>
+            </label>
         </div>
 
-        <!-- Âm thanh môi trường -->
         <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-headphones" style="color:#f59e0b;"></i> Âm thanh môi trường</span>
-            <button onclick="toggleBgMusic()" id="btn-music" class="acc-toggle off"><span id="knob-music" class="knob"></span></button>
-        </div>
-        <div id="music-controls" class="hidden acc-sub">
-            <select id="music-track-select" onchange="switchMusicTrack(this.value)">
-                <option value="0">🌧 Mưa Rơi - Tĩnh Tâm</option>
-                <option value="1">🌊 Sóng Biển - Dịu Dàng</option>
-                <option value="2">🍃 Gió Rừng - Mát Lành</option>
-                <option value="3">🔥 Lửa Trại - Ấm Áp</option>
-            </select>
-            <div class="flex items-center gap-2 mt-1">
-                <button onclick="prevMusicTrack()" style="width:28px;height:28px;" class="flex items-center justify-center rounded bg-black/60 border border-white/10 text-gray-400 hover:text-cyan-400 text-xs"><i class="fa-solid fa-backward-step"></i></button>
-                <button onclick="playPauseMusic()" id="btn-music-playpause" style="width:28px;height:28px;" class="flex items-center justify-center rounded bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/30 text-xs"><i class="fa-solid fa-play"></i></button>
-                <button onclick="nextMusicTrack()" style="width:28px;height:28px;" class="flex items-center justify-center rounded bg-black/60 border border-white/10 text-gray-400 hover:text-cyan-400 text-xs"><i class="fa-solid fa-forward-step"></i></button>
-                <span class="text-[9px] text-gray-400 flex-1 text-right" id="music-track-name">Mưa Rơi</span>
-            </div>
-            <div class="flex items-center gap-2 mt-1">
-                <i class="fa-solid fa-volume-low text-[9px]" style="color:#9ca3af;"></i>
-                <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.3" oninput="setMusicVolume(this.value)">
-                <span id="music-vol-label" style="font-size:9px;color:#00d2ff;font-weight:bold;width:24px;text-align:right;">30%</span>
-            </div>
+            <span class="label"><i class="fa-solid fa-chart-simple text-cyan-500"></i> Thống kê</span>
+            <label class="acc-toggle off" id="btn-stats" onclick="toggleStats()">
+                <span class="knob"></span>
+            </label>
         </div>
 
-        <!-- Đọc giọng nói (TTS) -->
+        <!-- TTS - Đọc giọng nói -->
         <div class="acc-row">
-            <span class="label"><i class="fa-solid fa-microphone" style="color:#8a2be2;"></i> Đọc giọng nói</span>
-            <button onclick="toggleTTS()" id="btn-tts" class="acc-toggle off"><span id="knob-tts" class="knob"></span></button>
+            <span class="label"><i class="fa-solid fa-microphone text-purple-500"></i> Đọc giọng nói</span>
+            <label class="acc-toggle off" id="btn-tts" onclick="toggleTTS()">
+                <span class="knob"></span>
+            </label>
         </div>
         <div id="tts-controls" class="hidden acc-sub">
             <div class="flex gap-1">
                 <select id="tts-voice-select" class="flex-1"></select>
-                <button onclick="refreshTTSVoices()" style="padding:2px 8px;border-radius:6px;background:rgba(138,43,226,0.2);border:1px solid rgba(138,43,226,0.3);color:#a78bfa;font-size:10px;"><i class="fa-solid fa-rotate"></i></button>
+                <button onclick="refreshTTSVoices()" style="padding:2px 8px;border-radius:6px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);color:#7c3aed;font-size:10px;cursor:pointer;"><i class="fa-solid fa-rotate"></i></button>
             </div>
             <div class="flex items-center gap-2 mt-1">
-                <button onclick="ttsPlay()" id="btn-tts-play" style="flex:1;padding:4px;border-radius:6px;background:rgba(138,43,226,0.2);border:1px solid rgba(138,43,226,0.3);color:#a78bfa;font-size:10px;font-weight:bold;"><i class="fa-solid fa-play"></i> Đọc</button>
-                <button onclick="ttsPause()" id="btn-tts-pause" style="flex:1;padding:4px;border-radius:6px;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.3);color:#fbbf24;font-size:10px;font-weight:bold;"><i class="fa-solid fa-pause"></i> Tạm</button>
-                <button onclick="ttsStop()" id="btn-tts-stop" style="flex:1;padding:4px;border-radius:6px;background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3);color:#f87171;font-size:10px;font-weight:bold;"><i class="fa-solid fa-stop"></i> Dừng</button>
+                <button onclick="ttsPlay()" id="btn-tts-play" style="flex:1;padding:4px;border-radius:6px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);color:#7c3aed;font-size:10px;font-weight:bold;cursor:pointer;"><i class="fa-solid fa-play"></i> Đọc</button>
+                <button onclick="ttsPause()" id="btn-tts-pause" style="flex:1;padding:4px;border-radius:6px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);color:#d97706;font-size:10px;font-weight:bold;cursor:pointer;"><i class="fa-solid fa-pause"></i> Tạm</button>
+                <button onclick="ttsStop()" id="btn-tts-stop" style="flex:1;padding:4px;border-radius:6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#dc2626;font-size:10px;font-weight:bold;cursor:pointer;"><i class="fa-solid fa-stop"></i> Dừng</button>
             </div>
             <div class="flex items-center gap-2 mt-1">
-                <span style="font-size:8px;color:#9ca3af;font-family:monospace;width:32px;text-align:right;" id="tts-current-time">0:00</span>
+                <span style="font-size:8px;color:#64748b;font-family:monospace;width:32px;text-align:right;" id="tts-current-time">0:00</span>
                 <input type="range" id="tts-seek-bar" min="0" max="100" value="0" oninput="ttsSeek(this.value)">
-                <span style="font-size:8px;color:#9ca3af;font-family:monospace;width:32px;" id="tts-total-time">0:00</span>
+                <span style="font-size:8px;color:#64748b;font-family:monospace;width:32px;" id="tts-total-time">0:00</span>
             </div>
             <div class="flex items-center gap-2 mt-1">
-                <span style="font-size:9px;color:#9ca3af;">Tốc độ</span>
+                <span style="font-size:9px;color:#64748b;">Tốc độ</span>
                 <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1" oninput="updateTTSRate(this.value)">
-                <span id="tts-rate-label" style="font-size:9px;color:#a78bfa;font-weight:bold;width:24px;text-align:right;">1.0</span>
+                <span id="tts-rate-label" style="font-size:9px;color:#7c3aed;font-weight:bold;width:24px;text-align:right;">1.0</span>
             </div>
-            <div id="tts-status" style="font-size:9px;color:#9ca3af;text-align:center;margin-top:4px;">Sẵn sàng</div>
+            <div id="tts-status" style="font-size:9px;color:#64748b;text-align:center;margin-top:4px;">Sẵn sàng</div>
         </div>
 
         <!-- Tốc độ auto cuộn -->
         <div class="acc-sub" style="margin-top:6px;">
-            <label style="font-size:10px;color:#9ca3af;display:flex;align-items:center;gap:4px;margin-bottom:4px;"><i class="fa-solid fa-gauge-high" style="color:#00d2ff;"></i> Tốc độ auto cuộn</label>
+            <label style="font-size:10px;color:#64748b;display:flex;align-items:center;gap:4px;margin-bottom:4px;"><i class="fa-solid fa-gauge-high text-purple-500"></i> Tốc độ auto cuộn</label>
             <div class="flex items-center gap-2">
                 <input type="range" id="auto-scroll-speed" min="1" max="10" value="5" oninput="updateAutoScrollSpeed(this.value)">
-                <span id="auto-scroll-speed-label" style="font-size:10px;color:#00d2ff;font-weight:bold;width:24px;text-align:right;">5</span>
+                <span id="auto-scroll-speed-label" style="font-size:10px;color:#7c3aed;font-weight:bold;width:24px;text-align:right;">5</span>
             </div>
         </div>
 
-        <!-- Nút Lên Đầu & Xuống Cuối -->
-        <div class="flex gap-2" style="margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.05);">
-            <button onclick="scrollToTop()" style="flex:1;padding:8px;border-radius:8px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);font-size:10px;font-weight:bold;color:#00d2ff;display:flex;align-items:center;justify-content:center;gap:4px;"><i class="fa-solid fa-arrow-up"></i> Lên Đầu</button>
-            <button onclick="scrollToBottom()" style="flex:1;padding:8px;border-radius:8px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);font-size:10px;font-weight:bold;color:#22c55e;display:flex;align-items:center;justify-content:center;gap:4px;"><i class="fa-solid fa-arrow-down"></i> Xuống Cuối</button>
+        <!-- Lên Đầu & Xuống Cuối -->
+        <div class="flex gap-2" style="margin-top:8px;padding-top:6px;border-top:1px solid rgba(148,163,184,0.15);">
+            <button onclick="scrollToTop()" style="flex:1;padding:8px;border-radius:8px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);font-size:10px;font-weight:bold;color:#6366f1;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;">
+                <i class="fa-solid fa-arrow-up"></i> Lên Đầu
+            </button>
+            <button onclick="scrollToBottom()" style="flex:1;padding:8px;border-radius:8px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);font-size:10px;font-weight:bold;color:#10b981;display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer;">
+                <i class="fa-solid fa-arrow-down"></i> Xuống Cuối
+            </button>
         </div>
     </div>
 
     <!-- Stats Panel -->
-    <div id="stats-panel" class="fixed bottom-20 left-4 z-[100] bg-cyan-900/90 backdrop-blur-xl border border-cyan-400/40 rounded-xl shadow-2xl p-4 hidden w-56">
-        <h4 class="text-xs font-bold text-cyan-300 mb-3 flex items-center gap-1"><i class="fa-solid fa-chart-simple"></i> Thống Kê Đọc</h4>
+    <div id="stats-panel" class="fixed bottom-20 left-4 z-[100] backdrop-blur-xl border border-purple-400/40 rounded-xl shadow-2xl p-4 hidden w-56">
+        <h4 class="text-xs font-bold text-purple-600 mb-3 flex items-center gap-1"><i class="fa-solid fa-chart-simple"></i> Thống Kê Đọc</h4>
         <div class="space-y-2 text-[10px] font-mono">
             <div class="stat-row"><span class="stat-label">Chương hiện tại</span><span class="stat-value" id="stat-current-chap">0</span></div>
             <div class="stat-row"><span class="stat-label">Tổng chương</span><span class="stat-value" id="stat-total-chap">0</span></div>
@@ -626,7 +599,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/header.html')
                 .then(function(res) { if (!res.ok) throw new Error('Lỗi tải header'); return res.text(); })
-                .then(function(html) { 
+                .then(function(html) {
                     document.getElementById('app-header').innerHTML = html;
                     var script = document.createElement('script');
                     script.src = '/js/header-init.js';
@@ -652,8 +625,8 @@
         let isLoadingChapter = false;
         let completedChapters = JSON.parse(localStorage.getItem('tdt_completed_chapters') || '{}');
 
-        // ===== PREFETCH CACHE: Thần Niệm Dò Đường =====
-        let prefetchCache = null; // { chapter_number, title, content, html }
+        // ===== PREFETCH CACHE =====
+        let prefetchCache = null;
 
         const levelThresholds = [0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500, 5500];
         const levelNames = ["Phàm Nhân", "Luyện Khí", "Trúc Cơ", "Kết Đan", "Nguyên Anh", "Hóa Thần", "Luyện Hư", "Hợp Thể", "Đại Thừa", "Độ Kiếp", "Chân Tiên"];
@@ -680,15 +653,12 @@
         }
 
         function checkAndRenderAuth() {
-            // Delegate to header-init.js - nó đã xử lý mọi thứ
-            // Chỉ kiểm tra UI guest/user cơ bản, không ghi đè dữ liệu từ header-init
             const dbProfile = getDbProfile();
             const guestUI = document.getElementById("guest-ui");
             const userUI = document.getElementById("user-ui");
             if (dbProfile) {
                 if(guestUI) guestUI.classList.add("hidden");
                 if(userUI) { userUI.classList.remove("hidden"); userUI.classList.add("flex"); }
-                // Cập nhật tên hiển thị nếu header chưa kịp load
                 const nameEl = document.getElementById("user-display-name");
                 if (nameEl && !nameEl.textContent) {
                     const totalExp = parseInt(dbProfile.tu_vi_exp || dbProfile.exp) || 0;
@@ -699,7 +669,6 @@
                     const goldEl = document.getElementById("user-gold");
                     if (goldEl) goldEl.textContent = `${(dbProfile.linh_thach || 0).toLocaleString('vi-VN')} 💎`;
                 }
-                // Logout
                 const btnLogout = document.getElementById("btn-logout");
                 if (btnLogout) {
                     btnLogout.addEventListener('click', () => {
@@ -726,14 +695,14 @@
             const savedPos = JSON.parse(localStorage.getItem('tdt_accessibility_btn_pos') || '{"bottom":20,"right":20}');
             btn.style.bottom = savedPos.bottom + 'px';
             btn.style.right = savedPos.right + 'px';
-            
+
             btn.addEventListener('click', function(e) {
                 if (dragJustOccurred) { e.preventDefault(); e.stopPropagation(); return; }
                 toggleAccessibility();
             });
             btn.addEventListener('mousedown', startDrag);
             btn.addEventListener('touchstart', startDragTouch, { passive: false });
-            
+
             btn.addEventListener('mouseenter', () => { clearTimeout(accessibilityBtnIdleTimer); btn.style.opacity = '1'; });
             btn.addEventListener('mouseleave', () => startFadeTimer());
             document.addEventListener('touchstart', () => { btn.style.opacity = '1'; startFadeTimer(); });
@@ -808,7 +777,6 @@
             const handle = document.getElementById("panel-drag-handle");
             if (!panel || !handle) return;
 
-            // Khôi phục vị trí đã lưu
             const savedPanelPos = localStorage.getItem('tdt_accessibility_panel_pos');
             if (savedPanelPos) {
                 try {
@@ -825,10 +793,8 @@
                 e.preventDefault();
                 const rect = panel.getBoundingClientRect();
                 panelDragData = {
-                    startX: clientX,
-                    startY: clientY,
-                    panelLeft: rect.left,
-                    panelTop: rect.top,
+                    startX: clientX, startY: clientY,
+                    panelLeft: rect.left, panelTop: rect.top,
                 };
                 panel.style.transition = 'none';
                 document.addEventListener('mousemove', onPanelDrag);
@@ -841,8 +807,7 @@
                 if (!panelDragData) return;
                 const dx = e.clientX - panelDragData.startX;
                 const dy = e.clientY - panelDragData.startY;
-                panel.style.right = 'auto';
-                panel.style.bottom = 'auto';
+                panel.style.right = 'auto'; panel.style.bottom = 'auto';
                 panel.style.left = Math.max(0, Math.min(window.innerWidth - 260, panelDragData.panelLeft + dx)) + 'px';
                 panel.style.top = Math.max(0, Math.min(window.innerHeight - 100, panelDragData.panelTop + dy)) + 'px';
             }
@@ -853,8 +818,7 @@
                 const t = e.touches[0];
                 const dx = t.clientX - panelDragData.startX;
                 const dy = t.clientY - panelDragData.startY;
-                panel.style.right = 'auto';
-                panel.style.bottom = 'auto';
+                panel.style.right = 'auto'; panel.style.bottom = 'auto';
                 panel.style.left = Math.max(0, Math.min(window.innerWidth - 260, panelDragData.panelLeft + dx)) + 'px';
                 panel.style.top = Math.max(0, Math.min(window.innerHeight - 100, panelDragData.panelTop + dy)) + 'px';
             }
@@ -886,6 +850,19 @@
             scrollTimer = setTimeout(() => { document.body.classList.remove('scrolling'); }, 100);
         }, { passive: true });
 
+        // ===== TOGGLE SWITCH HELPERS =====
+        function setToggleOn(el) {
+            if (!el) return;
+            el.classList.remove('off');
+            el.classList.add('on');
+        }
+        function setToggleOff(el) {
+            if (!el) return;
+            el.classList.remove('on');
+            el.classList.add('off');
+        }
+
+        // ========== ACCESSIBILITY PANEL TOGGLE ==========
         function toggleAccessibility() {
             accessibilityEnabled = !accessibilityEnabled;
             const panel = document.getElementById("accessibility-panel");
@@ -893,39 +870,37 @@
             if (accessibilityEnabled) {
                 panel.classList.remove("hidden");
                 btn.style.opacity = '1';
-                btn.style.borderColor = 'var(--secondary-glow)';
-                btn.style.boxShadow = '0 0 20px rgba(0,243,255,0.5)';
+                btn.style.borderColor = '#8b5cf6';
+                btn.style.boxShadow = '0 0 20px rgba(139,92,246,0.5)';
                 document.getElementById("floating-nav-prev").style.display = "flex";
                 document.getElementById("floating-nav-next").style.display = "flex";
                 clearTimeout(accessibilityBtnIdleTimer);
             } else {
                 panel.classList.add("hidden");
-                btn.style.borderColor = 'var(--primary-glow)';
-                btn.style.boxShadow = '0 0 15px rgba(188,19,254,0.4)';
+                btn.style.borderColor = '#8b5cf6';
+                btn.style.boxShadow = '0 0 15px rgba(139,92,246,0.4)';
                 document.getElementById("floating-nav-prev").style.display = "none";
                 document.getElementById("floating-nav-next").style.display = "none";
                 if (miniTOCEnabled) toggleMiniTOC();
-                if (autoScrollEnabled) toggleAutoScroll();
                 if (statsEnabled) toggleStats();
                 startFadeTimer();
+                // NOTE: Auto scroll is NOT toggled off when closing panel
             }
         }
 
+        // ========== AUTO SCROLL - INDEPENDENT OF PANEL ==========
         function toggleAutoScroll() {
             autoScrollEnabled = !autoScrollEnabled;
             const btn = document.getElementById("btn-auto-scroll");
-            const knob = document.getElementById("knob-auto-scroll");
             const indicator = document.getElementById("auto-scroll-indicator");
+            const statusEl = document.getElementById("auto-scroll-status");
             if (autoScrollEnabled) {
-                btn.classList.add("bg-neonGreen/30");
-                knob.classList.add("bg-neonGreen", "right-0.5");
-                knob.classList.remove("left-0.5");
+                setToggleOn(btn);
                 indicator.classList.remove("hidden");
+                if (statusEl) statusEl.textContent = "đang chạy";
                 startAutoScroll();
             } else {
-                btn.classList.remove("bg-neonGreen/30");
-                knob.classList.remove("bg-neonGreen", "right-0.5");
-                knob.classList.add("left-0.5");
+                setToggleOff(btn);
                 indicator.classList.add("hidden");
                 stopAutoScroll();
             }
@@ -941,6 +916,13 @@
             stopAutoScroll();
             autoScrollInterval = setInterval(() => {
                 window.scrollBy(0, autoScrollSpeed * 0.5);
+                // Check if reached bottom
+                if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 10) {
+                    stopAutoScroll();
+                    autoScrollEnabled = false;
+                    setToggleOff(document.getElementById("btn-auto-scroll"));
+                    document.getElementById("auto-scroll-indicator").classList.add("hidden");
+                }
             }, 50);
         }
 
@@ -951,15 +933,10 @@
         function toggleSavePosition() {
             savePositionEnabled = !savePositionEnabled;
             const btn = document.getElementById("btn-save-pos");
-            const knob = document.getElementById("knob-save-pos");
             if (savePositionEnabled) {
-                btn.classList.add("bg-neonCyan/30");
-                knob.classList.add("bg-neonCyan", "right-0.5");
-                knob.classList.remove("left-0.5");
+                setToggleOn(btn);
             } else {
-                btn.classList.remove("bg-neonCyan/30");
-                knob.classList.remove("bg-neonCyan", "right-0.5");
-                knob.classList.add("left-0.5");
+                setToggleOff(btn);
             }
         }
 
@@ -989,18 +966,13 @@
         function toggleMiniTOC() {
             miniTOCEnabled = !miniTOCEnabled;
             const btn = document.getElementById("btn-mini-toc");
-            const knob = document.getElementById("knob-mini-toc");
             const toc = document.getElementById("mini-toc");
             if (miniTOCEnabled) {
-                btn.classList.add("bg-neonPurple/30");
-                knob.classList.add("bg-neonPurple", "right-0.5");
-                knob.classList.remove("left-0.5");
+                setToggleOn(btn);
                 toc.classList.remove("hidden");
                 updateMiniTOC();
             } else {
-                btn.classList.remove("bg-neonPurple/30");
-                knob.classList.remove("bg-neonPurple", "right-0.5");
-                knob.classList.add("left-0.5");
+                setToggleOff(btn);
                 toc.classList.add("hidden");
             }
         }
@@ -1045,7 +1017,6 @@
 
             list.innerHTML = html;
 
-            // Cuộn đến cluster hiện tại
             const activeBtn = list.querySelector('.toc-chapter-btn.active');
             if (activeBtn) {
                 setTimeout(() => { activeBtn.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 100);
@@ -1089,125 +1060,15 @@
             window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
         }
 
-        // ===== NHẠC NỀN ÂM THANH MÔI TRƯỜNG =====
-        const musicTracks = [
-            { name: "🌧 Mưa Rơi - Tĩnh Tâm", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { name: "🌊 Sóng Biển - Dịu Dàng", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { name: "🍃 Gió Rừng - Mát Lành", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { name: "🔥 Lửa Trại - Ấm Áp", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
-        ];
-        let musicAudio = null;
-        let musicEnabled = false;
-        let currentMusicTrack = 0;
-
-        function toggleBgMusic() {
-            musicEnabled = !musicEnabled;
-            const btn = document.getElementById("btn-music");
-            const knob = document.getElementById("knob-music");
-            const controls = document.getElementById("music-controls");
-            if (musicEnabled) {
-                btn.classList.add("bg-neonGold/30");
-                knob.classList.add("bg-neonGold", "right-0.5");
-                knob.classList.remove("left-0.5");
-                controls.classList.remove("hidden");
-                initMusicPlayer();
-            } else {
-                btn.classList.remove("bg-neonGold/30");
-                knob.classList.remove("bg-neonGold", "right-0.5");
-                knob.classList.add("left-0.5");
-                controls.classList.add("hidden");
-                stopMusic();
-            }
-        }
-
-        function initMusicPlayer() {
-            // Tạo Audio mới mỗi lần để tránh lỗi src
-            if (musicAudio) {
-                musicAudio.pause();
-                musicAudio = null;
-            }
-            musicAudio = new Audio(musicTracks[currentMusicTrack].url);
-            musicAudio.loop = true;
-            musicAudio.volume = parseFloat(document.getElementById("music-volume").value) || 0.3;
-            musicAudio.play().then(() => {
-                document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-pause"></i>';
-                document.getElementById("music-track-name").textContent = musicTracks[currentMusicTrack].name;
-            }).catch((err) => {
-                document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-play"></i>';
-                showSystemNotif("Không thể phát nhạc nền. Vui lòng thử lại!", "purple");
-            });
-        }
-
-        function playPauseMusic() {
-            if (!musicAudio) {
-                initMusicPlayer();
-                return;
-            }
-            if (musicAudio.paused) {
-                musicAudio.play().then(() => {
-                    document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-pause"></i>';
-                }).catch(() => {
-                    // Thử tạo lại Audio mới
-                    initMusicPlayer();
-                });
-            } else {
-                musicAudio.pause();
-                document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-play"></i>';
-            }
-        }
-
-        function switchMusicTrack(index) {
-            currentMusicTrack = parseInt(index);
-            // Tạo Audio hoàn toàn mới để tránh lỗi src đã dùng
-            if (musicAudio) {
-                musicAudio.pause();
-                musicAudio = null;
-            }
-            musicAudio = new Audio(musicTracks[currentMusicTrack].url);
-            musicAudio.loop = true;
-            musicAudio.volume = parseFloat(document.getElementById("music-volume").value) || 0.3;
-            musicAudio.play().then(() => {
-                document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-pause"></i>';
-                document.getElementById("music-track-name").textContent = musicTracks[currentMusicTrack].name;
-            }).catch(() => {
-                document.getElementById("btn-music-playpause").innerHTML = '<i class="fa-solid fa-play"></i>';
-            });
-        }
-
-        function prevMusicTrack() {
-            currentMusicTrack = (currentMusicTrack - 1 + musicTracks.length) % musicTracks.length;
-            document.getElementById("music-track-select").value = currentMusicTrack;
-            switchMusicTrack(currentMusicTrack);
-        }
-
-        function nextMusicTrack() {
-            currentMusicTrack = (currentMusicTrack + 1) % musicTracks.length;
-            document.getElementById("music-track-select").value = currentMusicTrack;
-            switchMusicTrack(currentMusicTrack);
-        }
-
-        function setMusicVolume(val) {
-            const vol = parseFloat(val);
-            if (musicAudio) musicAudio.volume = vol;
-            document.getElementById("music-vol-label").textContent = Math.round(vol * 100) + '%';
-        }
-
-        function stopMusic() {
-            if (musicAudio) { musicAudio.pause(); musicAudio = null; }
-        }
-
-        // ===== ĐỌC GIỌNG NÓI (TTS) THÔNG MINH =====
-        // Edge: có giọng Việt sẵn → dùng Web Speech API
-        // Chrome: không có giọng Việt → dùng Google TTS qua server proxy
+        // ===== ĐỌC GIỌNG NÓI (TTS) =====
         let speechSynth = window.speechSynthesis;
         let ttsEnabled = false;
         let ttsCurrentRate = 1;
         let ttsUtterance = null;
         let ttsIsSpeaking = false;
         let ttsIsPaused = false;
-        let ttsUseGoogle = false; // tự động phát hiện
+        let ttsUseGoogle = false;
 
-        // Google TTS state
         let ttsGoogleAudio = null;
         let ttsGoogleQueue = [];
         let ttsGooglePlaying = false;
@@ -1216,7 +1077,6 @@
         let ttsGoogleFullText = '';
         let ttsGoogleCharStarts = [0];
 
-        // Seek timer
         let ttsSeekInterval = null;
         let ttsTotalDuration = 0;
         let ttsElapsedSeconds = 0;
@@ -1225,29 +1085,22 @@
         function toggleTTS() {
             ttsEnabled = !ttsEnabled;
             const btn = document.getElementById("btn-tts");
-            const knob = document.getElementById("knob-tts");
             const controls = document.getElementById("tts-controls");
             if (ttsEnabled) {
-                btn.classList.add("bg-neonPurple/30");
-                knob.classList.add("bg-neonPurple", "right-0.5");
-                knob.classList.remove("left-0.5");
+                setToggleOn(btn);
                 controls.classList.remove("hidden");
                 detectTTSMode();
             } else {
-                btn.classList.remove("bg-neonPurple/30");
-                knob.classList.remove("bg-neonPurple", "right-0.5");
-                knob.classList.add("left-0.5");
+                setToggleOff(btn);
                 controls.classList.add("hidden");
                 ttsStop();
             }
         }
 
         function detectTTSMode() {
-            // Kiểm tra xem có giọng tiếng Việt không
             const voices = speechSynth.getVoices();
             let hasViVoice = voices.some(v => v.lang && v.lang.startsWith('vi'));
             if (!hasViVoice) {
-                // Thử tìm theo tên
                 hasViVoice = voices.some(v => /việt|viet|linh|hoài|nam|minh|siri/i.test(v.name));
             }
 
@@ -1255,23 +1108,16 @@
                 ttsUseGoogle = false;
                 document.getElementById("tts-status").textContent = "🎤 Giọng Việt (Web Speech)";
                 document.getElementById("tts-voice-select").innerHTML = '<option value="ws">🎤 Giọng trình duyệt (có tiếng Việt)</option>';
-                console.log('[TTS] Dùng Web Speech API - có giọng Việt');
             } else {
                 ttsUseGoogle = true;
                 document.getElementById("tts-status").textContent = "☁️ Giọng Google Cloud (proxy)";
                 document.getElementById("tts-voice-select").innerHTML = '<option value="google">☁️ Google Cloud - Chuẩn Việt</option>';
-                console.log('[TTS] Dùng Google TTS proxy - không có giọng Việt');
             }
         }
 
-        function refreshTTSVoices() {
-            detectTTSMode();
-        }
+        function refreshTTSVoices() { detectTTSMode(); }
 
-        // ===== HIGHLIGHT + AUTO-SCROLL =====
-        function clearTTSHighlights() {
-            window.getSelection().removeAllRanges();
-        }
+        function clearTTSHighlights() { window.getSelection().removeAllRanges(); }
 
         function highlightTextRange(startOffset, endOffset) {
             const readerText = document.getElementById("reader-text");
@@ -1311,7 +1157,6 @@
             }
         }
 
-        // ===== CHIA TEXT CHO GOOGLE TTS =====
         function splitText(text, maxLen = 180) {
             const parts = [];
             const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
@@ -1320,23 +1165,18 @@
                 if ((current + s).length > maxLen && current.length > 0) {
                     parts.push(current.trim());
                     current = s;
-                } else {
-                    current += s;
-                }
+                } else { current += s; }
             }
             if (current.trim().length > 0) parts.push(current.trim());
             const result = [];
             for (const p of parts) {
                 if (p.length > maxLen) {
                     for (let i = 0; i < p.length; i += maxLen) result.push(p.substring(i, i + maxLen).trim());
-                } else {
-                    result.push(p);
-                }
+                } else { result.push(p); }
             }
             return result.filter(p => p.length > 0);
         }
 
-        // ===== GOOGLE TTS =====
         function googleTTSPlay(text) {
             ttsStop();
             ttsGoogleFullText = text;
@@ -1416,7 +1256,6 @@
             if (ttsGoogleAudio) { ttsGoogleAudio.pause(); ttsGoogleAudio = null; }
         }
 
-        // ===== TTS CHÍNH =====
         function ttsPlay() {
             const readerText = document.getElementById("reader-text");
             const text = (readerText.innerText || readerText.textContent || '').trim();
@@ -1424,15 +1263,12 @@
                 document.getElementById("tts-status").textContent = "Không có nội dung để đọc!";
                 return;
             }
-
-            // Resume nếu đang tạm dừng
             if (ttsUseGoogle && ttsGooglePaused && ttsGooglePlaying) { googleTTSResume(); return; }
             if (!ttsUseGoogle && ttsIsPaused && ttsIsSpeaking) { speechSynth.resume(); ttsIsPaused = false; document.getElementById("tts-status").textContent = "🔊 Đang đọc..."; return; }
 
             ttsStop();
             if (ttsUseGoogle) { googleTTSPlay(text); return; }
 
-            // Web Speech API
             ttsUtterance = new SpeechSynthesisUtterance(text);
             ttsUtterance.lang = 'vi-VN';
             ttsUtterance.rate = ttsCurrentRate;
@@ -1467,7 +1303,6 @@
             document.getElementById("tts-rate-label").textContent = ttsCurrentRate.toFixed(1);
         }
 
-        // ===== THANH KÉO TIẾN TRÌNH =====
         function formatTime(seconds) {
             const m = Math.floor(seconds / 60);
             const s = Math.floor(seconds % 60);
@@ -1481,7 +1316,7 @@
             const targetChar = Math.floor(totalChars * pct);
             const remainingText = myText.substring(targetChar).trim();
             if (remainingText.length === 0) return;
-            
+
             if (ttsUseGoogle) {
                 googleTTSPlay(remainingText);
             } else {
@@ -1517,18 +1352,13 @@
         function toggleStats() {
             statsEnabled = !statsEnabled;
             const btn = document.getElementById("btn-stats");
-            const knob = document.getElementById("knob-stats");
             const panel = document.getElementById("stats-panel");
             if (statsEnabled) {
-                btn.classList.add("bg-cyan-500/30");
-                knob.classList.add("bg-cyan-400", "right-0.5");
-                knob.classList.remove("left-0.5");
+                setToggleOn(btn);
                 panel.classList.remove("hidden");
                 updateStats();
             } else {
-                btn.classList.remove("bg-cyan-500/30");
-                knob.classList.remove("bg-cyan-400", "right-0.5");
-                knob.classList.add("left-0.5");
+                setToggleOff(btn);
                 panel.classList.add("hidden");
             }
         }
@@ -1550,12 +1380,10 @@
             document.getElementById("reading-progress-bar").style.width = (docHeight > 0 ? Math.min((window.scrollY / docHeight) * 100, 100) : 0) + '%';
         }
 
-        // ===== THẦN NIỆM DÒ ĐƯỜNG: Prefetch chương kế tiếp =====
+        // ===== PREFETCH =====
         async function prefetchNextChapter() {
             const nextChapNum = activeChapterNumber + 1;
-            // Không prefetch nếu không có chương kế
             if (!serverChaptersList.some(ch => ch.chapter_number === nextChapNum)) return;
-            // Đã cache rồi thì thôi
             if (prefetchCache && prefetchCache.chapter_number === nextChapNum) return;
             try {
                 const resp = await fetch(`${API_BASE}/get_chapter_detail?book_id=${currentReadingBookId}&chapter_number=${nextChapNum}`);
@@ -1563,16 +1391,9 @@
                 if (data.success && data.chapter) {
                     const ch = data.chapter;
                     const html = ch.content.split('\n\n').map(p => `<p class="mb-5 text-justify">${p}</p>`).join('');
-                    prefetchCache = {
-                        chapter_number: ch.chapter_number,
-                        title: ch.title,
-                        content: ch.content,
-                        html: html
-                    };
+                    prefetchCache = { chapter_number: ch.chapter_number, title: ch.title, content: ch.content, html: html };
                 }
-            } catch(e) {
-                // Prefetch thất bại - không sao, lần sau load thường
-            }
+            } catch(e) {}
         }
 
         async function loadBookInfo() {
@@ -1584,9 +1405,7 @@
                     if (book) {
                         const titleEl = document.getElementById("book-title-header");
                         const metaEl = document.getElementById("book-meta-header");
-                        if (titleEl) {
-                            titleEl.textContent = book.ten_truyen || book.title || "Vô Danh";
-                        }
+                        if (titleEl) titleEl.textContent = book.ten_truyen || book.title || "Vô Danh";
                         if (metaEl) {
                             const author = book.tac_gia || book.author || "Khuyết Danh";
                             const cats = Array.isArray(book.the_loai) ? book.the_loai.join(', ') : (book.the_loai || "Chưa phân loại");
@@ -1595,9 +1414,7 @@
                         }
                     }
                 }
-            } catch (error) {
-                console.error("Lỗi load thông tin sách:", error);
-            }
+            } catch (error) { console.error("Lỗi load thông tin sách:", error); }
         }
 
         async function loadChapterContent() {
@@ -1608,10 +1425,9 @@
             const dbProfile = getDbProfile();
             const userIdParam = dbProfile ? `&user_id=${dbProfile.id}` : '';
 
-            // Kiểm tra cache trước
             if (prefetchCache && prefetchCache.chapter_number === activeChapterNumber) {
                 const cache = prefetchCache;
-                prefetchCache = null; // Xoá cache sau khi dùng
+                prefetchCache = null;
                 readerTitle.innerText = cache.title;
                 readerText.innerHTML = cache.html;
                 document.getElementById("reader-book-name").innerText = `BÍ TỊCH ID: ${currentReadingBookId}`;
@@ -1623,9 +1439,7 @@
                 loadReadingPosition();
                 if (statsEnabled) updateStats();
                 window.scrollTo(0, 0);
-                // Tự động lưu lịch sử đọc khi dùng cache
                 autoSaveReadingHistory();
-                // Prefetch chương tiếp theo
                 setTimeout(() => prefetchNextChapter(), 500);
                 return;
             }
@@ -1645,7 +1459,6 @@
                 document.getElementById("reader-title").innerText = chapter.title;
                 document.getElementById("reader-book-name").innerText = `BÍ TỊCH ID: ${chapter.book_id}`;
 
-                // Kiểm tra nếu chương bị khóa (VIP)
                 if (chapter.is_locked) {
                     readerText.innerHTML = `
                         <div class="flex flex-col items-center justify-center py-12 text-center">
@@ -1687,33 +1500,18 @@
                 loadReadingPosition();
                 if (statsEnabled) updateStats();
                 window.scrollTo(0, 0);
-
-                // Load thông tin sách
                 loadBookInfo();
-
-                // Tự động lưu lịch sử đọc khi load chương thành công
                 autoSaveReadingHistory();
-
-                // Sau khi load xong, prefetch chương tiếp theo
                 setTimeout(() => prefetchNextChapter(), 500);
             } catch (error) {
                 readerText.innerHTML = `<div class="text-center p-8 border border-dashed border-red-500/30 rounded-xl bg-red-950/20"><p class="text-neonRed font-bold font-cultivation mb-2">MẤT KẾT NỐI</p><p class="text-xs text-gray-400">Mất kết nối tàng kinh các: ${error.message}</p></div>`;
             } finally { isLoadingChapter = false; }
         }
 
-        /**
-         * Mở khóa chương VIP - gọi API POST /api/chapters/unlock
-         */
         async function unlockChapter(chapterId) {
             const db = getDbProfile();
-            if (!db) {
-                showSystemNotif('Vui lòng đăng nhập để mở khóa chương VIP!', 'purple');
-                return;
-            }
-            
-            // Xác nhận
+            if (!db) { showSystemNotif('Vui lòng đăng nhập để mở khóa chương VIP!', 'purple'); return; }
             if (!confirm(`Bạn có chắc muốn dùng Kim Cương để mở khóa chương này?`)) return;
-
             try {
                 const resp = await fetch(`${API_BASE}/chapters/unlock`, {
                     method: 'POST',
@@ -1721,22 +1519,11 @@
                     body: JSON.stringify({ chapter_id: chapterId, user_id: db.id })
                 });
                 const data = await resp.json();
-                
                 if (data.success) {
                     showSystemNotif(data.message, 'gold');
-                    // Cập nhật lại số KC trong local
-                    const updatedDb = getDbProfile();
-                    // Load lại chương để xem full nội dung
-                    setTimeout(() => {
-                        loadChapterContent();
-                        loadChapterListSidebar();
-                    }, 500);
-                } else {
-                    showSystemNotif(data.error || 'Mở khóa thất bại!', 'purple');
-                }
-            } catch(e) {
-                showSystemNotif('Lỗi kết nối!', 'purple');
-            }
+                    setTimeout(() => { loadChapterContent(); loadChapterListSidebar(); }, 500);
+                } else { showSystemNotif(data.error || 'Mở khóa thất bại!', 'purple'); }
+            } catch(e) { showSystemNotif('Lỗi kết nối!', 'purple'); }
         }
 
         async function loadChapterListSidebar() {
@@ -1745,48 +1532,38 @@
                 const data = await response.json();
                 if (data.success) {
                     serverChaptersList = data.chapters;
-                    const list = document.getElementById("reader-chapter-list");
                     updatePagination();
-                    list.innerHTML = serverChaptersList.map(ch => {
-                        const isCur = ch.chapter_number === activeChapterNumber;
-                        return `<button onclick="goToChapter('${currentReadingBookId}', ${ch.chapter_number})" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold truncate flex justify-between items-center transition ${isCur ? 'bg-gradient-to-r from-brandCyan/20 to-brandPurple/20 text-brandPurple border-l-2 border-brandCyan shadow-sm' : 'bg-white/80 text-slate-600 hover:text-brandCyan hover:bg-white border border-gray-100 shadow-sm'}" style="${isCur ? '' : ''}">
-                                <span>${ch.title}</span>
-                                ${isCur ? '<i class="fa-solid fa-circle-play text-[10px] text-brandCyan animate-pulse"></i>' : ''}
-                            </button>`;
-                    }).join('');
                     if (miniTOCEnabled) updateMiniTOC();
                     if (statsEnabled) updateStats();
                 }
             } catch (error) {}
         }
 
-        // ===== PAGE NUMBERS FOR PAGINATION =====
+        // ===== PAGINATION =====
         function updatePagination() {
             const container = document.getElementById('page-numbers');
             const total = serverChaptersList.length;
             if (!container || total === 0) return;
             const current = activeChapterNumber;
-            const maxVisible = 9;
             let html = '';
-            
-            // Luôn hiển thị trang 1
+
             html += `<button class="${current === 1 ? 'active' : ''}" onclick="goToChapter('${currentReadingBookId}', 1)">1</button>`;
-            
+
             let startPage = Math.max(2, current - 3);
             let endPage = Math.min(total - 1, current + 3);
-            
+
             if (startPage > 2) html += `<span style="color:#94a3b8;font-size:10px;padding:0 2px;">...</span>`;
-            
+
             for (let i = startPage; i <= endPage; i++) {
                 html += `<button class="${i === current ? 'active' : ''}" onclick="goToChapter('${currentReadingBookId}', ${i})">${i}</button>`;
             }
-            
+
             if (endPage < total - 1) html += `<span style="color:#94a3b8;font-size:10px;padding:0 2px;">...</span>`;
-            
+
             if (total > 1) {
                 html += `<button class="${current === total ? 'active' : ''}" onclick="goToChapter('${currentReadingBookId}', ${total})">${total}</button>`;
             }
-            
+
             container.innerHTML = html;
             document.getElementById('page-jump-input').placeholder = `${current}/${total}`;
         }
@@ -1799,13 +1576,10 @@
                 return;
             }
             const target = serverChaptersList.find(ch => ch.chapter_number === num);
-            if (target) {
-                goToChapter(currentReadingBookId, num);
-                input.value = '';
-            }
+            if (target) { goToChapter(currentReadingBookId, num); input.value = ''; }
         }
 
-        // ===== BOOKMARK SAVE =====
+        // ===== BOOKMARK =====
         async function saveBookmark() {
             const db = getDbProfile();
             if (!db) { showSystemNotif('Vui lòng đăng nhập!', 'purple'); return; }
@@ -1817,37 +1591,25 @@
                     body: JSON.stringify({ user_id: db.id, book_id: currentReadingBookId })
                 });
                 const data = await resp.json();
-                if (data.success) {
-                    showSystemNotif(data.message, 'gold');
-                } else {
-                    showSystemNotif(data.error, 'purple');
-                }
-            } catch(e) {
-                showSystemNotif('Lỗi kết nối!', 'purple');
-            }
+                if (data.success) { showSystemNotif(data.message, 'gold'); }
+                else { showSystemNotif(data.error, 'purple'); }
+            } catch(e) { showSystemNotif('Lỗi kết nối!', 'purple'); }
         }
 
         function changeChapter(dir) {
             const nextChap = activeChapterNumber + dir;
             if (serverChaptersList.some(ch => ch.chapter_number === nextChap)) {
                 goToChapter(currentReadingBookId, nextChap);
-            } else {
-                showSystemNotif("Đã chạm tới giới hạn cấm chế của quyển trục này!", "purple");
-            }
+            } else { showSystemNotif("Đã chạm tới giới hạn cấm chế của quyển trục này!", "purple"); }
         }
 
-        // ===== AUTO SAVE READING HISTORY =====
         function autoSaveReadingHistory() {
             const db = getDbProfile();
             if (!db || !currentReadingBookId) return;
             fetch(`${API_BASE}/update_reading_history`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_id: db.id,
-                    book_id: currentReadingBookId,
-                    chapter_id: activeChapterNumber
-                })
+                body: JSON.stringify({ user_id: db.id, book_id: currentReadingBookId, chapter_id: activeChapterNumber })
             }).catch(() => {});
         }
 
@@ -1881,17 +1643,31 @@
             document.getElementById("font-size-label").innerText = `${readerFontSize}px`;
         }
 
-        function changeReaderTheme(t) {
-            const c = document.getElementById("reader-container");
-            const txt = document.getElementById("reader-text");
-            c.style.backgroundColor = ""; c.style.borderColor = "";
-            txt.className = "text-xl leading-relaxed tracking-wide text-justify space-y-6 select-text";
-            if (t === "light") { c.style.backgroundColor = "#ffffff"; c.style.borderColor = "#e2e8f0"; txt.classList.add("text-slate-800"); }
-            else if (t === "dark") { c.style.backgroundColor = "#0e0a26"; c.style.borderColor = "rgba(0, 243, 255, 0.3)"; txt.classList.add("text-slate-300"); }
-            else if (t === "parchment") { c.style.backgroundColor = "#2a2215"; c.style.borderColor = "rgba(245, 158, 11, 0.3)"; txt.classList.add("text-amber-100"); }
-            else if (t === "cream") { c.style.backgroundColor = "#f4ebd0"; c.style.borderColor = "#fcd34d"; txt.classList.add("text-amber-950"); }
-            txt.style.fontSize = `${readerFontSize}px`;
-        }
+        // ===== FONT FAMILY SWITCHING =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const fontBtns = document.querySelectorAll('.font-btn');
+            fontBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    fontBtns.forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    const fontFamily = this.getAttribute('data-font');
+                    document.getElementById('reader-text').style.fontFamily = fontFamily;
+                    localStorage.setItem('tdt_reader_font', fontFamily);
+                });
+            });
+            // Restore saved font
+            const savedFont = localStorage.getItem('tdt_reader_font');
+            if (savedFont) {
+                document.getElementById('reader-text').style.fontFamily = savedFont;
+                fontBtns.forEach(function(btn) {
+                    if (btn.getAttribute('data-font') === savedFont) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        });
 
         function completeCurrentChapter() {
             const s = document.getElementById("reader-quest-status");
@@ -1899,8 +1675,7 @@
             const dbProfile = getDbProfile();
             if (!dbProfile) { showSystemNotif("Đạo hữu cần đăng nhập để tích lũy tu vi hoàn chương!", "purple"); return; }
             s.className = "text-neonGreen font-bold"; s.innerText = "Đã thu tiếp chân khí (1/1)";
-            
-            // Gọi API game hóa để thưởng EXP + Linh Thạch
+
             fetch(`${API_BASE}/complete_chapter_reward`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1910,7 +1685,6 @@
             .then(data => {
                 if (data.success) {
                     showSystemNotif(`Lĩnh ngộ thành công! Nhận +${data.exp_gained} EXP tu vi và +${data.linh_thach_gained} Linh Thạch!`, "gold");
-                    // Cập nhật local user_data
                     const db2 = getDbProfile();
                     if (db2) {
                         db2.tu_vi_exp = (parseInt(db2.tu_vi_exp || db2.exp || 0) || 0) + (data.exp_gained || 120);
@@ -1921,13 +1695,12 @@
                 }
             })
             .catch(() => {
-                // Fallback cũ
                 dbProfile.exp = (parseInt(dbProfile.exp) || 0) + 120;
                 dbProfile.linh_thach = (parseInt(dbProfile.linh_thach) || 0) + 50;
                 saveDbProfile(dbProfile);
                 showSystemNotif(`Lĩnh ngộ thành công! Nhận +120 EXP và +50 Linh Thạch!`, "gold");
             });
-            
+
             const key = `${currentReadingBookId}_${activeChapterNumber}`;
             completedChapters[key] = true;
             localStorage.setItem('tdt_completed_chapters', JSON.stringify(completedChapters));
@@ -1994,6 +1767,6 @@
             }, { passive: true });
         };
     </script>
-    <script src="/js/rpg-system.js"></script>\n</body>
+    <script src="/js/rpg-system.js"></script>
+</body>
 </html>
-
